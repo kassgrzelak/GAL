@@ -14,18 +14,20 @@ namespace gal::detail
 	{
 	public:
 		using DestroyFunc = void(*)(void*) noexcept;
+		using InvalidateFunc = void(*)(void*) noexcept;
 
-		void register_(void* resourcePtr, DestroyFunc destroyFunc)
+		void register_(void* resource, void* ownerHandlePtr,
+		               DestroyFunc destroyFunc, InvalidateFunc invalidateFunc) noexcept
 		{
-			entries.emplace_back(resourcePtr, destroyFunc);
+			entries.emplace_back(resource, ownerHandlePtr, destroyFunc, invalidateFunc);
 		}
 
-		void unregister(void* resourcePtr)
+		void unregister(void* resource) noexcept
 		{
 			const auto it = std::remove_if(entries.begin(), entries.end(),
-			                               [resourcePtr](const auto& entry)
+			                               [resource](const auto& entry)
 			                               {
-				                               return entry.ptr == resourcePtr;
+				                               return entry.resource == resource;
 			                               });
 
 			entries.erase(it, entries.end());
@@ -33,8 +35,11 @@ namespace gal::detail
 
 		void destroyAll() noexcept
 		{
-			for (auto& entry : entries)
-				entry.destroy(entry.ptr);
+			for (const auto& entry : entries)
+			{
+				entry.destroy(entry.resource);
+				entry.invalidate(entry.ownerHandlePtr);
+			}
 
 			entries.clear();
 		}
@@ -42,13 +47,17 @@ namespace gal::detail
 	private:
 		struct ResourceEntry
 		{
-			ResourceEntry(void* ptr, const DestroyFunc destroy) : ptr(ptr), destroy(destroy) { }
+			ResourceEntry(void* resource, void* ownerHandlePtr,
+			              const DestroyFunc destroy, const InvalidateFunc invalidate)
+				: resource(resource), ownerHandlePtr(ownerHandlePtr), destroy(destroy), invalidate(invalidate) { }
 
-			void* ptr;
+			void* resource;
+			void* ownerHandlePtr;
 			DestroyFunc destroy;
+			InvalidateFunc invalidate;
 		};
 
-		std::vector<ResourceEntry> entries = {};
+		std::vector<ResourceEntry> entries{};
 	};
 
 	inline ResourceRegistry resourceRegistry{};

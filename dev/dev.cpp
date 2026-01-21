@@ -3,7 +3,6 @@
 //
 
 #include <glad/glad.h>
-#include <iostream>
 #include <GAL/gal.hpp>
 
 int main()
@@ -19,6 +18,8 @@ int main()
 		{
 			glfwPollEvents();
 		}
+
+		gal::detail::resourceRegistry.destroyAll();
 	}
 
 	return 0;

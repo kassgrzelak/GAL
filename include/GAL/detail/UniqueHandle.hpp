@@ -7,66 +7,123 @@
 #include "ResourceRegistry.hpp"
 #include "GAL/config.hpp"
 
+#include <cstdint>
+#include <type_traits>
+
 namespace gal::detail
 {
-	template<typename Handle, Handle Invalid, void(*Deleter)(void*) noexcept>
+	template<typename Handle, Handle Invalid, void(*Deleter)(Handle) noexcept>
 	class UniqueHandle
 	{
 	public:
-		using handle_t = Handle;
-
-		UniqueHandle() noexcept : handle(Invalid) { }
+		UniqueHandle() noexcept : handle(Invalid) {}
 
 		explicit UniqueHandle(Handle handle) noexcept : handle(handle)
 		{
-			register_();
+			if (handleValid())
+				register_();
 		}
 
-		// No copying.
 		UniqueHandle(const UniqueHandle&) = delete;
-
 		UniqueHandle& operator=(const UniqueHandle&) = delete;
 
 		UniqueHandle(UniqueHandle&& other) noexcept : handle(other.handle)
 		{
 			if (other.handleValid())
-				resourceRegistry.unregister(&other.handle);
+			{
+				resourceRegistry.unregister(toVoidPtr(other.handle));
+				other.handle = Invalid;
+				register_();
+			}
+		}
 
-			other.handle = Invalid;
-			register_();
+		UniqueHandle& operator=(UniqueHandle&& other) noexcept
+		{
+			if (this != &other)
+			{
+				reset();
+				handle = other.handle;
+
+				if (handleValid())
+				{
+					resourceRegistry.unregister(toVoidPtr(other.handle));
+					other.handle = Invalid;
+					register_();
+				}
+			}
+
+			return *this;
 		}
 
 		~UniqueHandle() noexcept
 		{
-			unregister();
-			Deleter(&handle);
+			reset();
 		}
 
-		void setHandle(Handle newHandle)
+		void setHandle(Handle newHandle) noexcept
 		{
-			if (handleValid())
-				unregister();
-
+			reset();
 			handle = newHandle;
 
 			if (handleValid())
 				register_();
 		}
 
-		void register_()
-		{
-			resourceRegistry.register_(&handle, Deleter);
-		}
-
-		void unregister()
-		{
-			resourceRegistry.unregister(&handle);
-		}
-
 		GAL_NODISCARD Handle getHandle() const noexcept { return handle; }
 		GAL_NODISCARD bool handleValid() const noexcept { return handle != Invalid; }
 
 	protected:
+		void reset() noexcept
+		{
+			if (handleValid())
+			{
+				unregister();
+				Deleter(handle);
+				handle = Invalid;
+			}
+		}
+
+		void register_() noexcept
+		{
+			resourceRegistry.register_(
+				toVoidPtr(handle),
+				static_cast<void*>(&handle),
+				&deleterWrapper,
+				&invalidateWrapper
+			);
+		}
+
+		void unregister() const noexcept
+		{
+			resourceRegistry.unregister(toVoidPtr(handle));
+		}
+
+		static void deleterWrapper(void* ptr) noexcept
+		{
+			Deleter(fromVoidPtr(ptr));
+		}
+
+		static void invalidateWrapper(void* ownerHandlePtr) noexcept
+		{
+			*static_cast<Handle*>(ownerHandlePtr) = Invalid;
+		}
+
+		static void* toVoidPtr(Handle handle) noexcept
+		{
+			if constexpr (std::is_pointer_v<Handle>)
+				return static_cast<void*>(handle);
+			else
+				return reinterpret_cast<void*>(static_cast<std::uintptr_t>(handle));
+		}
+
+		static Handle fromVoidPtr(void* ptr) noexcept
+		{
+			if constexpr (std::is_pointer_v<Handle>)
+				return static_cast<Handle>(ptr);
+			else
+				return static_cast<Handle>(reinterpret_cast<std::uintptr_t>(ptr));
+		}
+
 		Handle handle;
 	};
 }

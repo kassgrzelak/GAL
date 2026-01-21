@@ -12,9 +12,9 @@ namespace gal
 {
 	namespace detail
 	{
-		inline void windowDeleter(void* windowPtr) noexcept
+		inline void windowDeleter(GLFWwindow* window) noexcept
 		{
-			glfwDestroyWindow(*static_cast<GLFWwindow**>(windowPtr));
+			glfwDestroyWindow(window);
 		}
 
 		using UniqueWindow = UniqueHandle<GLFWwindow*, nullptr, windowDeleter>;
