@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.1)
+cmake_minimum_required(VERSION 3.21)
 project(GAL VERSION 0.1.0 LANGUAGES C CXX)
 
 include(FetchContent)
@@ -69,10 +69,15 @@ target_include_directories(glad PUBLIC
 # GAL Library
 # ========================
 add_library(GAL INTERFACE
-        include/GAL/gal.hpp)
+        include/GAL/gal.hpp
+        include/GAL/types.hpp
+        include/GAL/config.hpp
+        include/GAL/detail/UniqueHandle.hpp
+        include/GAL/core/Window.hpp
+        include/GAL/detail/ResourceRegistry.hpp)
 add_library(GAL::GAL ALIAS GAL)
 
-target_compile_features(GAL INTERFACE cxx_std_20)
+target_compile_features(GAL INTERFACE cxx_std_17)
 
 target_include_directories(GAL INTERFACE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
