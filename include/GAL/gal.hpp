@@ -11,7 +11,6 @@
 #define GAL_INFO_LOGGING
 #endif // GAL_VERBOSE
 
-// Main
 #include "GAL/config.hpp"
 #include "GAL/types.hpp"
 

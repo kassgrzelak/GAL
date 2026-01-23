@@ -5,6 +5,9 @@
 #ifndef GAL_CORE_HPP
 #define GAL_CORE_HPP
 
+#include "enums.hpp"
+#include "GALException.hpp"
+#include "init.hpp"
 #include "Window.hpp"
 
 #endif //GAL_CORE_HPP

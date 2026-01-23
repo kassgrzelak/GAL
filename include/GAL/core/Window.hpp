@@ -20,13 +20,19 @@ namespace gal
 		using UniqueWindow = UniqueHandle<GLFWwindow*, nullptr, windowDeleter>;
 	}
 
-
+	/// @brief GAL wrapper around GLFWwindow. As in GLFW, a window is inextricably linked with an OpenGL context; this
+	/// encapsulates them both.
 	class Window : detail::UniqueWindow
 	{
 	public:
+		/// @brief
 		Window()
 		{
 			GLFWwindow* windowPtr = glfwCreateWindow(800, 600, "test", nullptr, nullptr);
+			glfwMakeContextCurrent(windowPtr);
+
+			if (!detail::postGLInitialized)
+				detail::postGLInit();
 
 			setHandle(windowPtr);
 		}

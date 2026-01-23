@@ -77,7 +77,10 @@ add_library(GAL INTERFACE
         include/GAL/detail/ResourceRegistry.hpp
         include/GAL/detail/logging.hpp
         include/GAL/core/core.hpp
-        include/GAL/detail/detail.hpp)
+        include/GAL/detail/detail.hpp
+        include/GAL/core/init.hpp
+        include/GAL/core/enums.hpp
+        include/GAL/core/GALException.hpp)
 add_library(GAL::GAL ALIAS GAL)
 
 target_compile_features(GAL INTERFACE cxx_std_17)
