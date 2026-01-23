@@ -19,7 +19,7 @@ namespace gal
 		const ErrCode errCode;
 
 		explicit GALException(const ErrCode errCode, const char* msg)
-			: errCode(errCode), msg(msg) {}
+			: errCode(errCode), msg(msg) { }
 
 		[[nodiscard]] const char* what() const noexcept override { return msg; }
 
