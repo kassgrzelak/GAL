@@ -20,6 +20,7 @@ namespace gal
 		using UniqueWindow = UniqueHandle<GLFWwindow*, nullptr, windowDeleter>;
 	}
 
+
 	class Window : detail::UniqueWindow
 	{
 	public:
@@ -30,10 +31,8 @@ namespace gal
 			setHandle(windowPtr);
 		}
 
-		GAL_NODISCARD bool shouldClose() const noexcept
-		{
-			return glfwWindowShouldClose(getHandle());
-		}
+		GAL_NODISCARD GLFWwindow* getWindowHandle() const noexcept { return getHandle(); }
+		GAL_NODISCARD bool shouldClose() const noexcept { return glfwWindowShouldClose(getHandle()); }
 	};
 }
 

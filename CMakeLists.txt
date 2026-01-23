@@ -74,7 +74,10 @@ add_library(GAL INTERFACE
         include/GAL/config.hpp
         include/GAL/detail/UniqueHandle.hpp
         include/GAL/core/Window.hpp
-        include/GAL/detail/ResourceRegistry.hpp)
+        include/GAL/detail/ResourceRegistry.hpp
+        include/GAL/detail/logging.hpp
+        include/GAL/core/core.hpp
+        include/GAL/detail/detail.hpp)
 add_library(GAL::GAL ALIAS GAL)
 
 target_compile_features(GAL INTERFACE cxx_std_17)
@@ -103,6 +106,7 @@ endif()
 # ========================
 if(GAL_BUILD_DEV)
     add_subdirectory(dev)
+    add_subdirectory(unit-tests)
 endif()
 
 # ========================

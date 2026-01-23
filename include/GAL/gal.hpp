@@ -5,15 +5,17 @@
 #ifndef GAL_GAL_HPP
 #define GAL_GAL_HPP
 
+#ifdef GAL_VERBOSE
+#define GAL_ERROR_LOGGING
+#define GAL_WARNING_LOGGING
+#define GAL_INFO_LOGGING
+#endif // GAL_VERBOSE
+
 // Main
-#include <GAL/config.hpp>
-#include <GAL/types.hpp>
+#include "GAL/config.hpp"
+#include "GAL/types.hpp"
 
-// Core
-#include <GAL/core/Window.hpp>
-
-// Detail
-#include <GAL/detail/ResourceRegistry.hpp>
-#include <GAL/detail/UniqueHandle.hpp>
+#include "GAL/core/core.hpp"
+#include "GAL/detail/detail.hpp"
 
 #endif //GAL_GAL_HPP
