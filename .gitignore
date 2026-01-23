@@ -1,2 +1,4 @@
 # CLion project metadata.
 .idea/
+# Development testing playground.
+dev/
