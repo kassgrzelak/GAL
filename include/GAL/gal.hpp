@@ -11,6 +11,13 @@
 #define GAL_INFO_LOGGING
 #endif // GAL_VERBOSE
 
+#ifndef GAL_DONT_INCLUDE_GLAD
+#include <glad/gl.h>
+#endif
+#ifndef GAL_DONT_INCLUDE_GLFW
+#include <GLFW/glfw3.h>
+#endif
+
 #include "GAL/config.hpp"
 #include "GAL/types.hpp"
 
