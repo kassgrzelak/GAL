@@ -14,6 +14,6 @@ yet).\
 
 `GAL_DONT_INCLUDE_GLAD`: By default, GAL links to the vendored glad v2 library, which is configured for OpenGL 4.6 core
 profile. To provide your own glad v2, define this macro and make sure to pass in the OpenGL version you'd like to use
-(if it's different) to gal::init().
+(if it's different) to gal::init().\
 `GAL_DONT_INCLUDE_GLFW`: By default, GAL links to GLFW 3.4. If you'd like to use your own version of GLFW (provided it
 doesn't break compatibility with 3.4), define this macro.
