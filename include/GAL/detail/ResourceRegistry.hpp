@@ -14,8 +14,7 @@ namespace gal::detail
 {
 	/// @brief Internal 'singleton' class that keeps track of all allocated objects (windows, buffers, etc.) and
 	/// provides a single place to delete them all from upon calling terminate(),
-	/// @note "Handle," in the context of this class, refers to a value that wholly identifies an allocated resource
-	/// and can be used to delete it (GLFWwindow* for windows, GLuint IDs for OpenGL objects, etc.).
+	/// @copydetails UniqueHandle
 	class ResourceRegistry
 	{
 	public:

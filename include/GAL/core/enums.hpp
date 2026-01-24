@@ -13,8 +13,13 @@ namespace gal
 		// Init.
 		GLFWInitFailed, // Failed to initialize GLFW.
 		GLADInitFailed, // Failed to initialize GLAD.
+
+		// Window.
+		CreateWindowFailed, // Failed to create window.
 	};
 
+	/// @brief Convert a GAL error code to a string of its name.
+	/// @param errCode Error code to convert to string.
 	GAL_NODISCARD inline const char* errCodeToString(const ErrCode errCode)
 	{
 		switch (errCode)
@@ -22,8 +27,10 @@ namespace gal
 			case ErrCode::GLFWInitFailed: return "GLFWInitFailed";
 			case ErrCode::GLADInitFailed: return "GLADInitFailed";
 
-			default: return "Unknown";
+			case ErrCode::CreateWindowFailed: return "CreateWindowFailed";
 		}
+
+		return "Unknown. The developer probably forgot to add this ErrCode to the switch statement.";
 	}
 }
 

@@ -22,6 +22,7 @@
 #include "GAL/types.hpp"
 
 #include "GAL/core/core.hpp"
+#include "GAL/debug/debug.hpp"
 #include "GAL/detail/detail.hpp"
 
 #endif //GAL_GAL_HPP
