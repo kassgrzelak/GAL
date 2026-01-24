@@ -18,6 +18,7 @@ void testDeleterUint(unsigned int handle) noexcept
 }
 
 TEST_CASE (
+
 "UniqueHandle basic pointer operations"
 ,
 "[UniqueHandle]"
@@ -43,6 +44,7 @@ TEST_CASE (
 }
 
 TEST_CASE (
+
 "UniqueHandle basic uint operations"
 ,
 "[UniqueHandle]"
@@ -69,6 +71,7 @@ TEST_CASE (
 }
 
 TEST_CASE (
+
 "UniqueHandle with ResourceRegistry"
 ,
 "[UniqueHandle][ResourceRegistry]"
@@ -79,20 +82,20 @@ TEST_CASE (
 
 	SECTION("Normal destroyAll()")
 	{
-		resourceRegistry = ResourceRegistry{};
+		g_resourceRegistry = ResourceRegistry{};
 
 		auto i1 = new int{1};
 		TestUniqueHandlePtr a{i1};
 
-		REQUIRE(resourceRegistry.contains(a.getHandlePtr()));
-		resourceRegistry.destroyAll();
+		REQUIRE(g_resourceRegistry.contains(a.getHandlePtr()));
+		g_resourceRegistry.destroyAll();
 		REQUIRE(!a.handleValid());
-		REQUIRE(!resourceRegistry.contains(a.getHandlePtr()));
+		REQUIRE(!g_resourceRegistry.contains(a.getHandlePtr()));
 	}
 
 	SECTION("RAII auto-destruction")
 	{
-		resourceRegistry = ResourceRegistry{};
+		g_resourceRegistry = ResourceRegistry{};
 
 		auto i2 = new int{2};
 		void* bPtr;
@@ -103,12 +106,12 @@ TEST_CASE (
 		}
 
 		REQUIRE(*i2 != 2);
-		REQUIRE(!resourceRegistry.contains(bPtr));
+		REQUIRE(!g_resourceRegistry.contains(bPtr));
 	}
 
 	SECTION("destroyAll() in scope, check out of scope")
 	{
-		resourceRegistry = ResourceRegistry{};
+		g_resourceRegistry = ResourceRegistry{};
 
 		auto i3 = new int{3};
 		void* cPtr;
@@ -116,10 +119,10 @@ TEST_CASE (
 		{
 			TestUniqueHandlePtr c{i3};
 			cPtr = c.getHandlePtr();
-			resourceRegistry.destroyAll();
+			g_resourceRegistry.destroyAll();
 		}
 
 		REQUIRE(*i3 != 3);
-		REQUIRE(!resourceRegistry.contains(cPtr));
+		REQUIRE(!g_resourceRegistry.contains(cPtr));
 	}
 }

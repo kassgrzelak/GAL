@@ -11,10 +11,10 @@ namespace gal
 {
 	namespace detail
 	{
-		inline int openGLVersionMajor = -1;
-		inline int openGLVersionMinor = -1;
+		inline int g_openGLVersionMajor = -1;
+		inline int g_openGLVersionMinor = -1;
 
-		inline bool postGLInitialized = false;
+		inline bool g_postGLInitialized = false;
 
 		/// @brief Initialization that can only be done after an OpenGL context has been created.
 		inline void postGLInit()
@@ -28,11 +28,11 @@ namespace gal
 
 			logInfoStart() << "Initialized GLAD with OpenGL " << major << "." << minor << logInfoEnd;
 
-			if (major != openGLVersionMajor or minor != openGLVersionMinor)
+			if (major != g_openGLVersionMajor or minor != g_openGLVersionMinor)
 				logWarnStart() << "Initialized GLAD with a different version of OpenGL (" << major << "." << minor <<
 						") than was specified in the call to gal::init()." << logWarnEnd;
 
-			postGLInitialized = true;
+			g_postGLInitialized = true;
 		}
 	}
 
@@ -41,18 +41,18 @@ namespace gal
 		if (!glfwInit())
 			detail::throwErr(ErrCode::GLFWInitFailed, "Failed to initialize GLFW.");
 
-		detail::openGLVersionMajor = openGLVersionMajor;
-		detail::openGLVersionMinor = openGLVersionMinor;
+		detail::g_openGLVersionMajor = openGLVersionMajor;
+		detail::g_openGLVersionMinor = openGLVersionMinor;
 	}
 
 	inline void terminate()
 	{
-		detail::openGLVersionMajor = -1;
-		detail::openGLVersionMinor = -1;
+		detail::g_openGLVersionMajor = -1;
+		detail::g_openGLVersionMinor = -1;
 
-		detail::postGLInitialized = false;
+		detail::g_postGLInitialized = false;
 
-		detail::resourceRegistry.destroyAll();
+		detail::g_resourceRegistry.destroyAll();
 
 		glfwTerminate();
 	}

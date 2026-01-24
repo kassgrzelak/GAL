@@ -32,17 +32,17 @@ namespace gal::detail
 		void register_(void* handle, void* handlePtr,
 		               DestroyFunc destroyFunc, InvalidateFunc invalidateFunc) noexcept
 		{
-			entries.emplace_back(handle, handlePtr, destroyFunc, invalidateFunc);
+			m_entries.emplace_back(handle, handlePtr, destroyFunc, invalidateFunc);
 		}
 
 		/// @brief Unregister a handle from the RR.
 		/// @param handlePtr A pointer to the handle to be unregistered, converted to void* with regular old static_cast.
 		void unregister(const void* handlePtr) noexcept
 		{
-			for (auto it = entries.cbegin(); it != entries.cend(); ++it)
+			for (auto it = m_entries.cbegin(); it != m_entries.cend(); ++it)
 				if (it->handlePtr == handlePtr)
 				{
-					entries.erase(it);
+					m_entries.erase(it);
 					break;
 				}
 		}
@@ -50,13 +50,13 @@ namespace gal::detail
 		/// @brief Destroy all resources registered with the RR.
 		void destroyAll() noexcept
 		{
-			for (const auto& entry : entries)
+			for (const auto& entry : m_entries)
 			{
 				entry.destroy(entry.handle);
 				entry.invalidate(entry.handlePtr);
 			}
 
-			entries.clear();
+			m_entries.clear();
 		}
 
 		/// @brief Convert a handle of any type to void* for use with RR functions.
@@ -83,7 +83,7 @@ namespace gal::detail
 		/// @brief Check if the RR contains the given handle.
 		bool contains(void* handlePtr) const noexcept
 		{
-			return std::any_of(entries.cbegin(), entries.cend(),
+			return std::any_of(m_entries.cbegin(), m_entries.cend(),
 			                   [handlePtr](const ResourceEntry& entry)
 			                   {
 				                   return entry.handlePtr == handlePtr;
@@ -104,10 +104,10 @@ namespace gal::detail
 			InvalidateFunc invalidate;
 		};
 
-		std::vector<ResourceEntry> entries{};
+		std::vector<ResourceEntry> m_entries{};
 	};
 
-	inline ResourceRegistry resourceRegistry;
+	inline ResourceRegistry g_resourceRegistry;
 }
 
 #endif //GAL_RESOURCE_REGISTRY_HPP

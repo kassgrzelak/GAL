@@ -6,7 +6,6 @@
 #define GAL_WINDOW_HPP
 
 #include <GAL/detail/UniqueHandle.hpp>
-#include <GLFW/glfw3.h>
 
 namespace gal
 {
@@ -20,7 +19,7 @@ namespace gal
 		using UniqueWindow = UniqueHandle<GLFWwindow*, nullptr, windowDeleter>;
 	}
 
-	/// @brief GAL wrapper around GLFWwindow. As in GLFW, a window is inextricably linked with an OpenGL context; this
+	/// @brief Wrapper around GLFWwindow. As in GLFW, a window is inextricably linked with an OpenGL context; this
 	/// encapsulates them both.
 	class Window : detail::UniqueWindow
 	{
@@ -31,7 +30,7 @@ namespace gal
 			GLFWwindow* windowPtr = glfwCreateWindow(800, 600, "test", nullptr, nullptr);
 			glfwMakeContextCurrent(windowPtr);
 
-			if (!detail::postGLInitialized)
+			if (!detail::g_postGLInitialized)
 				detail::postGLInit();
 
 			setHandle(windowPtr);

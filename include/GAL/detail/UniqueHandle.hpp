@@ -20,23 +20,24 @@ namespace gal::detail
 	class UniqueHandle
 	{
 	public:
-		UniqueHandle() noexcept : handle(Invalid) { }
+		UniqueHandle() noexcept : m_handle(Invalid) { }
 
-		explicit UniqueHandle(Handle_t handle) noexcept : handle(handle)
+		explicit UniqueHandle(Handle_t handle) noexcept : m_handle(handle)
 		{
 			if (handleValid())
 				register_();
 		}
 
 		UniqueHandle(const UniqueHandle&) = delete;
+
 		UniqueHandle& operator=(const UniqueHandle&) = delete;
 
-		UniqueHandle(UniqueHandle&& other) noexcept : handle(other.handle)
+		UniqueHandle(UniqueHandle&& other) noexcept : m_handle(other.m_handle)
 		{
 			if (other.handleValid())
 			{
-				resourceRegistry.unregister(static_cast<void*>(&other.handle));
-				other.handle = Invalid;
+				g_resourceRegistry.unregister(static_cast<void*>(&other.m_handle));
+				other.m_handle = Invalid;
 				register_();
 			}
 		}
@@ -51,12 +52,12 @@ namespace gal::detail
 			if (this != &other)
 			{
 				reset();
-				handle = other.handle;
+				m_handle = other.m_handle;
 
 				if (handleValid())
 				{
-					resourceRegistry.unregister(ResourceRegistry::handleToVoidPtr(other.handle));
-					other.handle = Invalid;
+					g_resourceRegistry.unregister(ResourceRegistry::handleToVoidPtr(other.m_handle));
+					other.m_handle = Invalid;
 					register_();
 				}
 			}
@@ -69,18 +70,18 @@ namespace gal::detail
 		void setHandle(Handle_t newHandle) noexcept
 		{
 			reset();
-			handle = newHandle;
+			m_handle = newHandle;
 
 			if (handleValid())
 				register_();
 		}
 
 		/// @brief Get the currently registered handle.
-		GAL_NODISCARD Handle_t getHandle() const noexcept { return handle; }
+		GAL_NODISCARD Handle_t getHandle() const noexcept { return m_handle; }
 		/// @brief Get a pointer to the currently registered handle.
-		GAL_NODISCARD Handle_t* getHandlePtr() noexcept { return &handle; }
+		GAL_NODISCARD Handle_t* getHandlePtr() noexcept { return &m_handle; }
 		/// @brief Check if the current handle is valid (i.e., not equal to Invalid).
-		GAL_NODISCARD bool handleValid() const noexcept { return handle != Invalid; }
+		GAL_NODISCARD bool handleValid() const noexcept { return m_handle != Invalid; }
 
 	private:
 		/// @brief If the current handle is valid, unregister it, delete the associated resource, and invalidate the handle.
@@ -89,17 +90,17 @@ namespace gal::detail
 			if (handleValid())
 			{
 				unregister();
-				Deleter(handle);
-				handle = Invalid;
+				Deleter(m_handle);
+				m_handle = Invalid;
 			}
 		}
 
 		/// @brief Register the current handle with the RR.
 		void register_() noexcept
 		{
-			resourceRegistry.register_(
-				ResourceRegistry::handleToVoidPtr(handle),
-				static_cast<void*>(&handle),
+			g_resourceRegistry.register_(
+				ResourceRegistry::handleToVoidPtr(m_handle),
+				static_cast<void*>(&m_handle),
 				&deleterWrapper,
 				&invalidateWrapper
 			);
@@ -108,7 +109,7 @@ namespace gal::detail
 		/// @brief Unregister the current handle from the RR.
 		void unregister() const noexcept
 		{
-			resourceRegistry.unregister(static_cast<const void*>(&handle));
+			g_resourceRegistry.unregister(static_cast<const void*>(&m_handle));
 		}
 
 		static void deleterWrapper(void* ptr) noexcept
@@ -121,7 +122,7 @@ namespace gal::detail
 			*static_cast<Handle_t*>(handlePtr) = Invalid;
 		}
 
-		Handle_t handle;
+		Handle_t m_handle;
 	};
 }
 
