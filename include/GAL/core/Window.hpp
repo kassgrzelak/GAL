@@ -43,6 +43,7 @@ namespace gal
 			: m_width(width), m_height(height)
 		{
 			detail::logInfo("Creating window...");
+			detail::logIncreaseIndent();
 			glfwWindowHint(GLFW_RESIZABLE, resizable);
 
 			GLFWwindow* windowPtr = glfwCreateWindow(width, height, title, monitor, share);
@@ -64,6 +65,7 @@ namespace gal
 
 			setHandle(windowPtr);
 			detail::logInfo("Successfully created window.");
+			detail::logDecreaseIndent();
 		}
 
 		GAL_NODISCARD GLFWwindow* getWindowHandle() const noexcept { return getHandle(); }

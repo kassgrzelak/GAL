@@ -90,10 +90,11 @@ namespace gal::detail
 		{
 			if (handleValid())
 			{
+				logInfoStart() << "Unregistering and destroying void* " << getHandlePtr() << "." << logInfoEnd;
 				unregister();
 				Deleter(m_handle);
 				m_handle = Invalid;
-			}
+ 			}
 		}
 
 		/// @brief Register the current handle with the RR.

@@ -9,7 +9,8 @@
 
 namespace gal::detail
 {
-	/// @brief Blank ostream struct so the compiler can optimize out log function calls when those macros aren't defined.
+	/// @brief Blank ostream struct so the compiler can optimize out log function calls when the logging macros aren't
+	/// defined.
 	struct NullStream : std::ostream
 	{
 		struct NullBuf : std::streambuf
@@ -21,69 +22,126 @@ namespace gal::detail
 		NullStream() : std::ostream(&buf) { }
 	};
 
-	inline NullStream nullStream;
+	inline NullStream g_nullStream;
+	inline int g_logIndent = 0;
+
+	inline void logIncreaseIndent(const int delta = 1)
+	{
+#if defined(GAL_ERROR_LOGGING) || defined(GAL_WARNING_LOGGING) || defined(GAL_INFO_LOGGING)
+		g_logIndent += delta;
+#endif
+	}
+
+	inline void logDecreaseIndent(const int delta = 1)
+	{
+#if defined(GAL_ERROR_LOGGING) || defined(GAL_WARNING_LOGGING) || defined(GAL_INFO_LOGGING)
+		g_logIndent -= delta;
+#endif
+	}
 
 #ifdef GAL_ERROR_LOGGING
-	inline void logErr(const char* msg)
+	inline std::ostream& logErrEnd(std::ostream& os)
 	{
-		std::cerr << "\u001b[31mGAL_ERR: " << msg << "\u001b[0m\n";
+		return os << "\u001b[0m" << std::endl;
 	}
 
 	inline std::ostream& logErrStart()
 	{
-		return std::cerr << "\u001b[31mGAL_ERR: ";
+		if (g_logIndent == 0)
+			return std::cerr << "\u001b[31mGAL_ERR: ";
+
+		for (int i = 0; i < g_logIndent; ++i)
+			std::cerr << "\t";
+
+		return std::cerr << "\u001b[31m- ";
 	}
 
-	inline std::ostream& logErrEnd(std::ostream& os)
+	inline void logErr(const char* msg)
 	{
-		return os << "\u001b[0m\n";
+		if (g_logIndent == 0)
+			logErrStart() << msg << logErrEnd;
+		else
+		{
+			for (int i = 0; i < g_logIndent; ++i)
+				std::cerr << "\t";
+
+			std::cerr << "\u001b[31m- " << msg << logErrEnd;
+		}
 	}
 #else
-	inline void logErr(const char* msg) { }
-	inline std::ostream& logErrStart() { return nullStream; }
 	inline std::ostream& logErrEnd(std::ostream& os) { return os; }
+	inline std::ostream& logErrStart() { return g_nullStream; }
+	inline void logErr(const char* msg) { }
 #endif // GAL_ERROR_LOGGING
 
 #ifdef GAL_WARNING_LOGGING
-	inline void logWarn(const char* msg)
+	inline std::ostream& logWarnEnd(std::ostream& os)
 	{
-		std::cerr << "\u001b[33mGAL_WARN: " << msg << "\u001b[0m\n";
+		return os << "\u001b[0m" << std::endl;
 	}
 
 	inline std::ostream& logWarnStart()
 	{
-		return std::cerr << "\u001b[33mGAL_WARN: ";
+		if (g_logIndent == 0)
+			return std::cerr << "\u001b[33mGAL_WARN: ";
+
+		for (int i = 0; i < g_logIndent; ++i)
+			std::cerr << "\t";
+
+		return std::cerr << "\u001b[33m- ";
 	}
 
-	inline std::ostream& logWarnEnd(std::ostream& os)
+	inline void logWarn(const char* msg)
 	{
-		return os << "\u001b[0m\n";
+		if (g_logIndent == 0)
+			logWarnStart() << msg << logWarnEnd;
+		else
+		{
+			for (int i = 0; i < g_logIndent; ++i)
+				std::cerr << "\t";
+
+			std::cerr << "\u001b[33m- " << msg << logWarnEnd;
+		}
 	}
 #else
-	inline void logWarn(const char* msg) { }
-	inline std::ostream& logWarnStart() { return nullStream; }
 	inline std::ostream& logWarnEnd(std::ostream& os) { return os; }
+	inline std::ostream& logWarnStart() { return g_nullStream; }
+	inline void logWarn(const char* msg) { }
 #endif // GAL_WARNING_LOGGING
 
 #ifdef GAL_INFO_LOGGING
-	inline void logInfo(const char* msg)
+	inline std::ostream& logInfoEnd(std::ostream& os)
 	{
-		std::cout << "GAL_INFO: " << msg << "\n";
+		return os << std::endl;
 	}
 
 	inline std::ostream& logInfoStart()
 	{
-		return std::cout << "GAL_INFO: ";
+		if (g_logIndent == 0)
+			return std::cout << "GAL_INFO: ";
+
+		for (int i = 0; i < g_logIndent; ++i)
+			std::cout << "\t";
+
+		return std::cout << "- ";
 	}
 
-	inline std::ostream& logInfoEnd(std::ostream& os)
+	inline void logInfo(const char* msg)
 	{
-		return os << "\n";
+		if (g_logIndent == 0)
+			logInfoStart() << msg << logInfoEnd;
+		else
+		{
+			for (int i = 0; i < g_logIndent; ++i)
+				std::cout << "\t";
+
+			std::cout << "- " << msg << logInfoEnd;
+		}
 	}
 #else
-	inline void logInfo(const char* msg) { }
-	inline std::ostream& logInfoStart() { return nullStream; }
 	inline std::ostream& logInfoEnd(std::ostream& os) { return os; }
+	inline std::ostream& logInfoStart() { return g_nullStream; }
+	inline void logInfo(const char* msg) { }
 #endif // GAL_INFO_LOGGING
 }
 

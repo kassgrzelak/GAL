@@ -8,7 +8,6 @@
 #include <algorithm>
 #include <cstdint>
 #include <vector>
-#include <pstl/glue_execution_defs.h>
 
 namespace gal::detail
 {
@@ -32,6 +31,7 @@ namespace gal::detail
 		               DestroyFunc destroyFunc, InvalidateFunc invalidateFunc) noexcept
 		{
 			m_entries.emplace_back(handle, handlePtr, destroyFunc, invalidateFunc);
+			logInfoStart() << "Registered void* " << handlePtr << " with the Resource Registry." << logInfoEnd;
 		}
 
 		/// @brief Unregister a handle from the RR.
@@ -44,18 +44,24 @@ namespace gal::detail
 					m_entries.erase(it);
 					break;
 				}
+			logInfoStart() << "Unregistered void* " << handlePtr << " from the Resource Registry." << logInfoEnd;
 		}
 
 		/// @brief Destroy all resources registered with the RR.
 		void destroyAll() noexcept
 		{
+			logInfo("Destroying all GAL resources...");
+			logIncreaseIndent();
+
 			for (const auto& entry : m_entries)
 			{
 				entry.destroy(entry.handle);
 				entry.invalidate(entry.handlePtr);
+				logInfoStart() << "Destroyed void* " << entry.handlePtr << "." << logInfoEnd;
 			}
 
 			m_entries.clear();
+			logDecreaseIndent();
 		}
 
 		/// @brief Convert a handle of any type to void* for use with RR functions.

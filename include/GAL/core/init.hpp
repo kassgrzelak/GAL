@@ -21,6 +21,7 @@ namespace gal
 		inline void postGLInit()
 		{
 			logInfo("Post-GL initializing GAL...");
+			logIncreaseIndent();
 
 			const int version = gladLoadGL(glfwGetProcAddress);
 			if (!version)
@@ -38,6 +39,7 @@ namespace gal
 			g_postGLInitialized = true;
 
 			logInfo("Successfully post-GL initialized GAL.");
+			logDecreaseIndent();
 		}
 	}
 
@@ -55,6 +57,7 @@ namespace gal
 	                 const int contextProfile = GLFW_OPENGL_CORE_PROFILE, const bool debugContext = false)
 	{
 		detail::logInfo("Initializing gal...");
+		detail::logIncreaseIndent();
 
 		if (!glfwInit())
 			detail::throwErr(ErrCode::GLFWInitFailed, "Failed to initialize GLFW.");
@@ -75,13 +78,15 @@ namespace gal
 		detail::g_openGLVersionMinor = openGLVersionMinor;
 
 		detail::logInfo("Successfully initialized GAL.");
+		detail::logDecreaseIndent();
 	}
 
 	/// @brief Terminate GAL. This resets all internal state back to default values, terminates GLFW, and destroys any
 	/// resources allocated by GAL.
 	inline void terminate() noexcept
 	{
-		detail::logInfo("Terminating gal...");
+		detail::logInfo("Terminating GAL...");
+		detail::logIncreaseIndent();
 
 		detail::g_openGLVersionMajor = -1;
 		detail::g_openGLVersionMinor = -1;
@@ -95,6 +100,7 @@ namespace gal
 		detail::logInfo("Terminated GLFW.");
 
 		detail::logInfo("Terminated GAL.");
+		detail::logDecreaseIndent();
 	}
 }
 
