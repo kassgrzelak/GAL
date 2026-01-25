@@ -56,6 +56,8 @@ namespace gal
 	inline void init(const int openGLVersionMajor = 4, const int openGLVersionMinor = 6,
 	                 const int contextProfile = GLFW_OPENGL_CORE_PROFILE, const bool debugContext = false)
 	{
+		// TODO: For now, it seems to not matter if you call gal::init() multiple times but I should really look into
+		// whether this is definitely kosher or not. Do the window hints get reset after creating a window?
 		detail::logInfo("Initializing gal...");
 		detail::logIncreaseIndent();
 

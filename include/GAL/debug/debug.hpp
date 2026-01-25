@@ -5,11 +5,6 @@
 #ifndef GAL_DEBUG_HPP
 #define GAL_DEBUG_HPP
 
-#ifndef GAL_GAL_HPP
-#include <GAL/config.hpp>
-#include <GAL/types.hpp>
-#endif
-
 namespace gal
 {
 	namespace detail

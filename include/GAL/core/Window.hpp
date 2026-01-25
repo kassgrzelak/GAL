@@ -40,7 +40,6 @@ namespace gal
 		Window(const int width, const int height, const char* title, GLFWmonitor* monitor = nullptr,
 		       GLFWwindow* share = nullptr, const bool resizable = false, const bool vsync = false,
 		       const bool makeContextCurrent = true)
-			: m_width(width), m_height(height)
 		{
 			detail::logInfo("Creating window...");
 			detail::logIncreaseIndent();
@@ -68,14 +67,37 @@ namespace gal
 			detail::logDecreaseIndent();
 		}
 
+		/// @brief Get the GLFWwindow* for this window for use with GLFW functions.
 		GAL_NODISCARD GLFWwindow* getWindowHandle() const noexcept { return getHandle(); }
-
+		/// @brief Get whether this window should close or not.
 		GAL_NODISCARD bool shouldClose() const noexcept { return glfwWindowShouldClose(getHandle()); }
+		/// @brief Get the current width of the window.
+		GAL_NODISCARD int getWidth() const noexcept
+		{
+			int width;
+			glfwGetWindowSize(getHandle(), &width, nullptr);
+			return width;
+		}
+		/// @brief Get the current height of the window.
+		GAL_NODISCARD int getHeight() const noexcept
+		{
+			int height;
+			glfwGetWindowSize(getHandle(), nullptr, &height);
+			return height;
+		}
+
+		/// @brief Set the width of the window.
+		/// @param width The new width of the window.
+		void setWidth(const int width) const noexcept { glfwSetWindowSize(getHandle(), width, getHeight()); }
+		/// @brief Set the height of the window.
+		/// @param height The new height of the window.
+		void setHeight(const int height) const noexcept { glfwSetWindowSize(getHandle(), getWidth(), height); }
+		/// @brief Set the size of the window.
+		/// @param width The new width of the window.
+		/// @param height The new height of the window.
+		void setSize(const int width, const int height) const noexcept { glfwSetWindowSize(getHandle(), width, height); }
 
 	private:
-		int m_width;
-		int m_height;
-
 		/// @brief Reset any window hints set in the constructor to their defaults in the event an error is thrown.
 		static void resetConstructorWindowHints()
 		{
