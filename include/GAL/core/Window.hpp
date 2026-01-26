@@ -7,6 +7,8 @@
 
 #include <GAL/detail/UniqueHandle.hpp>
 
+#include "../../../cmake-build-dev/_deps/catch2-src/src/catch2/internal/catch_getenv.hpp"
+
 namespace gal
 {
 	namespace detail
@@ -86,6 +88,9 @@ namespace gal
 			return height;
 		}
 
+		/// @brief Set the window's should close value.
+		/// @param val The value to set to.
+		void setShouldClose(const bool val) const noexcept { return glfwSetWindowShouldClose(getHandle(), val); }
 		/// @brief Set the width of the window.
 		/// @param width The new width of the window.
 		void setWidth(const int width) const noexcept { glfwSetWindowSize(getHandle(), width, getHeight()); }
@@ -95,7 +100,21 @@ namespace gal
 		/// @brief Set the size of the window.
 		/// @param width The new width of the window.
 		/// @param height The new height of the window.
-		void setSize(const int width, const int height) const noexcept { glfwSetWindowSize(getHandle(), width, height); }
+		void setSize(const int width, const int height) const noexcept
+		{
+			glfwSetWindowSize(getHandle(), width, height);
+		}
+
+		/// @brief Poll events (keypresses, window resizing, etc.). Call this at the beginning of your update loop.
+		void pollEvents() const noexcept
+		{
+			glfwPollEvents();
+		}
+		/// @brief Swap the front and back buffers of the window.
+		void swapBuffers() const noexcept { glfwSwapBuffers(getHandle()); }
+
+		/// @brief Call glViewport and set the viewport to the full extents of the window.
+		void setFullViewport() const noexcept { glViewport(0, 0, getWidth(), getHeight()); }
 
 	private:
 		/// @brief Reset any window hints set in the constructor to their defaults in the event an error is thrown.

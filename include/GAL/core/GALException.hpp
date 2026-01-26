@@ -32,7 +32,7 @@ namespace gal
 		/// @brief Log an error and immediately throw it.
 		inline void throwErr(const ErrCode errCode, const char* msg)
 		{
-			logErr(msg);
+			logErr(msg, static_cast<int>(errCode));
 			throw GALException(errCode, msg);
 		}
 	}

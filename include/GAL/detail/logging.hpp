@@ -5,6 +5,7 @@
 #ifndef GAL_LOGGING_HPP
 #define GAL_LOGGING_HPP
 
+#include <iomanip>
 #include <iostream>
 
 namespace gal::detail
@@ -27,14 +28,14 @@ namespace gal::detail
 
 	inline void logIncreaseIndent(const int delta = 1)
 	{
-#if defined(GAL_ERROR_LOGGING) || defined(GAL_WARNING_LOGGING) || defined(GAL_INFO_LOGGING)
+#ifdef GAL_INFO_LOGGING
 		g_logIndent += delta;
 #endif
 	}
 
 	inline void logDecreaseIndent(const int delta = 1)
 	{
-#if defined(GAL_ERROR_LOGGING) || defined(GAL_WARNING_LOGGING) || defined(GAL_INFO_LOGGING)
+#ifdef GAL_INFO_LOGGING
 		g_logIndent -= delta;
 #endif
 	}
@@ -45,28 +46,27 @@ namespace gal::detail
 		return os << "\u001b[0m" << std::endl;
 	}
 
-	inline std::ostream& logErrStart()
+	inline std::ostream& logErrStart(const int errCode = -1)
 	{
-		if (g_logIndent == 0)
-			return std::cerr << "\u001b[31mGAL_ERR: ";
-
 		for (int i = 0; i < g_logIndent; ++i)
 			std::cerr << "\t";
 
-		return std::cerr << "\u001b[31m- ";
+		if (errCode == -1)
+			return std::cerr << "\u001b[31mGAL_ERR: ";
+
+		return std::cout << "\u001b[31mGAL_ERR" << std::setw(4) << std::setfill('0') << errCode << ": ";
 	}
 
-	inline void logErr(const char* msg)
+	inline void logErr(const char* msg, const int errCode = -1)
 	{
-		if (g_logIndent == 0)
-			logErrStart() << msg << logErrEnd;
-		else
-		{
-			for (int i = 0; i < g_logIndent; ++i)
-				std::cerr << "\t";
+		for (int i = 0; i < g_logIndent; ++i)
+			std::cerr << "\t";
 
-			std::cerr << "\u001b[31m- " << msg << logErrEnd;
-		}
+		if (errCode == -1)
+			std::cerr << "\u001b[31mGAL_ERR: " << msg << logErrEnd;
+		else
+			std::cout << "\u001b[31mGAL_ERR" << std::setw(4) << std::setfill('0') <<
+				errCode << ": " << msg << logErrEnd;
 	}
 #else
 	inline std::ostream& logErrEnd(std::ostream& os) { return os; }
@@ -88,7 +88,7 @@ namespace gal::detail
 		for (int i = 0; i < g_logIndent; ++i)
 			std::cerr << "\t";
 
-		return std::cerr << "\u001b[33m- ";
+		return std::cerr << "\u001b[33mGAL_WARN: ";
 	}
 
 	inline void logWarn(const char* msg)
@@ -100,7 +100,7 @@ namespace gal::detail
 			for (int i = 0; i < g_logIndent; ++i)
 				std::cerr << "\t";
 
-			std::cerr << "\u001b[33m- " << msg << logWarnEnd;
+			std::cerr << "\u001b[33mGAL_WARN: " << msg << logWarnEnd;
 		}
 	}
 #else
