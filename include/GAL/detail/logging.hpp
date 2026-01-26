@@ -123,7 +123,7 @@ namespace gal::detail
 		for (int i = 0; i < g_logIndent; ++i)
 			std::cout << "\t";
 
-		return std::cout << "- ";
+		return std::cout;
 	}
 
 	inline void logInfo(const char* msg)
@@ -135,7 +135,7 @@ namespace gal::detail
 			for (int i = 0; i < g_logIndent; ++i)
 				std::cout << "\t";
 
-			std::cout << "- " << msg << logInfoEnd;
+			std::cout << msg << logInfoEnd;
 		}
 	}
 #else
