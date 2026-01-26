@@ -109,12 +109,17 @@ namespace gal
 		void pollEvents() const noexcept
 		{
 			glfwPollEvents();
+			detail::updateKeyStates(getHandle());
 		}
+
 		/// @brief Swap the front and back buffers of the window.
 		void swapBuffers() const noexcept { glfwSwapBuffers(getHandle()); }
 
 		/// @brief Call glViewport and set the viewport to the full extents of the window.
-		void setFullViewport() const noexcept { glViewport(0, 0, getWidth(), getHeight()); }
+		void setFullViewport() const noexcept
+		{
+			glViewport(0, 0, getWidth(), getHeight());
+		}
 
 	private:
 		/// @brief Reset any window hints set in the constructor to their defaults in the event an error is thrown.

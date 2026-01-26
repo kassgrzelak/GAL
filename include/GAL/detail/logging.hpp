@@ -66,7 +66,7 @@ namespace gal::detail
 			std::cerr << "\u001b[31mGAL_ERR: " << msg << logErrEnd;
 		else
 			std::cout << "\u001b[31mGAL_ERR" << std::setw(4) << std::setfill('0') <<
-				errCode << ": " << msg << logErrEnd;
+					errCode << ": " << msg << logErrEnd;
 	}
 #else
 	inline std::ostream& logErrEnd(std::ostream& os) { return os; }

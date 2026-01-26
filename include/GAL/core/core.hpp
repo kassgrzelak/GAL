@@ -8,6 +8,7 @@
 #include "enums.hpp"
 #include "GALException.hpp"
 #include "init.hpp"
+#include "keyboard.hpp"
 #include "Window.hpp"
 
 #endif //GAL_CORE_HPP

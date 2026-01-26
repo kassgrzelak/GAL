@@ -81,7 +81,8 @@ add_library(GAL INTERFACE
         include/GAL/core/init.hpp
         include/GAL/core/enums.hpp
         include/GAL/core/GALException.hpp
-        include/GAL/debug/debug.hpp)
+        include/GAL/debug/debug.hpp
+        include/GAL/core/keyboard.hpp)
 add_library(GAL::GAL ALIAS GAL)
 
 target_compile_features(GAL INTERFACE cxx_std_17)
