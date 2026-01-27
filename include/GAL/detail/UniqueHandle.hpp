@@ -4,8 +4,8 @@
 
 #ifndef GAL_UNIQUE_HANDLE_HPP
 #define GAL_UNIQUE_HANDLE_HPP
+
 #include "ResourceRegistry.hpp"
-#include "GAL/config.hpp"
 
 namespace gal::detail
 {
@@ -45,14 +45,14 @@ namespace gal::detail
 
 		~UniqueHandle() noexcept
 		{
-			reset();
+			resetHandle();
 		}
 
 		UniqueHandle& operator=(UniqueHandle&& other) noexcept
 		{
 			if (this != &other)
 			{
-				reset();
+				resetHandle();
 				m_handle = other.m_handle;
 
 				if (handleValid())
@@ -70,7 +70,7 @@ namespace gal::detail
 		/// @param newHandle The new handle to set.
 		void setHandle(Handle_t newHandle) noexcept
 		{
-			reset();
+			resetHandle();
 			m_handle = newHandle;
 
 			if (handleValid())
@@ -78,15 +78,15 @@ namespace gal::detail
 		}
 
 		/// @brief Get the currently registered handle.
-		GAL_NODISCARD Handle_t getHandle() const noexcept { return m_handle; }
+		[[nodiscard]] Handle_t getHandle() const noexcept { return m_handle; }
 		/// @brief Get a pointer to the currently registered handle.
-		GAL_NODISCARD Handle_t* getHandlePtr() noexcept { return &m_handle; }
+		[[nodiscard]] Handle_t* getHandlePtr() noexcept { return &m_handle; }
 		/// @brief Check if the current handle is valid (i.e., not equal to Invalid).
-		GAL_NODISCARD bool handleValid() const noexcept { return m_handle != Invalid; }
+		[[nodiscard]] bool handleValid() const noexcept { return m_handle != Invalid; }
 
 	private:
 		/// @brief If the current handle is valid, unregister it, delete the associated resource, and invalidate the handle.
-		void reset() noexcept
+		void resetHandle() noexcept
 		{
 			if (handleValid())
 			{

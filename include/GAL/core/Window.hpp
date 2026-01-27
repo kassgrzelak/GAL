@@ -7,8 +7,6 @@
 
 #include <GAL/detail/UniqueHandle.hpp>
 
-#include "../../../cmake-build-dev/_deps/catch2-src/src/catch2/internal/catch_getenv.hpp"
-
 namespace gal
 {
 	namespace detail
@@ -70,18 +68,18 @@ namespace gal
 		}
 
 		/// @brief Get the GLFWwindow* for this window for use with GLFW functions.
-		GAL_NODISCARD GLFWwindow* getWindowHandle() const noexcept { return getHandle(); }
+		[[nodiscard]] GLFWwindow* getWindowHandle() const noexcept { return getHandle(); }
 		/// @brief Get whether this window should close or not.
-		GAL_NODISCARD bool shouldClose() const noexcept { return glfwWindowShouldClose(getHandle()); }
+		[[nodiscard]] bool shouldClose() const noexcept { return glfwWindowShouldClose(getHandle()); }
 		/// @brief Get the current width of the window.
-		GAL_NODISCARD int getWidth() const noexcept
+		[[nodiscard]] int getWidth() const noexcept
 		{
 			int width;
 			glfwGetWindowSize(getHandle(), &width, nullptr);
 			return width;
 		}
 		/// @brief Get the current height of the window.
-		GAL_NODISCARD int getHeight() const noexcept
+		[[nodiscard]] int getHeight() const noexcept
 		{
 			int height;
 			glfwGetWindowSize(getHandle(), nullptr, &height);
@@ -100,10 +98,7 @@ namespace gal
 		/// @brief Set the size of the window.
 		/// @param width The new width of the window.
 		/// @param height The new height of the window.
-		void setSize(const int width, const int height) const noexcept
-		{
-			glfwSetWindowSize(getHandle(), width, height);
-		}
+		void setSize(const int width, const int height) const noexcept { glfwSetWindowSize(getHandle(), width, height); }
 
 		/// @brief Poll events (keypresses, window resizing, etc.). Call this at the beginning of your update loop.
 		void pollEvents() const noexcept
@@ -116,10 +111,7 @@ namespace gal
 		void swapBuffers() const noexcept { glfwSwapBuffers(getHandle()); }
 
 		/// @brief Call glViewport and set the viewport to the full extents of the window.
-		void setFullViewport() const noexcept
-		{
-			glViewport(0, 0, getWidth(), getHeight());
-		}
+		void setFullViewport() const noexcept { glViewport(0, 0, getWidth(), getHeight()); }
 
 	private:
 		/// @brief Reset any window hints set in the constructor to their defaults in the event an error is thrown.

@@ -1,0 +1,11 @@
+//
+// Created by kassie on 26/01/2026.
+//
+
+#ifndef GAL_GRAPHICS_HPP
+#define GAL_GRAPHICS_HPP
+
+#include "Program.hpp"
+#include "Shader.hpp"
+
+#endif //GAL_GRAPHICS_HPP

@@ -71,7 +71,6 @@ target_include_directories(glad PUBLIC
 add_library(GAL INTERFACE
         include/GAL/gal.hpp
         include/GAL/types.hpp
-        include/GAL/config.hpp
         include/GAL/detail/UniqueHandle.hpp
         include/GAL/core/Window.hpp
         include/GAL/detail/ResourceRegistry.hpp
@@ -82,7 +81,10 @@ add_library(GAL INTERFACE
         include/GAL/core/enums.hpp
         include/GAL/core/GALException.hpp
         include/GAL/debug/debug.hpp
-        include/GAL/core/keyboard.hpp)
+        include/GAL/core/keyboard.hpp
+        include/GAL/graphics/graphics.hpp
+        include/GAL/graphics/Program.hpp
+        include/GAL/graphics/Shader.hpp)
 add_library(GAL::GAL ALIAS GAL)
 
 target_compile_features(GAL INTERFACE cxx_std_17)

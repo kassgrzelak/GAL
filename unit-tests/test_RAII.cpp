@@ -17,12 +17,7 @@ void testDeleterUint(unsigned int handle) noexcept
 	REQUIRE(handle != static_cast<unsigned int>(-1));
 }
 
-TEST_CASE (
-
-"UniqueHandle basic pointer operations"
-,
-"[UniqueHandle]"
-)
+TEST_CASE ("UniqueHandle basic pointer operations", "[UniqueHandle]")
 {
 	using namespace gal::detail;
 	using TestUniqueHandlePtr = UniqueHandle<int*, nullptr, testDeleterPtr>;
@@ -43,12 +38,7 @@ TEST_CASE (
 	}
 }
 
-TEST_CASE (
-
-"UniqueHandle basic uint operations"
-,
-"[UniqueHandle]"
-)
+TEST_CASE ("UniqueHandle basic uint operations", "[UniqueHandle]")
 {
 	using namespace gal::detail;
 	using TestUniqueHandleUint = UniqueHandle<unsigned int, static_cast<unsigned int>(-1), testDeleterUint>;
@@ -70,12 +60,7 @@ TEST_CASE (
 	}
 }
 
-TEST_CASE (
-
-"UniqueHandle with ResourceRegistry"
-,
-"[UniqueHandle][ResourceRegistry]"
-)
+TEST_CASE ("UniqueHandle with ResourceRegistry", "[UniqueHandle][ResourceRegistry]")
 {
 	using namespace gal::detail;
 	using TestUniqueHandlePtr = UniqueHandle<int*, nullptr, testDeleterPtr>;

@@ -13,7 +13,7 @@ namespace gal
 	{
 		// GLFW key tokens aren't actually a contiguous, unbroken range; there are some gaps. It also doesn't start at
 		// zero, but simplicity (and consequently speed) is more important than saving a bit of memory, I think.
-		GAL_CONSTEXPR int MAX_KEYS = GLFW_KEY_LAST + 1;
+		constexpr int MAX_KEYS = GLFW_KEY_LAST + 1;
 
 		inline std::array<uint8_t, MAX_KEYS> g_prevKeyStates;
 		inline std::array<uint8_t, MAX_KEYS> g_currKeyStates;
@@ -38,7 +38,7 @@ namespace gal
 	/// @param key The GLFW key token to check.
 	/// @returns True if the key was pressed this frame (not if it stayed pressed since a previous frame), false
 	/// if not or if key is not a valid GLFW key token.
-	GAL_NODISCARD inline bool isKeyPressed(const int key)
+	[[nodiscard]] inline bool isKeyPressed(const int key)
 	{
 		if (!detail::isValidKey(key))
 			return false;
@@ -50,7 +50,7 @@ namespace gal
 	/// @param key The GLFW key token to check.
 	/// @returns True if the key was released this frame (not if it stayed released since a previous frame), false
 	/// if not or if key is not a valid GLFW key token.
-	GAL_NODISCARD inline bool isKeyReleased(const int key)
+	[[nodiscard]] inline bool isKeyReleased(const int key)
 	{
 		if (!detail::isValidKey(key))
 			return false;
@@ -61,7 +61,7 @@ namespace gal
 	/// @brief Check if a key is currently pressed.
 	/// @param key The GLFW key token to check.
 	/// @returns True if the key is pressed, false if not or if key is not a valid GLFW key token.
-	GAL_NODISCARD inline bool isKeyDown(const int key)
+	[[nodiscard]] inline bool isKeyDown(const int key)
 	{
 		if (!detail::isValidKey(key))
 			return false;
@@ -72,7 +72,7 @@ namespace gal
 	/// @brief Check if a key is not currently pressed.
 	/// @param key The GLFW key token to check.
 	/// @returns True if the key is not pressed, false if not or if key is not a valid GLFW key token.
-	GAL_NODISCARD inline bool isKeyUp(const int key)
+	[[nodiscard]] inline bool isKeyUp(const int key)
 	{
 		if (!detail::isValidKey(key))
 			return false;

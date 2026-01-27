@@ -18,11 +18,11 @@
 #include <GLFW/glfw3.h>
 #endif
 
-#include "GAL/config.hpp"
-#include "GAL/types.hpp"
+#include "types.hpp"
 
-#include "GAL/core/core.hpp"
-#include "GAL/debug/debug.hpp"
-#include "GAL/detail/detail.hpp"
+#include "core/core.hpp"
+#include "debug/debug.hpp"
+#include "detail/detail.hpp"
+#include "graphics/graphics.hpp"
 
 #endif //GAL_GAL_HPP

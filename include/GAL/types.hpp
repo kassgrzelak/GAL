@@ -5,5 +5,12 @@
 #ifndef GAL_TYPES_HPP
 #define GAL_TYPES_HPP
 
+namespace gal
+{
+	// ID Types for semantic clarity.
+
+	using ProgramID = GLuint;
+	using ShaderID = GLuint;
+}
 
 #endif //GAL_TYPES_HPP

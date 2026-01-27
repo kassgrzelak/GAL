@@ -42,9 +42,12 @@ namespace gal::detail
 				if (it->handlePtr == handlePtr)
 				{
 					m_entries.erase(it);
-					break;
+					logInfoStart() << "Unregistered void* " << handlePtr << " from the Resource Registry." << logInfoEnd;
+					return;
 				}
-			logInfoStart() << "Unregistered void* " << handlePtr << " from the Resource Registry." << logInfoEnd;
+
+			logWarnStart() << "Failed to unregister void* " << handlePtr << " from the Resource Registry as " <<
+				"it wasn't found." << logInfoEnd;
 		}
 
 		/// @brief Destroy all resources registered with the RR.

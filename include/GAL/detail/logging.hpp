@@ -70,8 +70,8 @@ namespace gal::detail
 	}
 #else
 	inline std::ostream& logErrEnd(std::ostream& os) { return os; }
-	inline std::ostream& logErrStart() { return g_nullStream; }
-	inline void logErr(const char* msg) { }
+	inline std::ostream& logErrStart(const int errCode = -1) { return g_nullStream; }
+	inline void logErr(const char* msg, const int errCode = -1) { }
 #endif // GAL_ERROR_LOGGING
 
 #ifdef GAL_WARNING_LOGGING
@@ -82,9 +82,6 @@ namespace gal::detail
 
 	inline std::ostream& logWarnStart()
 	{
-		if (g_logIndent == 0)
-			return std::cerr << "\u001b[33mGAL_WARN: ";
-
 		for (int i = 0; i < g_logIndent; ++i)
 			std::cerr << "\t";
 
@@ -93,15 +90,7 @@ namespace gal::detail
 
 	inline void logWarn(const char* msg)
 	{
-		if (g_logIndent == 0)
-			logWarnStart() << msg << logWarnEnd;
-		else
-		{
-			for (int i = 0; i < g_logIndent; ++i)
-				std::cerr << "\t";
-
-			std::cerr << "\u001b[33mGAL_WARN: " << msg << logWarnEnd;
-		}
+		logWarnStart() << msg << logWarnEnd;
 	}
 #else
 	inline std::ostream& logWarnEnd(std::ostream& os) { return os; }

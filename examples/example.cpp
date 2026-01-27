@@ -6,5 +6,18 @@
 
 int main()
 {
+	gal::init();
+
+	gal::Window window{800, 600, "Window Example"};
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+
+	while (!window.shouldClose())
+	{
+		glClear(GL_COLOR_BUFFER_BIT);
+		window.swapBuffers();
+		window.pollEvents();
+	}
+
+	gal::terminate();
 	return 0;
 }
