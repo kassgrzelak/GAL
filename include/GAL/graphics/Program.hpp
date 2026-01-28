@@ -484,7 +484,6 @@ namespace gal
 		}
 
 	private:
-		std::vector<ShaderID> m_attachedShaders;
 		mutable std::unordered_map<std::string, GLint> m_uniformLocations;
 
 		GLint getUniformLocation(const std::string& name) const
