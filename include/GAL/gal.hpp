@@ -29,5 +29,6 @@
 #include "debug/debug.hpp"
 #include "detail/detail.hpp"
 #include "graphics/graphics.hpp"
+#include "system/system.hpp"
 
 #endif //GAL_GAL_HPP

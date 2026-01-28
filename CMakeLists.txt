@@ -84,7 +84,9 @@ add_library(GAL INTERFACE
         include/GAL/core/keyboard.hpp
         include/GAL/graphics/graphics.hpp
         include/GAL/graphics/Program.hpp
-        include/GAL/graphics/Shader.hpp)
+        include/GAL/graphics/Shader.hpp
+        include/GAL/system/system.hpp
+        include/GAL/system/time.hpp)
 add_library(GAL::GAL ALIAS GAL)
 
 target_compile_features(GAL INTERFACE cxx_std_17)

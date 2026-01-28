@@ -7,6 +7,8 @@
 
 #include <GAL/detail/UniqueHandle.hpp>
 
+#include "GAL/system/time.hpp"
+
 namespace gal
 {
 	namespace detail
@@ -100,11 +102,12 @@ namespace gal
 		/// @param height The new height of the window.
 		void setSize(const int width, const int height) const noexcept { glfwSetWindowSize(getHandle(), width, height); }
 
-		/// @brief Poll events (keypresses, window resizing, etc.). Call this at the beginning of your update loop.
+		/// @brief Poll events (keypresses, window resizing, etc.) as well as keep internal frame-by-frame state updated.
 		void pollEvents() const noexcept
 		{
 			glfwPollEvents();
 			detail::updateKeyStates(getHandle());
+			detail::updateTime();
 		}
 
 		/// @brief Swap the front and back buffers of the window.
