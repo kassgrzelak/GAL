@@ -42,7 +42,7 @@ if(NOT glm_FOUND AND GAL_FETCH_DEPENDENCIES)
     FetchContent_Declare(
             glm
             GIT_REPOSITORY https://github.com/g-truc/glm.git
-            GIT_TAG 1.0.1
+            GIT_TAG 1.0.3
     )
     FetchContent_MakeAvailable(glm)
 endif()
@@ -87,7 +87,8 @@ add_library(GAL INTERFACE
         include/GAL/graphics/Shader.hpp
         include/GAL/system/system.hpp
         include/GAL/system/time.hpp
-        include/GAL/graphics/Buffer.hpp)
+        include/GAL/graphics/Buffer.hpp
+        include/GAL/glmIncludes.hpp)
 add_library(GAL::GAL ALIAS GAL)
 
 target_compile_features(GAL INTERFACE cxx_std_17)

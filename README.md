@@ -7,8 +7,7 @@ Lorem ipsum descriptionus not writteth.
 These are macros you can define before including GAL in your project to alter its behavior.
 
 `GAL_ERROR_LOGGING`: Allow GAL to log runtime errors to cerr, even if the exception is caught.\
-`GAL_WARNING_LOGGING`: Allow GAL to log warnings for non-fatal errors to cerr (don't know what this will be used for
-yet).\
+`GAL_WARNING_LOGGING`: Allow GAL to log warnings for non-fatal errors to cerr.\
 `GAL_INFO_LOGGING`: Allow GAL to log verbose info about everything it's doing to cout for debugging purposes.\
 `GAL_VERBOSE`: Defines all the above logging macros.
 
@@ -16,4 +15,7 @@ yet).\
 profile. To provide your own glad v2, define this macro and make sure to pass in the OpenGL version you'd like to use
 (if it's different) to gal::init().\
 `GAL_DONT_INCLUDE_GLFW`: By default, GAL links to GLFW 3.4. If you'd like to use your own version of GLFW (provided it
-doesn't break compatibility with 3.4), define this macro.
+doesn't break compatibility with anything GAL does), define this macro.\
+`GAL_DONT_INCLUDE_GLM`: By default, GAL links to GLM 1.0.3. If you'd like to use your own version of GLM (provided it 
+doesn't break compatibility with anything GAL does), define this macro. #include \<GAL/glmIncludes.hpp\> instead of 
+including GLM yourself as this file includes all the headers it needs from GLM.
