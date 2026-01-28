@@ -98,8 +98,8 @@ namespace gal
 
 		/// @brief Allocate enough space in VRAM to hold all the data in the given container and fill the buffer with
 		/// that data.
-		/// @tparam Container Container type. This can be anything that satisfies the ContinuousContainer requirement.
-		/// See https://en.cppreference.com/w/cpp/named_req/ContiguousContainer.html
+		/// @tparam Container Container type. This can be anything that has a .data() and .size() method and stores
+		/// elements contiguously in memory (e.g., std::array, std::vector, etc.).
 		/// @param data The container with the data to fill the buffer with.
 		/// @param usage Buffer usage hint.
 		template<typename Container>
@@ -123,8 +123,8 @@ namespace gal
 		}
 
 		/// @brief Update the entire contents of the buffer with the given data.
-		/// @tparam Container Container type. This can be anything that satisfies the ContinuousContainer requirement.
-		/// See https://en.cppreference.com/w/cpp/named_req/ContiguousContainer.html
+		/// @tparam Container Container type. This can be anything that has a .data() and .size() method and stores
+		/// elements contiguously in memory (e.g., std::array, std::vector, etc.).
 		/// @param data The container with the data to fill the buffer with.
 		template<typename Container>
 		auto writeAll(const Container& data) const noexcept
@@ -134,6 +134,29 @@ namespace gal
 			>
 		{
 			writeAll(data.data());
+		}
+
+		[[nodiscard]] void* map(const GLbitfield access) const noexcept
+		{
+			void* data = glMapNamedBuffer(getHandle(), access);
+			if (!data)
+				detail::throwErr(ErrCode::MapBufferFailed, "Failed to map buffer.");
+			return data;
+		}
+
+		[[nodiscard]] void* mapRange(const GLintptr offset, const GLsizeiptr length, const GLbitfield access) const noexcept
+		{
+			void* data = glMapNamedBufferRange(getHandle(), offset, length, access);
+			if (!data)
+				detail::throwErr(ErrCode::MapBufferFailed, "Failed to map buffer.");
+			return data;
+		}
+
+		void unmap() const noexcept
+		{
+			const bool success = glUnmapNamedBuffer(getHandle());
+			if (!success)
+				detail::throwErr(ErrCode::UnmapBufferFailed, "Failed to unmap buffer.");
 		}
 	};
 }

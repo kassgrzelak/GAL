@@ -12,6 +12,8 @@ namespace gal
 	{
 		// Buffer.
 		CreateBufferFailed, // Failed to create buffer.
+		MapBufferFailed, // Failed to map buffer.
+		UnmapBufferFailed, // Failed to unmap buffer.
 
 		// Init.
 		GLFWInitFailed, // Failed to initialize GLFW.
@@ -38,6 +40,8 @@ namespace gal
 		switch (errCode)
 		{
 			case ErrCode::CreateBufferFailed: return "CreateBufferFailed";
+			case ErrCode::MapBufferFailed: return "MapBufferFailed";
+			case ErrCode::UnmapBufferFailed: return "UnmapBufferFailed";
 
 			case ErrCode::GLFWInitFailed: return "GLFWInitFailed";
 			case ErrCode::GLADInitFailed: return "GLADInitFailed";

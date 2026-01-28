@@ -73,6 +73,9 @@ namespace gal
 		/// defined, the error printed to the console will contain OpenGL's error log with reasons why compilation failed.
 		void compile() const
 		{
+			detail::logInfoStart() << "Compiling shader ID " << getHandle() << "..." << detail::logInfoEnd;
+			detail::logIncreaseIndent();
+
 			glCompileShader(getHandle());
 
 			GLint success;
@@ -92,12 +95,15 @@ namespace gal
 				detail::throwErr(ErrCode::ShaderCompilationFailed, "Failed to compile shader.");
 #endif
 			}
+
+			detail::logInfo("Successfully compiled shader.");
+			detail::logDecreaseIndent();
 		}
 
 		/// @brief Delete the shader.
 		///
 		/// This just calls the destructor, which would delete the shader anyway when it goes out of scope, but this
-		/// is here as a more explicit option (that's also less ugly than calling the destructor directly).
+		/// is here as a more explicit option that's less ugly than calling the destructor directly.
 		void destroy() const noexcept { this->~Shader(); }
 	};
 }
