@@ -9,6 +9,7 @@ namespace gal
 {
 	// ID Types for semantic clarity.
 
+	using BufferID = GLuint;
 	using ProgramID = GLuint;
 	using ShaderID = GLuint;
 }

@@ -5,6 +5,7 @@
 #ifndef GAL_GRAPHICS_HPP
 #define GAL_GRAPHICS_HPP
 
+#include "Buffer.hpp"
 #include "Program.hpp"
 #include "Shader.hpp"
 

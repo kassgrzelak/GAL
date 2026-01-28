@@ -26,7 +26,7 @@ namespace gal
 	{
 	public:
 		/// @brief Create an empty program.
-		/// @throws ErrCode::CreateProgramFailed If program creation fails for any reason.
+		/// @throws ErrCode::CreateProgramFailed If initial program creation fails.
 		Program()
 		{
 			detail::logInfo("Creating program...");
@@ -113,7 +113,7 @@ namespace gal
 		/// @param name Name of the uniform to set.
 		/// @param val Value to assign to the uniform.
 		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
-		[[maybe_unused]] const Program& setUniform(const std::string& name, const float val) const
+		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLfloat val) const
 		{
 			glProgramUniform1f(getHandle(), getUniformLocation(name), val);
 			return *this;
@@ -134,7 +134,7 @@ namespace gal
 		/// @param val1 First component of the uniform.
 		/// @param val2 Second component of the uniform.
 		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
-		[[maybe_unused]] const Program& setUniform(const std::string& name, const float val1, const float val2) const
+		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLfloat val1, const GLfloat val2) const
 		{
 			glProgramUniform2f(getHandle(), getUniformLocation(name), val1, val2);
 			return *this;
@@ -156,7 +156,7 @@ namespace gal
 		/// @param val2 Second component of the uniform.
 		/// @param val3 Third component of the uniform.
 		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
-		[[maybe_unused]] const Program& setUniform(const std::string& name, const float val1, const float val2, const float val3) const
+		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLfloat val1, const GLfloat val2, const GLfloat val3) const
 		{
 			glProgramUniform3f(getHandle(), getUniformLocation(name), val1, val2, val3);
 			return *this;
@@ -179,7 +179,7 @@ namespace gal
 		/// @param val3 Third component of the uniform.
 		/// @param val4 Fourth component of the uniform.
 		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
-		[[maybe_unused]] const Program& setUniform(const std::string& name, const float val1, const float val2, const float val3, const float val4) const
+		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLfloat val1, const GLfloat val2, const GLfloat val3, const GLfloat val4) const
 		{
 			glProgramUniform4f(getHandle(), getUniformLocation(name), val1, val2, val3, val4);
 			return *this;
@@ -211,7 +211,7 @@ namespace gal
 		/// @param name Name of the uniform to set.
 		/// @param val Integer value to assign to the uniform.
 		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
-		[[maybe_unused]] const Program& setUniform(const std::string& name, const int val) const
+		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLint val) const
 		{
 			glProgramUniform1i(getHandle(), getUniformLocation(name), val);
 			return *this;
@@ -232,7 +232,7 @@ namespace gal
 		/// @param val1 First component of the uniform.
 		/// @param val2 Second component of the uniform.
 		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
-		[[maybe_unused]] const Program& setUniform(const std::string& name, const int val1, const int val2) const
+		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLint val1, const GLint val2) const
 		{
 			glProgramUniform2i(getHandle(), getUniformLocation(name), val1, val2);
 			return *this;
@@ -254,7 +254,7 @@ namespace gal
 		/// @param val2 Second component of the uniform.
 		/// @param val3 Third component of the uniform.
 		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
-		[[maybe_unused]] const Program& setUniform(const std::string& name, const int val1, const int val2, const int val3) const
+		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLint val1, const GLint val2, const GLint val3) const
 		{
 			glProgramUniform3i(getHandle(), getUniformLocation(name), val1, val2, val3);
 			return *this;
@@ -277,7 +277,7 @@ namespace gal
 		/// @param val3 Third component of the uniform.
 		/// @param val4 Fourth component of the uniform.
 		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
-		[[maybe_unused]] const Program& setUniform(const std::string& name, const int val1, const int val2, const int val3, const int val4) const
+		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLint val1, const GLint val2, const GLint val3, const GLint val4) const
 		{
 			glProgramUniform4i(getHandle(), getUniformLocation(name), val1, val2, val3, val4);
 			return *this;
@@ -299,7 +299,7 @@ namespace gal
 		/// @param name Name of the uniform to set.
 		/// @param val Unsigned integer value to assign to the uniform.
 		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
-		[[maybe_unused]] const Program& setUniform(const std::string& name, const unsigned int val) const
+		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLuint val) const
 		{
 			glProgramUniform1ui(getHandle(), getUniformLocation(name), val);
 			return *this;
@@ -320,7 +320,7 @@ namespace gal
 		/// @param val1 First component of the uniform.
 		/// @param val2 Second component of the uniform.
 		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
-		[[maybe_unused]] const Program& setUniform(const std::string& name, const unsigned int val1, const unsigned int val2) const
+		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLuint val1, const GLuint val2) const
 		{
 			glProgramUniform2ui(getHandle(), getUniformLocation(name), val1, val2);
 			return *this;
@@ -342,7 +342,7 @@ namespace gal
 		/// @param val2 Second component of the uniform.
 		/// @param val3 Third component of the uniform.
 		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
-		[[maybe_unused]] const Program& setUniform(const std::string& name, const unsigned int val1, const unsigned int val2, const unsigned int val3) const
+		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLuint val1, const GLuint val2, const GLuint val3) const
 		{
 			glProgramUniform3ui(getHandle(), getUniformLocation(name), val1, val2, val3);
 			return *this;
@@ -365,7 +365,7 @@ namespace gal
 		/// @param val3 Third component of the uniform.
 		/// @param val4 Fourth component of the uniform.
 		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
-		[[maybe_unused]] const Program& setUniform(const std::string& name, const unsigned int val1, const unsigned int val2, const unsigned int val3, const unsigned int val4) const
+		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLuint val1, const GLuint val2, const GLuint val3, const GLuint val4) const
 		{
 			glProgramUniform4ui(getHandle(), getUniformLocation(name), val1, val2, val3, val4);
 			return *this;

@@ -86,7 +86,8 @@ add_library(GAL INTERFACE
         include/GAL/graphics/Program.hpp
         include/GAL/graphics/Shader.hpp
         include/GAL/system/system.hpp
-        include/GAL/system/time.hpp)
+        include/GAL/system/time.hpp
+        include/GAL/graphics/Buffer.hpp)
 add_library(GAL::GAL ALIAS GAL)
 
 target_compile_features(GAL INTERFACE cxx_std_17)

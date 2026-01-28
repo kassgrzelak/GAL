@@ -36,9 +36,8 @@ namespace gal
 		/// callback.
 		/// @param vsync Calls glfwSwapInterval(1) if true.
 		/// @param makeContextCurrent Whether to make the context created with this new window current or not.
-		/// @throws ErrCode::CreateWindowFailed If window creation fails for any reason.
-		/// @throws ErrCode::GLADInitFailed If glad hasn't already been initialized and initializing it fails for any
-		/// reason.
+		/// @throws ErrCode::CreateWindowFailed If initial window creation fails.
+		/// @throws ErrCode::GLADInitFailed If glad hasn't already been initialized and initializing it fails.
 		Window(const int width, const int height, const char* title, GLFWmonitor* monitor = nullptr,
 		       GLFWwindow* share = nullptr, const bool resizable = false, const bool vsync = false,
 		       const bool makeContextCurrent = true)

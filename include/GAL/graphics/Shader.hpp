@@ -24,7 +24,7 @@ namespace gal
 	public:
 		/// @brief Create a shader of the given type.
 		/// @param type The type of shader to create.
-		/// @throws ErrCode::CreateShaderFailed If shader creation fails for any reason.
+		/// @throws ErrCode::CreateShaderFailed If initial shader creation fails.
 		explicit Shader(const ShaderType type)
 		{
 			detail::logInfo("Creating shader...");
@@ -69,7 +69,8 @@ namespace gal
 
 		/// @brief Compile the shader with the source code provided with an earlier call to sourceString() or
 		/// sourceFile().
-		/// @throws ErrCode::ShaderCompilationFailed If shader compilation fails for any reason.
+		/// @throws ErrCode::ShaderCompilationFailed If shader compilation fails for any reason. If GAL_ERROR_LOGGING is
+		/// defined, the error printed to the console will contain OpenGL's error log with reasons why compilation failed.
 		void compile() const
 		{
 			glCompileShader(getHandle());
