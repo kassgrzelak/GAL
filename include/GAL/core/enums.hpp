@@ -20,6 +20,7 @@ namespace gal
 		// Program.
 		CreateProgramFailed, // Failed to create program.
 		ProgramLinkFailed, // Failed to link program.
+		NonExistentShaderUniform, // Attempted to set non-existent shader uniform.
 
 		// Shader.
 		CreateShaderFailed, // Failed to create shader.
