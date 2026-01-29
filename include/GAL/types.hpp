@@ -12,6 +12,7 @@ namespace gal
 	using BufferID = GLuint;
 	using ProgramID = GLuint;
 	using ShaderID = GLuint;
+	using VertexArrayID = GLuint;
 }
 
 #endif //GAL_TYPES_HPP

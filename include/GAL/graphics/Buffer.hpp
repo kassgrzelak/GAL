@@ -42,7 +42,7 @@ namespace gal
 		/// @brief Get the ID of the buffer.
 		[[nodiscard]] BufferID getID() const noexcept { return getHandle(); }
 
-		/// @brief Bind the buffer to the given target. DSA is encouraged where possible.
+		/// @brief Bind the buffer to the given target.
 		/// @param target Target to bind the buffer to.
 		void bind(BufferTarget target) const noexcept { glBindBuffer(static_cast<GLenum>(target), getHandle()); }
 

@@ -88,7 +88,9 @@ add_library(GAL INTERFACE
         include/GAL/system/system.hpp
         include/GAL/system/time.hpp
         include/GAL/graphics/Buffer.hpp
-        include/GAL/glmIncludes.hpp)
+        include/GAL/glmIncludes.hpp
+        include/GAL/graphics/VertexArray.hpp
+        include/GAL/system/GLParams.hpp)
 add_library(GAL::GAL ALIAS GAL)
 
 target_compile_features(GAL INTERFACE cxx_std_17)
@@ -108,8 +110,8 @@ target_link_libraries(GAL INTERFACE
 # Examples (optional)
 # ========================
 if(GAL_BUILD_EXAMPLES)
-    add_executable(GAL_example examples/example.cpp)
-    target_link_libraries(GAL_example PRIVATE GAL::GAL)
+    add_executable(GAL_example_window examples/window.cpp)
+    target_link_libraries(GAL_example_window PRIVATE GAL::GAL)
 endif()
 
 # ========================

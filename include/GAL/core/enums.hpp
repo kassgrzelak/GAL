@@ -29,6 +29,13 @@ namespace gal
 		ShaderCompilationFailed, // Failed to compile shader.
 		ShaderFileReadFailed, // Failed to read shader source file.
 
+		// Vertex array.
+		CreateVertexArrayFailed, // Failed to create vertex array.
+		VertexBufferIndexOutOfRange, // Attempted to add a vertex attribute with an index that was out of range
+		                             // (> GL_MAX_VERTEX_ATTRIBS - 1).
+		VertexAttributeIndexOutOfRange, // Attempted to add a vertex attribute with an index that was out of range
+		                                // (> GL_MAX_VERTEX_ATTRIBS - 1).
+
 		// Window.
 		CreateWindowFailed, // Failed to create window.
 	};
@@ -46,8 +53,6 @@ namespace gal
 			case ErrCode::GLFWInitFailed: return "GLFWInitFailed";
 			case ErrCode::GLADInitFailed: return "GLADInitFailed";
 
-			case ErrCode::CreateWindowFailed: return "CreateWindowFailed";
-
 			case ErrCode::CreateProgramFailed: return "CreateProgramFailed";
 			case ErrCode::ProgramLinkFailed: return "ProgramLinkFailed";
 			case ErrCode::NonExistentShaderUniform: return "NonExistentShaderUniform";
@@ -55,6 +60,12 @@ namespace gal
 			case ErrCode::CreateShaderFailed: return "CreateShaderFailed";
 			case ErrCode::ShaderCompilationFailed: return "ShaderCompilationFailed";
 			case ErrCode::ShaderFileReadFailed: return "ShaderFileReadFailed";
+
+			case ErrCode::CreateVertexArrayFailed: return "CreateVertexArrayFailed";
+			case ErrCode::VertexBufferIndexOutOfRange: return "VertexBufferIndexOutOfRange";
+			case ErrCode::VertexAttributeIndexOutOfRange: return "VertexAttributeIndexOutOfRange";
+
+			case ErrCode::CreateWindowFailed: return "CreateWindowFailed";
 		}
 
 		return "Unknown. The developer probably forgot to add this ErrCode to the switch statement.";

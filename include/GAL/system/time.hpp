@@ -21,14 +21,14 @@ namespace gal
 
 	/// @brief Get current program time.
 	template<typename T = double>
-	T getTime()
+	T getTime() noexcept
 	{
 		return static_cast<T>(detail::g_programTime);
 	}
 
 	/// @brief Get time between the last two calls to Window::pollEvents().
 	template<typename T = double>
-	T getDeltaTime()
+	T getDeltaTime() noexcept
 	{
 		return static_cast<T>(detail::g_programTime - detail::g_lastProgramTime);
 	}
