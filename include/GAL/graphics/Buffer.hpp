@@ -44,7 +44,15 @@ namespace gal
 
 		/// @brief Bind the buffer to the given target.
 		/// @param target Target to bind the buffer to.
-		void bind(BufferTarget target) const noexcept { glBindBuffer(static_cast<GLenum>(target), getHandle()); }
+		void bind(const BufferTarget target) const noexcept { glBindBuffer(static_cast<GLenum>(target), getHandle()); }
+
+		/// @brief Bind the buffer to an indexed target.
+		/// @param target Target to bind the buffer to.
+		/// @param index Index to bind the buffer to.
+		void bindIndexed(const BufferTarget target, const GLuint index) const noexcept
+		{
+			glBindBufferBase(static_cast<GLenum>(target), index, getHandle());
+		}
 
 		/// @brief Get the access policy set while mapping the buffer. Default value is GL_READ_WRITE.
 		[[nodiscard]] BufferAccessPolicy getAccessPolicy() const noexcept
