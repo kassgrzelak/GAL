@@ -108,6 +108,13 @@ namespace gal
 		StreamRead  = GL_STREAM_READ,
 		StreamCopy  = GL_STREAM_COPY
 	};
+
+	enum class BufferAccessPolicy : GLbitfield
+	{
+		ReadOnly  = GL_READ_ONLY,
+		WriteOnly = GL_WRITE_ONLY,
+		ReadWrite = GL_READ_WRITE,
+	};
 }
 
 #endif //GAL_ENUMS_HPP

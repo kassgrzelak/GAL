@@ -47,11 +47,11 @@ namespace gal
 		void bind(BufferTarget target) const noexcept { glBindBuffer(static_cast<GLenum>(target), getHandle()); }
 
 		/// @brief Get the access policy set while mapping the buffer. Default value is GL_READ_WRITE.
-		[[nodiscard]] GLbitfield getAccessPolicy() const noexcept
+		[[nodiscard]] BufferAccessPolicy getAccessPolicy() const noexcept
 		{
 			GLint access;
 			glGetNamedBufferParameteriv(getHandle(), GL_BUFFER_ACCESS, &access);
-			return access;
+			return static_cast<BufferAccessPolicy>(access);
 		}
 
 		/// @brief Get whether the buffer is currently mapped. Default value is false.
@@ -136,22 +136,32 @@ namespace gal
 			writeAll(data.data());
 		}
 
-		[[nodiscard]] void* map(const GLbitfield access) const noexcept
+		/// @brief Get a pointer that you can use to directly read and/or write to the entire buffer.
+		/// @param access The access policy to be used while the buffer is mapped.
+		/// @throws ErrCode::MapBufferFailed If mapping the buffer fails for any reason.
+		[[nodiscard]] void* map(const BufferAccessPolicy access) const noexcept
 		{
-			void* data = glMapNamedBuffer(getHandle(), access);
+			void* data = glMapNamedBuffer(getHandle(), static_cast<GLbitfield>(access));
 			if (!data)
 				detail::throwErr(ErrCode::MapBufferFailed, "Failed to map buffer.");
 			return data;
 		}
 
-		[[nodiscard]] void* mapRange(const GLintptr offset, const GLsizeiptr length, const GLbitfield access) const noexcept
+		/// @brief Get a pointer that you can use to directly read and/or write to a portion of the buffer.
+		/// @param offset Offset where the mapped portion begins.
+		/// @param length Length of the mapped portion in bytes.
+		/// @param access The access policy to be used while the buffer is mapped.
+		/// @throws ErrCode::MapBufferFailed If mapping the buffer fails for any reason.
+		[[nodiscard]] void* mapRange(const GLintptr offset, const GLsizeiptr length, const BufferAccessPolicy access) const noexcept
 		{
-			void* data = glMapNamedBufferRange(getHandle(), offset, length, access);
+			void* data = glMapNamedBufferRange(getHandle(), offset, length, static_cast<GLbitfield>(access));
 			if (!data)
 				detail::throwErr(ErrCode::MapBufferFailed, "Failed to map buffer.");
 			return data;
 		}
 
+		/// @brief Unmap the buffer.
+		/// @throws ErrCode::UnmapBufferFailed If unmapping the buffer fails for any reason.
 		void unmap() const noexcept
 		{
 			const bool success = glUnmapNamedBuffer(getHandle());
