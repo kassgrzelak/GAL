@@ -45,17 +45,16 @@ namespace gal
 
 		/// @brief Set the shader's source from a string.
 		/// @param source String containing the shader's source code.
-		[[maybe_unused]] const Shader& sourceString(const std::string& source) const noexcept // NOLINT(*-use-nodiscard)
+		void sourceString(const std::string& source) const noexcept
 		{
 			const char* sourceChars = source.c_str();
 			glShaderSource(getHandle(), 1, &sourceChars, nullptr);
-			return *this;
 		}
 
 		/// @brief Set the shader's source from a file.
 		/// @param path Filepath to the file containing the shader's source code.
 		/// @throws ErrCode::ShaderFileReadFailed If reading the file at the path provided fails for any reason.
-		[[maybe_unused]] const Shader& sourceFile(const std::string& path) const // NOLINT(*-use-nodiscard)
+		void sourceFile(const std::string& path) const
 		{
 			std::ifstream file{path};
 			if (!file.is_open())
@@ -64,7 +63,7 @@ namespace gal
 			std::stringstream buffer;
 			buffer << file.rdbuf();
 
-			return sourceString(buffer.str());
+			sourceString(buffer.str());
 		}
 
 		/// @brief Compile the shader with the source code provided with an earlier call to sourceString() or

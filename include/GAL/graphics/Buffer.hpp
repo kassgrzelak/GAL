@@ -134,6 +134,8 @@ namespace gal
 		/// @tparam Container Container type. This can be anything that has a .data() and .size() method and stores
 		/// elements contiguously in memory (e.g., std::array, std::vector, etc.).
 		/// @param data The container with the data to fill the buffer with.
+		///
+		/// This function assumes the container is the same size the buffer was allocated to.
 		template<typename Container>
 		auto writeAll(const Container& data) const noexcept
 			-> std::enable_if_t<
