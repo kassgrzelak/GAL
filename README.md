@@ -1,5 +1,7 @@
 # Open<ins>G</ins>L <ins>A</ins>bstraction <ins>L</ins>ayer (GAL)
 
+This project is currently on hold, but I hope to return to it once I've got a better grasp on CMake!
+
 Lorem ipsum descriptionus not writteth.
 
 ## Optional Macros
