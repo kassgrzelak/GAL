@@ -1,8 +1,9 @@
 # Open<ins>G</ins>L <ins>A</ins>bstraction <ins>L</ins>ayer (GAL)
 
-This project is currently on hold, but I hope to return to it once I've got a better grasp on CMake!
+An ergonomic header-only C++ library to make programming in OpenGL more intuitive, while not hiding any of the complexity
+that makes OpenGL so powerful.
 
-Lorem ipsum descriptionus not writteth.
+This project is currently on hold, but I hope to return to it one day!
 
 ## Optional Macros
 
