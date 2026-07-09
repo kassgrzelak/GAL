@@ -1,7 +1,6 @@
-# CLion project metadata.
-.idea/
 # Development testing playground.
 dev/
+
 # Doxygen docs.
 docs/
 /Doxyfile
