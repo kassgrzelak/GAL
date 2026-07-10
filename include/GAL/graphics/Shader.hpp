@@ -22,7 +22,8 @@ namespace gal
 	class Shader : detail::UniqueShader
 	{
 	public:
-		/// @brief Create a shader of the given type.
+		/// @brief Create a shader of the given type. Next, add a source to this shader, compile it, and attach it to
+		/// a shader program.
 		/// @param type The type of shader to create.
 		/// @throws ErrCode::CreateShaderFailed If initial shader creation fails.
 		explicit Shader(const ShaderType type)

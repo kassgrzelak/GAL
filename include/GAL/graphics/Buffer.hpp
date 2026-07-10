@@ -49,8 +49,9 @@ namespace gal
 		/// @brief Bind the buffer to an indexed target.
 		/// @param target Target to bind the buffer to.
 		/// @param index Index to bind the buffer to.
-		void bindIndexed(const BufferTarget target, const GLuint index) const noexcept
+		void bindIndexed(const IndexedBufferTarget target, const GLuint index) const noexcept
 		{
+			// TODO: index bounds checking.
 			glBindBufferBase(static_cast<GLenum>(target), index, getHandle());
 		}
 

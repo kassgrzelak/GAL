@@ -11,26 +11,26 @@ namespace gal
 {
 	namespace detail
 	{
-		// GLFW key tokens aren't actually a contiguous, unbroken range; there are some gaps. It also doesn't start at
-		// zero, but simplicity (and consequently speed) is more important than saving a bit of memory, I think.
-		constexpr int MAX_KEYS = GLFW_KEY_LAST + 1;
+		// First valid GLFW key code.
+		constexpr int FIRST_KEY_CODE = 32;
+		constexpr int KEY_CODE_NUM = GLFW_KEY_LAST + 1;
 
-		inline std::array<uint8_t, MAX_KEYS> g_prevKeyStates;
-		inline std::array<uint8_t, MAX_KEYS> g_currKeyStates;
+		inline std::array<uint8_t, KEY_CODE_NUM> g_prevKeyStates;
+		inline std::array<uint8_t, KEY_CODE_NUM> g_currKeyStates;
 
 		/// @brief Update internal key states.
 		inline void updateKeyStates(GLFWwindow* window)
 		{
 			std::move(g_currKeyStates.begin(), g_currKeyStates.end(), g_prevKeyStates.begin());
 
-			for (int key = 0; key < MAX_KEYS; ++key)
+			for (int key = FIRST_KEY_CODE; key < KEY_CODE_NUM; ++key)
 				g_currKeyStates[key] = glfwGetKey(window, key) == GLFW_PRESS;
 		}
 
 		/// @brief Check if a key is in the valid range.
 		inline bool isValidKey(const int key)
 		{
-			return key < MAX_KEYS && key >= 0;
+			return key < KEY_CODE_NUM && key >= 0;
 		}
 	}
 

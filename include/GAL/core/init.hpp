@@ -14,6 +14,7 @@ namespace gal
 		inline int g_openGLVersionMajor = -1;
 		inline int g_openGLVersionMinor = -1;
 
+		inline bool g_initialized = false;
 		inline bool g_postGLInitialized = false;
 
 		/// @brief Initialization that can only be done after an OpenGL context has been created. Mainly initialization
@@ -44,7 +45,7 @@ namespace gal
 	}
 
 	/// @brief Initialize GLFW, setting window hints for OpenGL version and profile with the given values. You must call
-	/// this before calling almost any other GAL function.
+	/// this before creating a window and therefore an OpenGL context.
 	/// @param openGLVersionMajor Major OpenGL version. The default is 4 as this is what the vendored glad was generated
 	/// for. If supplying your own glad, change this accordingly.
 	/// @param openGLVersionMinor Minor OpenGL version. The default is 6 as this is what the vendored glad was generated
@@ -56,8 +57,14 @@ namespace gal
 	inline void init(const int openGLVersionMajor = 4, const int openGLVersionMinor = 6,
 	                 const int contextProfile = GLFW_OPENGL_CORE_PROFILE, const bool debugContext = false)
 	{
-		// TODO: For now, it seems to not matter if you call gal::init() multiple times but I should really look into
-		// whether this is definitely kosher or not. Do the window hints get reset after creating a window?
+		if (detail::g_initialized)
+		{
+			detail::logWarn("GAL has already been initialized. Ignoring call to gal::init().");
+			return;
+		}
+
+		detail::g_initialized = true;
+
 		detail::logInfo("Initializing gal...");
 		detail::logIncreaseIndent();
 
@@ -71,7 +78,7 @@ namespace gal
 		glfwWindowHint(GLFW_OPENGL_PROFILE, contextProfile);
 #ifdef __APPLE__
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // This represents both the beginning and end of my
-		// bothering to make GAL compatible with macOS.
+		                                                     // bothering to make GAL compatible with macOS.
 #endif
 
 		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, debugContext);

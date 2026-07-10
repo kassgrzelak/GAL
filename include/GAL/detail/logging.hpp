@@ -107,7 +107,7 @@ namespace gal::detail
 	inline std::ostream& logInfoStart()
 	{
 		if (g_logIndent == 0)
-			return std::cout << "GAL_INFO: ";
+			return std::cout;
 
 		for (int i = 0; i < g_logIndent; ++i)
 			std::cout << "\t";

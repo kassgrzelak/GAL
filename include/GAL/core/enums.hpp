@@ -83,12 +83,11 @@ namespace gal
 		Fragment       = GL_FRAGMENT_SHADER
 	};
 
-	/// @brief Enum of all possible buffer targets.
-	/// Values align with GL enums of same names.
+	/// @brief Enum of all \b non-indexed buffer targets.
+	/// Values align with GL enums of the same names.
 	enum class BufferTarget : GLenum
 	{
 		Array             = GL_ARRAY_BUFFER,
-		AtomicCounter     = GL_ATOMIC_COUNTER_BUFFER,
 		CopyRead          = GL_COPY_READ_BUFFER,
 		CopyWrite         = GL_COPY_WRITE_BUFFER,
 		DispatchIndirect  = GL_DISPATCH_INDIRECT_BUFFER,
@@ -97,14 +96,19 @@ namespace gal
 		PixelPack         = GL_PIXEL_PACK_BUFFER,
 		PixelUnpack       = GL_PIXEL_UNPACK_BUFFER,
 		Query             = GL_QUERY_BUFFER,
-		ShaderStorage     = GL_SHADER_STORAGE_BUFFER,
 		Texture           = GL_TEXTURE_BUFFER,
+	};
+
+	enum class IndexedBufferTarget : GLenum
+	{
+		AtomicCounter     = GL_ATOMIC_COUNTER_BUFFER,
+		ShaderStorage     = GL_SHADER_STORAGE_BUFFER,
 		TransformFeedback = GL_TRANSFORM_FEEDBACK_BUFFER,
 		Uniform           = GL_UNIFORM_BUFFER
 	};
 
 	/// @brief Enum of all possible buffer usages.
-	/// Values align with GL enums of same names.
+	/// Values align with GL enums of the same names.
 	enum class BufferUsage : GLenum
 	{
 		StaticDraw  = GL_STATIC_DRAW,

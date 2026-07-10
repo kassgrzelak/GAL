@@ -16,7 +16,7 @@ namespace gal::detail
 	/// @tparam Deleter Function pointer that takes the handle and deletes the allocated resource (e.g., glfwDestroyWindow()).
 	///
 	/// "Handle," in the context of this class, refers to a value that wholly identifies an allocated resource
-	/// and can be used to delete it (GLFWwindow* for windows, GLuint IDs for OpenGL objects, etc.).
+	/// and can be used to delete it (GLFWwindow* for windows and GLuint IDs for OpenGL objects).
 	template<typename Handle_t, Handle_t Invalid, void(*Deleter)(Handle_t) noexcept>
 	class UniqueHandle
 	{

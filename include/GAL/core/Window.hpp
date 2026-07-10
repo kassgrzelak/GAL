@@ -9,6 +9,8 @@
 
 #include "GAL/system/time.hpp"
 
+// TODO: Figure out how the hell multiple windows work
+
 namespace gal
 {
 	namespace detail
@@ -26,21 +28,21 @@ namespace gal
 	class Window : detail::UniqueWindow
 	{
 	public:
-		/// @brief Create a window with the given parameters.
+		/// @brief Create a window with the given parameters. As long as share == nullptr, this creates an OpenGL
+		/// context. After constructing a window and making its context current, you may call OpenGL functions
+		/// that require an active context.
 		/// @param width Initial width of the window in pixels.
 		/// @param height Initial height of the window in pixels.
 		/// @param title Title of the window.
-		/// @param monitor The monitor to use for fullscreen mode. Default is nullptr which is windowed mode.
+		/// @param monitor The monitor to use for fullscreen mode. Default is nullptr, which is windowed mode.
 		/// @param share Monitor to share context with. If setting this, make sure to set makeContextCurrent to false.
 		/// @param resizable Sets the GLFW_RESIZABLE window hint to true. You still need to set a framebuffer size
 		/// callback.
 		/// @param vsync Calls glfwSwapInterval(1) if true.
-		/// @param makeContextCurrent Whether to make the context created with this new window current or not.
 		/// @throws ErrCode::CreateWindowFailed If initial window creation fails.
 		/// @throws ErrCode::GLADInitFailed If glad hasn't already been initialized and initializing it fails.
 		Window(const int width, const int height, const char* title, GLFWmonitor* monitor = nullptr,
-		       GLFWwindow* share = nullptr, const bool resizable = false, const bool vsync = false,
-		       const bool makeContextCurrent = true)
+		       GLFWwindow* share = nullptr, const bool resizable = false, const bool vsync = false)
 		{
 			detail::logInfo("Creating window...");
 			detail::logIncreaseIndent();
@@ -54,17 +56,11 @@ namespace gal
 			}
 			detail::logInfo("Successfully created GLFWwindow object.");
 
-			if (makeContextCurrent)
-				glfwMakeContextCurrent(windowPtr);
-
-			if (!detail::g_postGLInitialized)
-				detail::postGLInit();
-
 			if (vsync)
 				glfwSwapInterval(1);
 
 			setHandle(windowPtr);
-			detail::logInfo("Successfully created window.");
+			detail::logInfoStart() << "Successfully created window " << detail::logInfoEnd;
 			detail::logDecreaseIndent();
 		}
 
@@ -101,6 +97,16 @@ namespace gal
 		/// @param height The new height of the window.
 		void setSize(const int width, const int height) const noexcept { glfwSetWindowSize(getHandle(), width, height); }
 
+		/// @brief Make this window's context current, so later OpenGL calls use this window's context.
+		/// Also initializes glad the first time this function is run after a call to gal::init().
+		void makeContextCurrent() const
+		{
+			glfwMakeContextCurrent(getWindowHandle());
+
+			if (!detail::g_postGLInitialized)
+				detail::postGLInit();
+		}
+
 		/// @brief Poll events (keypresses, window resizing, etc.) as well as keep internal frame-by-frame state updated.
 		void pollEvents() const noexcept
 		{
@@ -113,7 +119,10 @@ namespace gal
 		void swapBuffers() const noexcept { glfwSwapBuffers(getHandle()); }
 
 		/// @brief Call glViewport and set the viewport to the full extents of the window.
-		void setFullViewport() const noexcept { glViewport(0, 0, getWidth(), getHeight()); }
+		void setFullViewport() const noexcept
+		{
+			glViewport(0, 0, getWidth(), getHeight());
+		}
 
 	private:
 		/// @brief Reset any window hints set in the constructor to their defaults in the event an error is thrown.

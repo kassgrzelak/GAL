@@ -25,7 +25,7 @@ namespace gal
 	class Program : detail::UniqueProgram
 	{
 	public:
-		/// @brief Create an empty program.
+		/// @brief Create a shader program.
 		/// @throws ErrCode::CreateProgramFailed If initial program creation fails.
 		Program()
 		{

@@ -9,17 +9,40 @@ namespace gal
 {
 	namespace detail
 	{
-		// TODO: Default debug message callback.
+		inline void defaultGLFWErrorCallback(const int errorCode, const char* description)
+		{
+			logErrStart() << errorCode << " " << description << logErrEnd;
+		}
 	}
 
-	inline void setDebugCallback()
+	inline void setOpenGLDebugMessageCallback()
 	{
-		// TODO: Debug message callback set function.
+
 	}
 
-	inline void attachDefaultDebugCallback()
+	inline void clearOpenGLDebugMessageCallback()
 	{
-		// TODO: Default debug message callback set function.
+		
+	}
+
+	inline void setGLFWErrorCallback(const GLFWerrorfun callback)
+	{
+		glfwSetErrorCallback(callback);
+	}
+
+	inline void clearGLFWErrorCallback()
+	{
+		setGLFWErrorCallback(nullptr);
+	}
+
+	inline void attachDefaultOpenGLDebugMessageCallback()
+	{
+		// TODO: OpenGL default debug message callback set function.
+	}
+
+	inline void attachDefaultGLFWErrorCallback()
+	{
+		glfwSetErrorCallback(detail::defaultGLFWErrorCallback);
 	}
 }
 
