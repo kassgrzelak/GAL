@@ -54,8 +54,8 @@ namespace gal
 	/// the vendored glad was generated for. If supplying your own glad, change this accordingly.
 	/// @param debugContext Whether to set the window hint for a debug context.
 	/// @throws ErrCode::GLFWInitFailed If GLFW initialization fails for any reason.
-	inline void init(const int openGLVersionMajor = 4, const int openGLVersionMinor = 6,
-	                 const int contextProfile = GLFW_OPENGL_CORE_PROFILE, const bool debugContext = false)
+	inline void init(const bool debugContext = false, const int openGLVersionMajor = 4, 
+		const int openGLVersionMinor = 6, const int contextProfile = GLFW_OPENGL_CORE_PROFILE)
 	{
 		if (detail::g_initialized)
 		{

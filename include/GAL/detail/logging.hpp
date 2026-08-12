@@ -101,7 +101,7 @@ namespace gal::detail
 #ifdef GAL_INFO_LOGGING
 	inline std::ostream& logInfoEnd(std::ostream& os)
 	{
-		return os << std::endl;
+		return os << "\n";
 	}
 
 	inline std::ostream& logInfoStart()

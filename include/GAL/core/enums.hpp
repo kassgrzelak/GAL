@@ -130,6 +130,37 @@ namespace gal
 		WriteOnly = GL_WRITE_ONLY,
 		ReadWrite = GL_READ_WRITE,
 	};
+	
+	enum class DebugMessageSource : GLenum
+	{
+		API            = GL_DEBUG_SOURCE_API,
+		WindowSystem   = GL_DEBUG_SOURCE_WINDOW_SYSTEM,
+		ShaderCompiler = GL_DEBUG_SOURCE_SHADER_COMPILER,
+		ThirdParty     = GL_DEBUG_SOURCE_THIRD_PARTY,
+		Application    = GL_DEBUG_SOURCE_APPLICATION,
+		Other          = GL_DEBUG_SOURCE_OTHER,
+	};
+	
+	enum class DebugMessageType : GLenum
+	{
+		Error              = GL_DEBUG_TYPE_ERROR,
+		DeprecatedBehavior = GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR,
+		UndefinedBehavior  = GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR,
+		Portability        = GL_DEBUG_TYPE_PORTABILITY,
+		Performance        = GL_DEBUG_TYPE_PERFORMANCE,
+		Marker             = GL_DEBUG_TYPE_MARKER,
+		PushGroup          = GL_DEBUG_TYPE_PUSH_GROUP,
+		PopGroup           = GL_DEBUG_TYPE_POP_GROUP,
+		Other              = GL_DEBUG_TYPE_OTHER,
+	};
+	
+	enum class DebugMessageSeverity : GLenum
+	{
+		High = GL_DEBUG_SEVERITY_HIGH,
+		Medium = GL_DEBUG_SEVERITY_MEDIUM,
+		Low = GL_DEBUG_SEVERITY_LOW,
+		Notification = GL_DEBUG_SEVERITY_NOTIFICATION,
+	};
 }
 
 #endif //GAL_ENUMS_HPP
