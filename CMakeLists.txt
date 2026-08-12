@@ -60,11 +60,13 @@ target_include_directories(GAL INTERFACE
 target_compile_features(GAL INTERFACE cxx_std_17)
 
 function(copyAssets target)
-    add_custom_target(copy_assets
+    string(RANDOM LENGTH 64 unique_target)
+    
+    add_custom_target(${unique_target}
             COMMAND ${CMAKE_COMMAND} -P ${CMAKE_SOURCE_DIR}/copy_assets.cmake ${CMAKE_CURRENT_LIST_DIR}/assets
     )
 
-    add_dependencies(${target} copy_assets)
+    add_dependencies(${target} ${unique_target})
 endfunction()
 
 if(GAL_BUILD_EXAMPLES)

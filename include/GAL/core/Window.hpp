@@ -117,6 +117,12 @@ namespace gal
 
 		/// @brief Swap the front and back buffers of the window.
 		void swapBuffers() const noexcept { glfwSwapBuffers(getHandle()); }
+		
+		/// @brief Set the viewport to the given position and size.
+		void setViewport(const int x, const int y, const int width, const int height) const noexcept
+		{
+			glViewport(x, y, width, height);
+		}
 
 		/// @brief Call glViewport and set the viewport to the full extents of the window.
 		void setFullViewport() const noexcept

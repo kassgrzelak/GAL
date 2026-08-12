@@ -1,0 +1,3 @@
+add_executable(GAL_example_triangle triangle.cpp)
+target_link_libraries(GAL_example_triangle PRIVATE GAL::GAL)
+copyAssets(GAL_example_triangle)
