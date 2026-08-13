@@ -10,7 +10,7 @@ int main()
 	gal::init();
 
 	// Create the window, as well as an OpenGL context to go with it.
-	gal::Window window(800, 600, "Triangle Example");
+	gal::Window window{800, 600, "Triangle Example"};
 	// Make the window's OpenGL context current and do more gal initialization that can only be done with a context.
 	window.makeContextCurrent();
 	// Set the viewport to cover the entire window.
@@ -18,11 +18,11 @@ int main()
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	
 	// Compile shaders.
-	gal::Shader vertexShader(gal::ShaderType::Vertex);
+	gal::Shader vertexShader{gal::ShaderType::Vertex};
 	vertexShader.sourceFile("assets/shaders/vert.vert");
 	vertexShader.compile();
 	
-	gal::Shader fragmentShader(gal::ShaderType::Fragment);
+	gal::Shader fragmentShader{gal::ShaderType::Fragment};
 	fragmentShader.sourceFile("assets/shaders/frag.frag");
 	fragmentShader.compile();
 	
