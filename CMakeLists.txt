@@ -9,8 +9,29 @@ project(
 option(GAL_BUILD_EXAMPLES "Build GAL examples" ON)
 option(GAL_BUILD_DEV "Build GAL development tests" OFF)
 
-find_package(glm REQUIRED)
-find_package(glfw3 REQUIRED)
+include(FetchContent)
+
+find_package(glm QUIET)
+if(NOT glm_FOUND)
+    message(STATUS "Fetching GLM...")
+    FetchContent_Declare(
+            glm
+            GIT_REPOSITORY https://github.com/g-truc/glm.git
+            GIT_TAG 1.0.3
+    )
+    FetchContent_MakeAvailable(glm)
+endif()
+
+find_package(glfw3 QUIET)
+if(NOT glm_FOUND)
+    message(STATUS "Fetching GLM...")
+    FetchContent_Declare(
+            glfw
+            GIT_REPOSITORY https://github.com/glfw/glfw.git
+            GIT_TAG 3.5.1
+    )
+    FetchContent_MakeAvailable(glfw)
+endif()
 
 add_library(glad STATIC third-party/glad/src/gl.c)
 
@@ -69,11 +90,11 @@ function(copyAssets target)
     add_dependencies(${target} ${unique_target})
 endfunction()
 
-if(GAL_BUILD_EXAMPLES)
+if (GAL_BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()
 
-if(GAL_BUILD_DEV)
+if (GAL_BUILD_DEV)
     add_subdirectory(dev)
 endif()
 
