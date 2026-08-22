@@ -3,8 +3,6 @@
 An ergonomic header-only C++ library to make programming in OpenGL more intuitive, while not hiding any of the complexity
 that makes OpenGL so powerful.
 
-This project is currently on hold, but I hope to return to it one day!
-
 ## Optional Macros
 
 These are macros you can define before including GAL in your project to alter its behavior.
