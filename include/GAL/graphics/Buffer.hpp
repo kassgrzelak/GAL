@@ -17,12 +17,16 @@ namespace gal
 		using UniqueBuffer = UniqueHandle<BufferID, 0, &bufferDeleter>;
 	}
 
-	/// @brief Wrapper around an OpenGL buffer.
+	/**
+	 * @brief Wrapper around an OpenGL buffer.
+	 */
 	class Buffer : detail::UniqueBuffer
 	{
 	public:
-		/// @brief Create a buffer.
-		/// @throws ErrCode::CreateBufferFailed If initial buffer creation fails.
+		/**
+		 * @brief Create a buffer.
+		 * @throws ErrCode::CreateBufferFailed If initial buffer creation fails.
+		 */
 		Buffer()
 		{
 			detail::logInfo("Creating buffer...");
@@ -39,23 +43,31 @@ namespace gal
 			detail::logDecreaseIndent();
 		}
 
-		/// @brief Get the ID of the buffer.
+		/**
+		 * @brief Get the ID of the buffer.
+		 */
 		[[nodiscard]] BufferID getID() const noexcept { return getHandle(); }
 
-		/// @brief Bind the buffer to the given target.
-		/// @param target Target to bind the buffer to.
+		/**
+		 * @brief Bind the buffer to the given target.
+		 * @param target Target to bind the buffer to.
+		 */
 		void bind(const BufferTarget target) const noexcept { glBindBuffer(static_cast<GLenum>(target), getHandle()); }
 
-		/// @brief Bind the buffer to an indexed target.
-		/// @param target Target to bind the buffer to.
-		/// @param index Index to bind the buffer to.
+		/**
+		 * @brief Bind the buffer to an indexed target.
+		 * @param target Target to bind the buffer to.
+		 * @param index Index to bind the buffer to.
+		 */
 		void bindIndexed(const IndexedBufferTarget target, const GLuint index) const noexcept
 		{
 			// TODO: index bounds checking.
 			glBindBufferBase(static_cast<GLenum>(target), index, getHandle());
 		}
 
-		/// @brief Get the access policy set while mapping the buffer. Default value is GL_READ_WRITE.
+		/**
+		 * @brief Get the access policy set while mapping the buffer. Default value is GL_READ_WRITE.
+		 */
 		[[nodiscard]] BufferAccessPolicy getAccessPolicy() const noexcept
 		{
 			GLint access;
@@ -63,7 +75,9 @@ namespace gal
 			return static_cast<BufferAccessPolicy>(access);
 		}
 
-		/// @brief Get whether the buffer is currently mapped. Default value is false.
+		/**
+		 * @brief Get whether the buffer is currently mapped. Default value is false.
+		 */
 		[[nodiscard]] bool getMapped() const noexcept
 		{
 			GLint mapped;
@@ -71,7 +85,9 @@ namespace gal
 			return mapped;
 		}
 
-		/// @brief Get the size of the buffer. Default value is 0.
+		/**
+		 * @brief Get the size of the buffer. Default value is 0.
+		 */
 		[[nodiscard]] GLint64 getSize() const noexcept
 		{
 			GLint64 size;
@@ -79,7 +95,9 @@ namespace gal
 			return size;
 		}
 
-		/// @brief Get the usage pattern specified for this buffer. Default value is StaticDraw.
+		/**
+		 * @brief Get the usage pattern specified for this buffer. Default value is StaticDraw.
+		 */
 		[[nodiscard]] BufferUsage getUsage() const noexcept
 		{
 			GLint usage;
@@ -87,30 +105,36 @@ namespace gal
 			return static_cast<BufferUsage>(usage);
 		}
 
-		/// @brief Allocate given space in VRAM for this buffer with the given usage but don't fill it, leaving the
-		/// contents undefined.
-		/// @param size Size to allocate in bytes.
-		/// @param usage Buffer usage hint.
+		/**
+		 * @brief Allocate given space in VRAM for this buffer with the given usage but don't fill it, leaving the
+		 * contents undefined.
+		 * @param size Size to allocate in bytes.
+		 * @param usage Buffer usage hint.
+		 */
 		void allocate(const GLsizeiptr size, const BufferUsage usage) const noexcept
 		{
 			glNamedBufferData(getHandle(), size, nullptr, static_cast<GLenum>(usage));
 		}
 
-		/// @brief Allocate given space in VRAM for this buffer with the given usage hint and fill it with the given data.
-		/// @param size Size of data to write in bytes.
-		/// @param data Pointer to data to write.
-		/// @param usage Buffer usage hint.
+		/**
+		 * @brief Allocate given space in VRAM for this buffer with the given usage hint and fill it with the given data.
+		 * @param size Size of data to write in bytes.
+		 * @param data Pointer to data to write.
+		 * @param usage Buffer usage hint.
+		 */
 		void allocateAndWrite(const GLsizeiptr size, const void* data, const BufferUsage usage) const noexcept
 		{
 			glNamedBufferData(getHandle(), size, data, static_cast<GLenum>(usage));
 		}
 
-		/// @brief Allocate enough space in VRAM to hold all the data in the given container and fill the buffer with
-		/// that data.
-		/// @tparam Container Container type. This can be anything that has a .data() and .size() method and stores
-		/// elements contiguously in memory (e.g., std::array, std::vector, etc.).
-		/// @param data The container with the data to fill the buffer with.
-		/// @param usage Buffer usage hint.
+		/**
+		 * @brief Allocate enough space in VRAM to hold all the data in the given container and fill the buffer with
+		 * that data.
+		 * @tparam Container Container type. This can be anything that has a .data() and .size() method and stores
+		 * elements contiguously in memory (e.g., std::array, std::vector, etc.).
+		 * @param data The container with the data to fill the buffer with.
+		 * @param usage Buffer usage hint.
+		 */
 		template<typename Container>
 		auto allocateAndWrite(const Container& data, const BufferUsage usage) const noexcept
 			-> std::enable_if_t<
@@ -122,21 +146,25 @@ namespace gal
 			allocateAndWrite(sizeof(T) * data.size(), data.data(), usage);
 		}
 
-		/// @brief Update the entire contents of the buffer with the given data.
-		/// @param data Pointer to the data to write.
-		///
-		/// This function assumes the array that data points to is the same size the buffer was allocated to.
+		/**
+		 * @brief Update the entire contents of the buffer with the given data.
+		 * @param data Pointer to the data to write.
+		 *
+		 * This function assumes the array that data points to is the same size the buffer was allocated to.
+		 */
 		void writeAll(const void* data) const noexcept
 		{
 			glNamedBufferSubData(getHandle(), 0, getSize(), data);
 		}
 
-		/// @brief Update the entire contents of the buffer with the given data.
-		/// @tparam Container Container type. This can be anything that has a .data() and .size() method and stores
-		/// elements contiguously in memory (e.g., std::array, std::vector, etc.).
-		/// @param data The container with the data to fill the buffer with.
-		///
-		/// This function assumes the container is the same size the buffer was allocated to.
+		/**
+		 * @brief Update the entire contents of the buffer with the given data.
+		 * @tparam Container Container type. This can be anything that has a .data() and .size() method and stores
+		 * elements contiguously in memory (e.g., std::array, std::vector, etc.).
+		 * @param data The container with the data to fill the buffer with.
+		 *
+		 * This function assumes the container is the same size the buffer was allocated to.
+		 */
 		template<typename Container>
 		auto writeAll(const Container& data) const noexcept
 			-> std::enable_if_t<
@@ -147,9 +175,11 @@ namespace gal
 			writeAll(data.data());
 		}
 
-		/// @brief Get a pointer that you can use to directly read and/or write to the entire buffer.
-		/// @param access The access policy to be used while the buffer is mapped.
-		/// @throws ErrCode::MapBufferFailed If mapping the buffer fails for any reason.
+		/**
+		 * @brief Get a pointer that you can use to directly read and/or write to the entire buffer.
+		 * @param access The access policy to be used while the buffer is mapped.
+		 * @throws ErrCode::MapBufferFailed If mapping the buffer fails for any reason.
+		 */
 		[[nodiscard]] void* map(const BufferAccessPolicy access) const noexcept
 		{
 			void* data = glMapNamedBuffer(getHandle(), static_cast<GLbitfield>(access));
@@ -158,11 +188,13 @@ namespace gal
 			return data;
 		}
 
-		/// @brief Get a pointer that you can use to directly read and/or write to a portion of the buffer.
-		/// @param offset Offset where the mapped portion begins.
-		/// @param length Length of the mapped portion in bytes.
-		/// @param access The access policy to be used while the buffer is mapped.
-		/// @throws ErrCode::MapBufferFailed If mapping the buffer fails for any reason.
+		/**
+		 * @brief Get a pointer that you can use to directly read and/or write to a portion of the buffer.
+		 * @param offset Offset where the mapped portion begins.
+		 * @param length Length of the mapped portion in bytes.
+		 * @param access The access policy to be used while the buffer is mapped.
+		 * @throws ErrCode::MapBufferFailed If mapping the buffer fails for any reason.
+		 */
 		[[nodiscard]] void* mapRange(const GLintptr offset, const GLsizeiptr length, const BufferAccessPolicy access) const noexcept
 		{
 			void* data = glMapNamedBufferRange(getHandle(), offset, length, static_cast<GLbitfield>(access));
@@ -171,8 +203,10 @@ namespace gal
 			return data;
 		}
 
-		/// @brief Unmap the buffer.
-		/// @throws ErrCode::UnmapBufferFailed If unmapping the buffer fails for any reason.
+		/**
+		 * @brief Unmap the buffer.
+		 * @throws ErrCode::UnmapBufferFailed If unmapping the buffer fails for any reason.
+		 */
 		void unmap() const noexcept
 		{
 			const bool success = glUnmapNamedBuffer(getHandle());

@@ -9,14 +9,16 @@
 
 namespace gal::detail
 {
-	/// @brief Class to keep track of an allocated resource, register/unregister it from the RR, and destroy it when it
-	/// goes out of scope like RAII.
-	/// @tparam Handle_t Type of the resource's handle (e.g., GLFWwindow*, GLuint).
-	/// @tparam Invalid The value that indicates an invalidated handle (i.e., deleted or not yet set).
-	/// @tparam Deleter Function pointer that takes the handle and deletes the allocated resource (e.g., glfwDestroyWindow()).
-	///
-	/// "Handle," in the context of this class, refers to a value that wholly identifies an allocated resource
-	/// and can be used to delete it (GLFWwindow* for windows and GLuint IDs for OpenGL objects).
+	/**
+	 * @brief Class to keep track of an allocated resource, register/unregister it from the RR, and destroy it when it
+	 * goes out of scope like RAII.
+	 * @tparam Handle_t Type of the resource's handle (e.g., GLFWwindow*, GLuint).
+	 * @tparam Invalid The value that indicates an invalidated handle (i.e., deleted or not yet set).
+	 * @tparam Deleter Function pointer that takes the handle and deletes the allocated resource (e.g., glfwDestroyWindow()).
+	 *
+	 * "Handle," in the context of this class, refers to a value that wholly identifies an allocated resource
+	 * and can be used to delete it (GLFWwindow* for windows and GLuint IDs for OpenGL objects).
+	 */
 	template<typename Handle_t, Handle_t Invalid, void(*Deleter)(Handle_t) noexcept>
 	class UniqueHandle
 	{
@@ -43,7 +45,7 @@ namespace gal::detail
 			}
 		}
 
-		~UniqueHandle() noexcept
+		virtual ~UniqueHandle() noexcept
 		{
 			resetHandle();
 		}
@@ -66,8 +68,10 @@ namespace gal::detail
 			return *this;
 		}
 
-		/// @brief Set and register a new handle, deleting any previously set one.
-		/// @param newHandle The new handle to set.
+		/**
+		 * @brief Set and register a new handle, deleting any previously set one.
+		 * @param newHandle The new handle to set.
+		 */
 		void setHandle(Handle_t newHandle) noexcept
 		{
 			resetHandle();
@@ -77,15 +81,23 @@ namespace gal::detail
 				register_();
 		}
 
-		/// @brief Get the currently registered handle.
+		/**
+		 * @brief Get the currently registered handle.
+		 */
 		[[nodiscard]] Handle_t getHandle() const noexcept { return m_handle; }
-		/// @brief Get a pointer to the currently registered handle.
+		/**
+		 * @brief Get a pointer to the currently registered handle.
+		 */
 		[[nodiscard]] Handle_t* getHandlePtr() noexcept { return &m_handle; }
-		/// @brief Check if the current handle is valid (i.e., not equal to Invalid).
+		/**
+		 * @brief Check if the current handle is valid (i.e., not equal to Invalid).
+		 */
 		[[nodiscard]] bool handleValid() const noexcept { return m_handle != Invalid; }
 
 	private:
-		/// @brief If the current handle is valid, unregister it, delete the associated resource, and invalidate the handle.
+		/**
+		 * @brief If the current handle is valid, unregister it, delete the associated resource, and invalidate the handle.
+		 */
 		void resetHandle() noexcept
 		{
 			if (handleValid())
@@ -97,7 +109,9 @@ namespace gal::detail
  			}
 		}
 
-		/// @brief Register the current handle with the RR.
+		/**
+		 * @brief Register the current handle with the RR.
+		 */
 		void register_() noexcept
 		{
 			g_resourceRegistry.register_(
@@ -108,7 +122,9 @@ namespace gal::detail
 			);
 		}
 
-		/// @brief Unregister the current handle from the RR.
+		/**
+		 * @brief Unregister the current handle from the RR.
+		 */
 		void unregister() const noexcept
 		{
 			g_resourceRegistry.unregister(static_cast<const void*>(&m_handle));

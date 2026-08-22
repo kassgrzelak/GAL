@@ -7,7 +7,9 @@
 
 namespace gal
 {
-	/// @brief Enum of all the various errors that can occur in GAL.
+	/**
+	 * @brief Enum of all the various errors that can occur in GAL.
+	 */
 	enum class ErrCode
 	{
 		// Buffer.
@@ -40,8 +42,10 @@ namespace gal
 		CreateWindowFailed, // Failed to create window.
 	};
 
-	/// @brief Convert a GAL error code to a string of its name.
-	/// @param errCode Error code to convert to string.
+	/**
+	 * @brief Convert a GAL error code to a string of its name.
+	 * @param errCode Error code to convert to string.
+	 */
 	[[nodiscard]] inline const char* errCodeToString(const ErrCode errCode)
 	{
 		switch (errCode)
@@ -71,8 +75,10 @@ namespace gal
 		return "Unknown. The developer probably forgot to add this ErrCode to the switch statement.";
 	}
 
-	/// @brief Enum of all possible shader types.
-	/// Values align with GL enums of the same names.
+	/**
+	 * @brief Enum of all possible shader types.
+	 * Values align with GL enums of the same names.
+	 */
 	enum class ShaderType : GLenum
 	{
 		Compute        = GL_COMPUTE_SHADER,
@@ -83,8 +89,10 @@ namespace gal
 		Fragment       = GL_FRAGMENT_SHADER
 	};
 
-	/// @brief Enum of all \b non-indexed buffer targets.
-	/// Values align with GL enums of the same names.
+	/**
+	 * @brief Enum of all \b non-indexed buffer targets.
+	 * Values align with GL enums of the same names.
+	 */
 	enum class BufferTarget : GLenum
 	{
 		Array             = GL_ARRAY_BUFFER,
@@ -107,8 +115,10 @@ namespace gal
 		Uniform           = GL_UNIFORM_BUFFER
 	};
 
-	/// @brief Enum of all possible buffer usages.
-	/// Values align with GL enums of the same names.
+	/**
+	 * @brief Enum of all possible buffer usages.
+	 * Values align with GL enums of the same names.
+	 */
 	enum class BufferUsage : GLenum
 	{
 		StaticDraw  = GL_STATIC_DRAW,

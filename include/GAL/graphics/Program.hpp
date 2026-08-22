@@ -21,12 +21,16 @@ namespace gal
 		using UniqueProgram = UniqueHandle<ProgramID, 0, programDeleter>;
 	}
 
-	/// @brief Wrapper around an OpenGL shader program with uniform location caching.
+	/**
+	 * @brief Wrapper around an OpenGL shader program with uniform location caching.
+	 */
 	class Program : detail::UniqueProgram
 	{
 	public:
-		/// @brief Create a shader program.
-		/// @throws ErrCode::CreateProgramFailed If initial program creation fails.
+		/**
+		 * @brief Create a shader program.
+		 * @throws ErrCode::CreateProgramFailed If initial program creation fails.
+		 */
 		Program()
 		{
 			detail::logInfo("Creating program...");
@@ -42,27 +46,41 @@ namespace gal
 			detail::logDecreaseIndent();
 		}
 
-		/// @brief Get the ID of the program.
+		/**
+		 * @brief Get the ID of the program.
+		 */
 		[[nodiscard]] ProgramID getID() const noexcept { return getHandle(); }
 
-		/// @brief Make OpenGL use the program.
+		/**
+		 * @brief Make OpenGL use the program.
+		 */
 		void use() const noexcept { glUseProgram(getHandle()); }
 
-		/// @brief Attach a shader to the program.
-		/// @param shader The shader to attach.
+		/**
+		 * @brief Attach a shader to the program.
+		 * @param shader The shader to attach.
+		 */
 		void attachShader(const Shader& shader) const noexcept { attachShader(shader.getID()); }
-		/// @brief Attach a shader to the program.
-		/// @param shaderID The ID of the shader to attach.
+		/**
+		 * @brief Attach a shader to the program.
+		 * @param shaderID The ID of the shader to attach.
+		 */
 		void attachShader(const ShaderID shaderID) const noexcept { glAttachShader(getHandle(), shaderID); }
-		/// @brief Detach a shader to the program.
-		/// @param shader The shader to detach.
+		/**
+		 * @brief Detach a shader to the program.
+		 * @param shader The shader to detach.
+		 */
 		void detachShader(const Shader& shader) const noexcept { detachShader(shader.getID()); }
-		/// @brief Detach a shader to the program.
-		/// @param shaderID The ID of the shader to detach.
+		/**
+		 * @brief Detach a shader to the program.
+		 * @param shaderID The ID of the shader to detach.
+		 */
 		void detachShader(const ShaderID shaderID) const noexcept { glDetachShader(getHandle(), shaderID); }
 
-		/// @brief Link the program and automatically detach all attached shaders.
-		/// @throws ErrCode::ProgramLinkFailed If program linking fails for any reason.
+		/**
+		 * @brief Link the program and automatically detach all attached shaders.
+		 * @throws ErrCode::ProgramLinkFailed If program linking fails for any reason.
+		 */
 		void link() const
 		{
 			detail::logInfoStart() << "Linking program ID " << getHandle() << "..." << detail::logInfoEnd;
@@ -109,86 +127,102 @@ namespace gal
 		
 		// ========== float uniform setters ==========
 
-		/// @brief Set a float uniform.
-		/// @param name Name of the uniform to set.
-		/// @param val Value to assign to the uniform.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set a float uniform.
+		 * @param name Name of the uniform to set.
+		 * @param val Value to assign to the uniform.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLfloat val) const
 		{
 			glProgramUniform1f(getHandle(), getUniformLocation(name), val);
 			return *this;
 		}
 
-		/// @brief Set a float uniform.
-		/// @param name Name of the uniform to set.
-		/// @param vec Value to assign to the uniform as a 1-component vector.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set a float uniform.
+		 * @param name Name of the uniform to set.
+		 * @param vec Value to assign to the uniform as a 1-component vector.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::vec1& vec) const
 		{
 			glProgramUniform1fv(getHandle(), getUniformLocation(name), 1, glm::value_ptr(vec));
 			return *this;
 		}
 
-		/// @brief Set a float vector uniform with two components.
-		/// @param name Name of the uniform to set.
-		/// @param val1 First component of the uniform.
-		/// @param val2 Second component of the uniform.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set a float vector uniform with two components.
+		 * @param name Name of the uniform to set.
+		 * @param val1 First component of the uniform.
+		 * @param val2 Second component of the uniform.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLfloat val1, const GLfloat val2) const
 		{
 			glProgramUniform2f(getHandle(), getUniformLocation(name), val1, val2);
 			return *this;
 		}
 
-		/// @brief Set a float vector uniform with two components.
-		/// @param name Name of the uniform to set.
-		/// @param vec Value to assign to the uniform as a 2-component vector.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set a float vector uniform with two components.
+		 * @param name Name of the uniform to set.
+		 * @param vec Value to assign to the uniform as a 2-component vector.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::vec2& vec) const
 		{
 			glProgramUniform2fv(getHandle(), getUniformLocation(name), 1, glm::value_ptr(vec));
 			return *this;
 		}
 
-		/// @brief Set a float vector uniform with three components.
-		/// @param name Name of the uniform to set.
-		/// @param val1 First component of the uniform.
-		/// @param val2 Second component of the uniform.
-		/// @param val3 Third component of the uniform.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set a float vector uniform with three components.
+		 * @param name Name of the uniform to set.
+		 * @param val1 First component of the uniform.
+		 * @param val2 Second component of the uniform.
+		 * @param val3 Third component of the uniform.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLfloat val1, const GLfloat val2, const GLfloat val3) const
 		{
 			glProgramUniform3f(getHandle(), getUniformLocation(name), val1, val2, val3);
 			return *this;
 		}
 
-		/// @brief Set a float vector uniform with three components.
-		/// @param name Name of the uniform to set.
-		/// @param vec Value to assign to the uniform as a 3-component vector.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set a float vector uniform with three components.
+		 * @param name Name of the uniform to set.
+		 * @param vec Value to assign to the uniform as a 3-component vector.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::vec3& vec) const
 		{
 			glProgramUniform3fv(getHandle(), getUniformLocation(name), 1, glm::value_ptr(vec));
 			return *this;
 		}
 
-		/// @brief Set a float vector uniform with four components.
-		/// @param name Name of the uniform to set.
-		/// @param val1 First component of the uniform.
-		/// @param val2 Second component of the uniform.
-		/// @param val3 Third component of the uniform.
-		/// @param val4 Fourth component of the uniform.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set a float vector uniform with four components.
+		 * @param name Name of the uniform to set.
+		 * @param val1 First component of the uniform.
+		 * @param val2 Second component of the uniform.
+		 * @param val3 Third component of the uniform.
+		 * @param val4 Fourth component of the uniform.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLfloat val1, const GLfloat val2, const GLfloat val3, const GLfloat val4) const
 		{
 			glProgramUniform4f(getHandle(), getUniformLocation(name), val1, val2, val3, val4);
 			return *this;
 		}
 
-		/// @brief Set a float vector uniform with four components.
-		/// @param name Name of the uniform to set.
-		/// @param vec Value to assign to the uniform as a 4-component vector.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set a float vector uniform with four components.
+		 * @param name Name of the uniform to set.
+		 * @param vec Value to assign to the uniform as a 4-component vector.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::vec4& vec) const
 		{
 			glProgramUniform4fv(getHandle(), getUniformLocation(name), 1, glm::value_ptr(vec));
@@ -197,96 +231,114 @@ namespace gal
 
 		// ========== int uniform setters ==========
 
-		/// @brief Set a boolean uniform.
-		/// @param name Name of the uniform to set.
-		/// @param val Boolean value to assign to the uniform.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set a boolean uniform.
+		 * @param name Name of the uniform to set.
+		 * @param val Boolean value to assign to the uniform.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const bool val) const
 		{
 			glProgramUniform1i(getHandle(), getUniformLocation(name), static_cast<int>(val));
 			return *this;
 		}
 
-		/// @brief Set an integer uniform.
-		/// @param name Name of the uniform to set.
-		/// @param val Integer value to assign to the uniform.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set an integer uniform.
+		 * @param name Name of the uniform to set.
+		 * @param val Integer value to assign to the uniform.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLint val) const
 		{
 			glProgramUniform1i(getHandle(), getUniformLocation(name), val);
 			return *this;
 		}
 
-		/// @brief Set an integer uniform.
-		/// @param name Name of the uniform to set.
-		/// @param vec Value to assign to the uniform as a 1-component integer vector.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set an integer uniform.
+		 * @param name Name of the uniform to set.
+		 * @param vec Value to assign to the uniform as a 1-component integer vector.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::ivec1& vec) const
 		{
 			glProgramUniform1iv(getHandle(), getUniformLocation(name), 1, glm::value_ptr(vec));
 			return *this;
 		}
 
-		/// @brief Set an integer vector uniform with two components.
-		/// @param name Name of the uniform to set.
-		/// @param val1 First component of the uniform.
-		/// @param val2 Second component of the uniform.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set an integer vector uniform with two components.
+		 * @param name Name of the uniform to set.
+		 * @param val1 First component of the uniform.
+		 * @param val2 Second component of the uniform.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLint val1, const GLint val2) const
 		{
 			glProgramUniform2i(getHandle(), getUniformLocation(name), val1, val2);
 			return *this;
 		}
 
-		/// @brief Set an integer vector uniform with two components.
-		/// @param name Name of the uniform to set.
-		/// @param vec Value to assign to the uniform as a 2-component integer vector.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set an integer vector uniform with two components.
+		 * @param name Name of the uniform to set.
+		 * @param vec Value to assign to the uniform as a 2-component integer vector.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::ivec2& vec) const
 		{
 			glProgramUniform2iv(getHandle(), getUniformLocation(name), 1, glm::value_ptr(vec));
 			return *this;
 		}
 
-		/// @brief Set an integer vector uniform with three components.
-		/// @param name Name of the uniform to set.
-		/// @param val1 First component of the uniform.
-		/// @param val2 Second component of the uniform.
-		/// @param val3 Third component of the uniform.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set an integer vector uniform with three components.
+		 * @param name Name of the uniform to set.
+		 * @param val1 First component of the uniform.
+		 * @param val2 Second component of the uniform.
+		 * @param val3 Third component of the uniform.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLint val1, const GLint val2, const GLint val3) const
 		{
 			glProgramUniform3i(getHandle(), getUniformLocation(name), val1, val2, val3);
 			return *this;
 		}
 
-		/// @brief Set an integer vector uniform with three components.
-		/// @param name Name of the uniform to set.
-		/// @param vec Value to assign to the uniform as a 3-component integer vector.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set an integer vector uniform with three components.
+		 * @param name Name of the uniform to set.
+		 * @param vec Value to assign to the uniform as a 3-component integer vector.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::ivec3& vec) const
 		{
 			glProgramUniform3iv(getHandle(), getUniformLocation(name), 1, glm::value_ptr(vec));
 			return *this;
 		}
 
-		/// @brief Set an integer vector uniform with four components.
-		/// @param name Name of the uniform to set.
-		/// @param val1 First component of the uniform.
-		/// @param val2 Second component of the uniform.
-		/// @param val3 Third component of the uniform.
-		/// @param val4 Fourth component of the uniform.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set an integer vector uniform with four components.
+		 * @param name Name of the uniform to set.
+		 * @param val1 First component of the uniform.
+		 * @param val2 Second component of the uniform.
+		 * @param val3 Third component of the uniform.
+		 * @param val4 Fourth component of the uniform.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLint val1, const GLint val2, const GLint val3, const GLint val4) const
 		{
 			glProgramUniform4i(getHandle(), getUniformLocation(name), val1, val2, val3, val4);
 			return *this;
 		}
 
-		/// @brief Set an integer vector uniform with four components.
-		/// @param name Name of the uniform to set.
-		/// @param vec Value to assign to the uniform as a 4-component integer vector.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set an integer vector uniform with four components.
+		 * @param name Name of the uniform to set.
+		 * @param vec Value to assign to the uniform as a 4-component integer vector.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::ivec4& vec) const
 		{
 			glProgramUniform4iv(getHandle(), getUniformLocation(name), 1, glm::value_ptr(vec));
@@ -295,86 +347,102 @@ namespace gal
 
 		// ========== uint uniform setters ==========
 
-		/// @brief Set an unsigned integer uniform.
-		/// @param name Name of the uniform to set.
-		/// @param val Unsigned integer value to assign to the uniform.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set an unsigned integer uniform.
+		 * @param name Name of the uniform to set.
+		 * @param val Unsigned integer value to assign to the uniform.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLuint val) const
 		{
 			glProgramUniform1ui(getHandle(), getUniformLocation(name), val);
 			return *this;
 		}
 
-		/// @brief Set an unsigned integer uniform.
-		/// @param name Name of the uniform to set.
-		/// @param vec Value to assign to the uniform as a 1-component unsigned integer vector.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set an unsigned integer uniform.
+		 * @param name Name of the uniform to set.
+		 * @param vec Value to assign to the uniform as a 1-component unsigned integer vector.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::uvec1& vec) const
 		{
 			glProgramUniform1uiv(getHandle(), getUniformLocation(name), 1, glm::value_ptr(vec));
 			return *this;
 		}
 
-		/// @brief Set an unsigned integer vector uniform with two components.
-		/// @param name Name of the uniform to set.
-		/// @param val1 First component of the uniform.
-		/// @param val2 Second component of the uniform.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set an unsigned integer vector uniform with two components.
+		 * @param name Name of the uniform to set.
+		 * @param val1 First component of the uniform.
+		 * @param val2 Second component of the uniform.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLuint val1, const GLuint val2) const
 		{
 			glProgramUniform2ui(getHandle(), getUniformLocation(name), val1, val2);
 			return *this;
 		}
 
-		/// @brief Set an unsigned integer vector uniform with two components.
-		/// @param name Name of the uniform to set.
-		/// @param vec Value to assign to the uniform as a 2-component unsigned integer vector.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set an unsigned integer vector uniform with two components.
+		 * @param name Name of the uniform to set.
+		 * @param vec Value to assign to the uniform as a 2-component unsigned integer vector.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::uvec2& vec) const
 		{
 			glProgramUniform2uiv(getHandle(), getUniformLocation(name), 1, glm::value_ptr(vec));
 			return *this;
 		}
 
-		/// @brief Set an unsigned integer vector uniform with three components.
-		/// @param name Name of the uniform to set.
-		/// @param val1 First component of the uniform.
-		/// @param val2 Second component of the uniform.
-		/// @param val3 Third component of the uniform.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set an unsigned integer vector uniform with three components.
+		 * @param name Name of the uniform to set.
+		 * @param val1 First component of the uniform.
+		 * @param val2 Second component of the uniform.
+		 * @param val3 Third component of the uniform.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLuint val1, const GLuint val2, const GLuint val3) const
 		{
 			glProgramUniform3ui(getHandle(), getUniformLocation(name), val1, val2, val3);
 			return *this;
 		}
 
-		/// @brief Set an unsigned integer vector uniform with three components.
-		/// @param name Name of the uniform to set.
-		/// @param vec Value to assign to the uniform as a 3-component unsigned integer vector.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set an unsigned integer vector uniform with three components.
+		 * @param name Name of the uniform to set.
+		 * @param vec Value to assign to the uniform as a 3-component unsigned integer vector.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::uvec3& vec) const
 		{
 			glProgramUniform3uiv(getHandle(), getUniformLocation(name), 1, glm::value_ptr(vec));
 			return *this;
 		}
 
-		/// @brief Set an unsigned integer vector uniform with four components.
-		/// @param name Name of the uniform to set.
-		/// @param val1 First component of the uniform.
-		/// @param val2 Second component of the uniform.
-		/// @param val3 Third component of the uniform.
-		/// @param val4 Fourth component of the uniform.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set an unsigned integer vector uniform with four components.
+		 * @param name Name of the uniform to set.
+		 * @param val1 First component of the uniform.
+		 * @param val2 Second component of the uniform.
+		 * @param val3 Third component of the uniform.
+		 * @param val4 Fourth component of the uniform.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLuint val1, const GLuint val2, const GLuint val3, const GLuint val4) const
 		{
 			glProgramUniform4ui(getHandle(), getUniformLocation(name), val1, val2, val3, val4);
 			return *this;
 		}
 
-		/// @brief Set an unsigned integer vector uniform with four components.
-		/// @param name Name of the uniform to set.
-		/// @param vec Value to assign to the uniform as a 4-component unsigned integer vector.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set an unsigned integer vector uniform with four components.
+		 * @param name Name of the uniform to set.
+		 * @param vec Value to assign to the uniform as a 4-component unsigned integer vector.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::uvec4& vec) const
 		{
 			glProgramUniform4uiv(getHandle(), getUniformLocation(name), 1, glm::value_ptr(vec));
@@ -384,99 +452,117 @@ namespace gal
 
 		// ========== matrix uniform setters ==========
 
-		/// @brief Set a 2x2 matrix uniform.
-		/// @param name Name of the uniform to set.
-		/// @param mat Matrix value to assign to the uniform.
-		/// @param transpose Whether to transpose the matrix when uploading.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set a 2x2 matrix uniform.
+		 * @param name Name of the uniform to set.
+		 * @param mat Matrix value to assign to the uniform.
+		 * @param transpose Whether to transpose the matrix when uploading.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::mat2& mat, const bool transpose = false) const
 		{
 			glProgramUniformMatrix2fv(getHandle(), getUniformLocation(name), 1, transpose, glm::value_ptr(mat));
 			return *this;
 		}
 
-		/// @brief Set a 3x3 matrix uniform.
-		/// @param name Name of the uniform to set.
-		/// @param mat Matrix value to assign to the uniform.
-		/// @param transpose Whether to transpose the matrix when uploading.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set a 3x3 matrix uniform.
+		 * @param name Name of the uniform to set.
+		 * @param mat Matrix value to assign to the uniform.
+		 * @param transpose Whether to transpose the matrix when uploading.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::mat3& mat, const bool transpose = false) const
 		{
 			glProgramUniformMatrix3fv(getHandle(), getUniformLocation(name), 1, transpose, glm::value_ptr(mat));
 			return *this;
 		}
 
-		/// @brief Set a 4x4 matrix uniform.
-		/// @param name Name of the uniform to set.
-		/// @param mat Matrix value to assign to the uniform.
-		/// @param transpose Whether to transpose the matrix when uploading.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set a 4x4 matrix uniform.
+		 * @param name Name of the uniform to set.
+		 * @param mat Matrix value to assign to the uniform.
+		 * @param transpose Whether to transpose the matrix when uploading.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::mat4& mat, const bool transpose = false) const
 		{
 			glProgramUniformMatrix4fv(getHandle(), getUniformLocation(name), 1, transpose, glm::value_ptr(mat));
 			return *this;
 		}
 
-		/// @brief Set a 2x3 matrix uniform.
-		/// @param name Name of the uniform to set.
-		/// @param mat Matrix value to assign to the uniform.
-		/// @param transpose Whether to transpose the matrix when uploading.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set a 2x3 matrix uniform.
+		 * @param name Name of the uniform to set.
+		 * @param mat Matrix value to assign to the uniform.
+		 * @param transpose Whether to transpose the matrix when uploading.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::mat2x3& mat, const bool transpose = false) const
 		{
 			glProgramUniformMatrix2x3fv(getHandle(), getUniformLocation(name), 1, transpose, glm::value_ptr(mat));
 			return *this;
 		}
 
-		/// @brief Set a 3x2 matrix uniform.
-		/// @param name Name of the uniform to set.
-		/// @param mat Matrix value to assign to the uniform.
-		/// @param transpose Whether to transpose the matrix when uploading.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set a 3x2 matrix uniform.
+		 * @param name Name of the uniform to set.
+		 * @param mat Matrix value to assign to the uniform.
+		 * @param transpose Whether to transpose the matrix when uploading.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::mat3x2& mat, const bool transpose = false) const
 		{
 			glProgramUniformMatrix3x2fv(getHandle(), getUniformLocation(name), 1, transpose, glm::value_ptr(mat));
 			return *this;
 		}
 
-		/// @brief Set a 2x4 matrix uniform.
-		/// @param name Name of the uniform to set.
-		/// @param mat Matrix value to assign to the uniform.
-		/// @param transpose Whether to transpose the matrix when uploading.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set a 2x4 matrix uniform.
+		 * @param name Name of the uniform to set.
+		 * @param mat Matrix value to assign to the uniform.
+		 * @param transpose Whether to transpose the matrix when uploading.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::mat2x4& mat, const bool transpose = false) const
 		{
 			glProgramUniformMatrix2x4fv(getHandle(), getUniformLocation(name), 1, transpose, glm::value_ptr(mat));
 			return *this;
 		}
 
-		/// @brief Set a 4x2 matrix uniform.
-		/// @param name Name of the uniform to set.
-		/// @param mat Matrix value to assign to the uniform.
-		/// @param transpose Whether to transpose the matrix when uploading.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set a 4x2 matrix uniform.
+		 * @param name Name of the uniform to set.
+		 * @param mat Matrix value to assign to the uniform.
+		 * @param transpose Whether to transpose the matrix when uploading.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::mat4x2& mat, const bool transpose = false) const
 		{
 			glProgramUniformMatrix4x2fv(getHandle(), getUniformLocation(name), 1, transpose, glm::value_ptr(mat));
 			return *this;
 		}
 
-		/// @brief Set a 3x4 matrix uniform.
-		/// @param name Name of the uniform to set.
-		/// @param mat Matrix value to assign to the uniform.
-		/// @param transpose Whether to transpose the matrix when uploading.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set a 3x4 matrix uniform.
+		 * @param name Name of the uniform to set.
+		 * @param mat Matrix value to assign to the uniform.
+		 * @param transpose Whether to transpose the matrix when uploading.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::mat3x4& mat, const bool transpose = false) const
 		{
 			glProgramUniformMatrix3x4fv(getHandle(), getUniformLocation(name), 1, transpose, glm::value_ptr(mat));
 			return *this;
 		}
 
-		/// @brief Set a 4x3 matrix uniform.
-		/// @param name Name of the uniform to set.
-		/// @param mat Matrix value to assign to the uniform.
-		/// @param transpose Whether to transpose the matrix when uploading.
-		/// @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		/**
+		 * @brief Set a 4x3 matrix uniform.
+		 * @param name Name of the uniform to set.
+		 * @param mat Matrix value to assign to the uniform.
+		 * @param transpose Whether to transpose the matrix when uploading.
+		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
+		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::mat4x3& mat, const bool transpose = false) const
 		{
 			glProgramUniformMatrix4x3fv(getHandle(), getUniformLocation(name), 1, transpose, glm::value_ptr(mat));

@@ -17,8 +17,10 @@ namespace gal
 		inline bool g_initialized = false;
 		inline bool g_postGLInitialized = false;
 
-		/// @brief Initialization that can only be done after an OpenGL context has been created. Mainly initialization
-		/// of glad.
+		/**
+		 * @brief Initialization that can only be done after an OpenGL context has been created. Mainly initialization
+		 * of glad.
+		 */
 		inline void postGLInit()
 		{
 			logInfo("Post-GL initializing GAL...");
@@ -44,16 +46,18 @@ namespace gal
 		}
 	}
 
-	/// @brief Initialize GLFW, setting window hints for OpenGL version and profile with the given values. You must call
-	/// this before creating a window and therefore an OpenGL context.
-	/// @param openGLVersionMajor Major OpenGL version. The default is 4 as this is what the vendored glad was generated
-	/// for. If supplying your own glad, change this accordingly.
-	/// @param openGLVersionMinor Minor OpenGL version. The default is 6 as this is what the vendored glad was generated
-	/// for. If supplying your own glad, change this accordingly.
-	/// @param contextProfile The OpenGL context profile to use. The default is GLFW_OPENGL_CORE_PROFILE as this is what
-	/// the vendored glad was generated for. If supplying your own glad, change this accordingly.
-	/// @param debugContext Whether to set the window hint for a debug context.
-	/// @throws ErrCode::GLFWInitFailed If GLFW initialization fails for any reason.
+	/**
+	 * @brief Initialize GLFW, setting window hints for OpenGL version and profile with the given values. You must call
+	 * this before creating a window and therefore an OpenGL context.
+	 * @param openGLVersionMajor Major OpenGL version. The default is 4 as this is what the vendored glad was generated
+	 * for. If supplying your own glad, change this accordingly.
+	 * @param openGLVersionMinor Minor OpenGL version. The default is 6 as this is what the vendored glad was generated
+	 * for. If supplying your own glad, change this accordingly.
+	 * @param contextProfile The OpenGL context profile to use. The default is GLFW_OPENGL_CORE_PROFILE as this is what
+	 * the vendored glad was generated for. If supplying your own glad, change this accordingly.
+	 * @param debugContext Whether to set the window hint for a debug context.
+	 * @throws ErrCode::GLFWInitFailed If GLFW initialization fails for any reason.
+	 */
 	inline void init(const bool debugContext = false, const int openGLVersionMajor = 4, 
 		const int openGLVersionMinor = 6, const int contextProfile = GLFW_OPENGL_CORE_PROFILE)
 	{
@@ -90,8 +94,10 @@ namespace gal
 		detail::logDecreaseIndent();
 	}
 
-	/// @brief Terminate GAL. This resets all internal state back to default values, terminates GLFW, and destroys any
-	/// resources allocated by GAL.
+	/**
+	 * @brief Terminate GAL. This resets all internal state back to default values, terminates GLFW, and destroys any
+	 * resources allocated by GAL.
+	 */
 	inline void terminate() noexcept
 	{
 		detail::logInfo("Terminating GAL...");

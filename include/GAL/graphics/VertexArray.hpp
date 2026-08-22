@@ -36,17 +36,23 @@ namespace gal
 			detail::logDecreaseIndent();
 		}
 
-		/// @brief Get the ID of the vertex array.
+		/**
+		 * @brief Get the ID of the vertex array.
+		 */
 		[[nodiscard]] VertexArrayID getID() const noexcept { return getHandle(); }
 
-		/// @brief Bind the vertex array for use.
+		/**
+		 * @brief Bind the vertex array for use.
+		 */
 		void bind() const noexcept { glBindVertexArray(getHandle()); }
 
-		/// @brief Bind a buffer to be this vertex array's vertex buffer for the given index.
-		/// @param bufferID The ID of the buffer to bind.
-		/// @param bufferIndex The index to bind the vertex buffer to.
-		/// @param offset The byte offset at which the vertex data begins in the vertex buffer.
-		/// @param stride The byte offset from one vertex to the next; i.e., the size of each vertex's data.
+		/**
+		 * @brief Bind a buffer to be this vertex array's vertex buffer for the given index.
+		 * @param bufferID The ID of the buffer to bind.
+		 * @param bufferIndex The index to bind the vertex buffer to.
+		 * @param offset The byte offset at which the vertex data begins in the vertex buffer.
+		 * @param stride The byte offset from one vertex to the next; i.e., the size of each vertex's data.
+		 */
 		void bindVertexBuffer(const BufferID bufferID, const GLuint bufferIndex, const GLintptr offset, const GLsizei stride) const noexcept
 		{
 			glVertexArrayVertexBuffer(getHandle(), bufferIndex, bufferID, offset, stride);
@@ -54,31 +60,37 @@ namespace gal
 				" of vertex array ID " << getHandle() << "." << detail::logInfoEnd;
 		}
 
-		/// @brief Bind a buffer to be this vertex array's vertex buffer for the given index.
-		/// @param buffer The buffer to bind.
-		/// @param bufferIndex The index to bind the vertex buffer to.
-		/// @param offset The byte offset at which the vertex data begins in the vertex buffer.
-		/// @param stride The byte offset from one vertex to the next; i.e., the size of each vertex's data.
+		/**
+		 * @brief Bind a buffer to be this vertex array's vertex buffer for the given index.
+		 * @param buffer The buffer to bind.
+		 * @param bufferIndex The index to bind the vertex buffer to.
+		 * @param offset The byte offset at which the vertex data begins in the vertex buffer.
+		 * @param stride The byte offset from one vertex to the next; i.e., the size of each vertex's data.
+		 */
 		void bindVertexBuffer(const Buffer& buffer, const GLuint bufferIndex, const GLintptr offset, const GLsizei stride) const noexcept
 		{
 			bindVertexBuffer(buffer.getID(), bufferIndex, offset, stride);
 		}
 
-		/// @brief Unbind (bind to 0) the vertex buffer bound to the given buffer index.
-		/// @param bufferIndex The index of the buffer to unbind.
+		/**
+		 * @brief Unbind (bind to 0) the vertex buffer bound to the given buffer index.
+		 * @param bufferIndex The index of the buffer to unbind.
+		 */
 		void unbindVertexBuffer(const GLuint bufferIndex) const noexcept
 		{
 			bindVertexBuffer(0, bufferIndex, 0, 0);
 		}
 
-		/// @brief Define and enable a new vertex attribute for the data in the buffer at the given binding index.
-		/// @param attributeIndex Index of the new attribute.
-		/// @param bufferIndex Index of the buffer whose data to use.
-		/// @param components Number of components in the vector this attribute represents.
-		/// @param dataType The data type of each component in the vector.
-		/// @param normalized Whether to normalize integer values to floats.
-		/// @param relativeOffset The offset from the beginning of a vertex's data to the vector this attribute represents.
-		/// Think offsetof(VertexType, component).
+		/**
+		 * @brief Define and enable a new vertex attribute for the data in the buffer at the given binding index.
+		 * @param attributeIndex Index of the new attribute.
+		 * @param bufferIndex Index of the buffer whose data to use.
+		 * @param components Number of components in the vector this attribute represents.
+		 * @param dataType The data type of each component in the vector.
+		 * @param normalized Whether to normalize integer values to floats.
+		 * @param relativeOffset The offset from the beginning of a vertex's data to the vector this attribute represents.
+		 * Think offsetof(VertexType, component).
+		 */
 		void vertexAttributeFormat(const GLuint attributeIndex, const GLuint bufferIndex, const GLint components,
 			const GLenum dataType, const GLboolean normalized, const GLuint relativeOffset) const noexcept
 		{
@@ -87,13 +99,15 @@ namespace gal
 			glVertexArrayAttribBinding(getHandle(), attributeIndex, bufferIndex);
 		}
 
-		/// @brief Define and enable a new vertex attribute for the data in the buffer at the given binding index (integer version).
-		/// @param attributeIndex Index of the new attribute.
-		/// @param bufferIndex Index of the buffer whose data to use.
-		/// @param components Number of components in the vector this attribute represents.
-		/// @param dataType The data type of each component in the vector.
-		/// @param relativeOffset The offset from the beginning of a vertex's data to the vector this attribute represents.
-		/// Think offsetof(VertexType, component).
+		/**
+		 * @brief Define and enable a new vertex attribute for the data in the buffer at the given binding index (integer version).
+		 * @param attributeIndex Index of the new attribute.
+		 * @param bufferIndex Index of the buffer whose data to use.
+		 * @param components Number of components in the vector this attribute represents.
+		 * @param dataType The data type of each component in the vector.
+		 * @param relativeOffset The offset from the beginning of a vertex's data to the vector this attribute represents.
+		 * Think offsetof(VertexType, component).
+		 */
 		void vertexAttributeIntFormat(const GLuint attributeIndex, const GLuint bufferIndex, const GLint components,
 			const GLenum dataType, const GLuint relativeOffset) const noexcept
 		{
@@ -102,13 +116,15 @@ namespace gal
 			glVertexArrayAttribBinding(getHandle(), attributeIndex, bufferIndex);
 		}
 
-		/// @brief Define and enable a new vertex attribute for the data in the buffer at the given binding index (double version).
-		/// @param attributeIndex Index of the new attribute.
-		/// @param bufferIndex Index of the buffer whose data to use.
-		/// @param components Number of components in the vector this attribute represents.
-		/// @param dataType The data type of each component in the vector.
-		/// @param relativeOffset The offset from the beginning of a vertex's data to the vector this attribute represents.
-		/// Think offsetof(VertexType, component).
+		/**
+		 * @brief Define and enable a new vertex attribute for the data in the buffer at the given binding index (double version).
+		 * @param attributeIndex Index of the new attribute.
+		 * @param bufferIndex Index of the buffer whose data to use.
+		 * @param components Number of components in the vector this attribute represents.
+		 * @param dataType The data type of each component in the vector.
+		 * @param relativeOffset The offset from the beginning of a vertex's data to the vector this attribute represents.
+		 * Think offsetof(VertexType, component).
+		 */
 		void vertexAttributeDoubleFormat(const GLuint attributeIndex, const GLuint bufferIndex, const GLint components,
 			const GLenum dataType, const GLuint relativeOffset) const noexcept
 		{
@@ -117,8 +133,10 @@ namespace gal
 			glVertexArrayAttribBinding(getHandle(), attributeIndex, bufferIndex);
 		}
 
-		/// @brief Bind a buffer to be this vertex array's element buffer.
-		/// @param bufferID The ID of the buffer to bind.
+		/**
+		 * @brief Bind a buffer to be this vertex array's element buffer.
+		 * @param bufferID The ID of the buffer to bind.
+		 */
 		void bindElementBuffer(const BufferID bufferID) const noexcept
 		{
 			glVertexArrayElementBuffer(getHandle(), bufferID);
@@ -126,14 +144,18 @@ namespace gal
 				getHandle() << "." << detail::logInfoEnd;
 		}
 
-		/// @brief Bind a buffer to be this vertex array's element buffer.
-		/// @param buffer The buffer to bind.
+		/**
+		 * @brief Bind a buffer to be this vertex array's element buffer.
+		 * @param buffer The buffer to bind.
+		 */
 		void bindElementBuffer(const Buffer& buffer) const noexcept
 		{
 			bindElementBuffer(buffer.getID());
 		}
 
-		/// @brief Unbind (bind to 0) this vertex array's element buffer.
+		/**
+		 * @brief Unbind (bind to 0) this vertex array's element buffer.
+		 */
 		void unbindElementBuffer() const noexcept
 		{
 			bindElementBuffer(0);

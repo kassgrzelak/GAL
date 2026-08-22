@@ -2,6 +2,7 @@
 // Created by kassie on 12/08/2026.
 //
 
+#define GAL_VERBOSE
 #include "GAL/gal.hpp"
 
 int main()
@@ -61,7 +62,7 @@ int main()
 	// Window loop.
 	while (!window.shouldClose())
 	{
-		window.pollEvents(); // Poll for window events (button presses, pressing the close button, etc.).
+		window.pollEvents(); // Poll for window events (keypresses, pressing the close button, etc.).
 		
 		glClear(GL_COLOR_BUFFER_BIT);
 		// Draw triangle.

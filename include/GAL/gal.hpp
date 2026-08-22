@@ -9,7 +9,7 @@
 #define GAL_ERROR_LOGGING
 #define GAL_WARNING_LOGGING
 #define GAL_INFO_LOGGING
-#endif // GAL_VERBOSE
+#endif
 
 #ifndef GAL_DONT_INCLUDE_GLAD
 #include <glad/gl.h>

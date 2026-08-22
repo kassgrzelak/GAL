@@ -10,13 +10,17 @@ namespace gal
 {
 	namespace detail
 	{
-		/// @brief Default GLFW error callback, set by attachDefaultErrorCallback().
+		/**
+		 * @brief Default GLFW error callback, set by attachDefaultErrorCallback().
+		 */
 		inline void defaultErrorCallback(const int errorCode, const char* description)
 		{
 			logErrStart() << errorCode << " " << description << logErrEnd;
 		}
 		
-		/// @brief Default OpenGL debug message callback, set by attachDefaultDebugMessageCallback();
+		/**
+		 * @brief Default OpenGL debug message callback, set by attachDefaultDebugMessageCallback();
+		 */
 		inline void defaultDebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, 
 			const GLchar* message, const void* userParam)
 		{
@@ -81,11 +85,13 @@ namespace gal
 		}
 	}
 
-	/// @brief Set the OpenGL debug message callback.
-	/// @param callback The debug message callback to set.
-	/// @param synchronous If true, enable GL_DEBUG_OUTPUT_SYNCHRONOUS so the debug message callback is called in the 
-	/// same thread as the context and in the same scope as the OpenGL function call that triggered the message.
-	/// @param userParam A pointer to any object, which will be passed along to the debug message callback.
+	/**
+	 * @brief Set the OpenGL debug message callback.
+	 * @param callback The debug message callback to set.
+	 * @param synchronous If true, enable GL_DEBUG_OUTPUT_SYNCHRONOUS so the debug message callback is called in the 
+	 * same thread as the context and in the same scope as the OpenGL function call that triggered the message.
+	 * @param userParam A pointer to any object, which will be passed along to the debug message callback.
+	 */
 	inline void setDebugMessageCallback(const GLDEBUGPROC callback, const bool synchronous = false, const void* userParam = nullptr)
 	{
 		glEnable(GL_DEBUG_OUTPUT);

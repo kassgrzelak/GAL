@@ -11,8 +11,10 @@
 
 namespace gal
 {
-	/// @brief Class for exceptions in GAL. This is thrown when an expected error occurs inside GAL. Also
-	/// contains a GAL ErrCode.
+	/**
+	 * @brief Class for exceptions in GAL. This is thrown when an expected error occurs inside GAL. Also
+	 * contains a GAL ErrCode.
+	 */
 	class GALException : public std::exception
 	{
 	public:
@@ -29,7 +31,9 @@ namespace gal
 
 	namespace detail
 	{
-		/// @brief Log an error and immediately throw it.
+		/**
+		 * @brief Log an error and immediately throw it.
+		 */
 		inline void throwErr(const ErrCode errCode, const char* msg)
 		{
 			logErr(msg, static_cast<int>(errCode));

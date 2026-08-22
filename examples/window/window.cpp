@@ -11,6 +11,7 @@ int main()
 
 	// Create the window, as well as an OpenGL context to go with it.
 	gal::Window window{800, 600, "Window Example"};
+	
 	// Make the window's OpenGL context current and do more gal initialization that can only be done with a context.
 	window.makeContextCurrent();
 	// Set the viewport to cover the entire window.
@@ -20,7 +21,7 @@ int main()
 	// Window loop.
 	while (!window.shouldClose())
 	{
-		window.pollEvents(); // Poll for window events (button presses, pressing the close button, etc.).
+		window.pollEvents(); // Poll for window events (keypresses, pressing the close button, etc.).
 		glClear(GL_COLOR_BUFFER_BIT);
 		window.swapBuffers(); // Swap window buffers (i.e., update the screen).
 	}

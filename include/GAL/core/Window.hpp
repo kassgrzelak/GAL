@@ -23,24 +23,28 @@ namespace gal
 		using UniqueWindow = UniqueHandle<GLFWwindow*, nullptr, windowDeleter>;
 	}
 
-	/// @brief Wrapper around GLFWwindow. As in GLFW, a window is inextricably linked with an OpenGL context; this
-	/// encapsulates them both.
+	/**
+	 * @brief Wrapper around GLFWwindow. As in GLFW, a window is inextricably linked with an OpenGL context; this
+	 * encapsulates them both.
+	 */
 	class Window : detail::UniqueWindow
 	{
 	public:
-		/// @brief Create a window with the given parameters. As long as share == nullptr, this creates an OpenGL
-		/// context. After constructing a window and making its context current, you may call OpenGL functions
-		/// that require an active context.
-		/// @param width Initial width of the window in pixels.
-		/// @param height Initial height of the window in pixels.
-		/// @param title Title of the window.
-		/// @param monitor The monitor to use for fullscreen mode. Default is nullptr, which is windowed mode.
-		/// @param share Monitor to share context with. If setting this, make sure to set makeContextCurrent to false.
-		/// @param resizable Sets the GLFW_RESIZABLE window hint to true. You still need to set a framebuffer size
-		/// callback.
-		/// @param vsync Calls glfwSwapInterval(1) if true.
-		/// @throws ErrCode::CreateWindowFailed If initial window creation fails.
-		/// @throws ErrCode::GLADInitFailed If glad hasn't already been initialized and initializing it fails.
+		/**
+		 * @brief Create a window with the given parameters. As long as share == nullptr, this creates an OpenGL
+		 * context. After constructing a window and making its context current, you may call OpenGL functions
+		 * that require an active context.
+		 * @param width Initial width of the window in pixels.
+		 * @param height Initial height of the window in pixels.
+		 * @param title Title of the window.
+		 * @param monitor The monitor to use for fullscreen mode. Default is nullptr, which is windowed mode.
+		 * @param share Monitor to share context with. If setting this, make sure to set makeContextCurrent to false.
+		 * @param resizable Sets the GLFW_RESIZABLE window hint to true. You still need to set a framebuffer size
+		 * callback.
+		 * @param vsync Calls glfwSwapInterval(1) if true.
+		 * @throws ErrCode::CreateWindowFailed If initial window creation fails.
+		 * @throws ErrCode::GLADInitFailed If glad hasn't already been initialized and initializing it fails.
+		 */
 		Window(const int width, const int height, const char* title, GLFWmonitor* monitor = nullptr,
 		       GLFWwindow* share = nullptr, const bool resizable = false, const bool vsync = false)
 		{
@@ -64,18 +68,26 @@ namespace gal
 			detail::logDecreaseIndent();
 		}
 
-		/// @brief Get the GLFWwindow* for this window for use with GLFW functions.
+		/**
+		 * @brief Get the GLFWwindow* for this window for use with GLFW functions.
+		 */
 		[[nodiscard]] GLFWwindow* getWindowHandle() const noexcept { return getHandle(); }
-		/// @brief Get whether this window should close or not.
+		/**
+		 * @brief Get whether this window should close or not.
+		 */
 		[[nodiscard]] bool shouldClose() const noexcept { return glfwWindowShouldClose(getHandle()); }
-		/// @brief Get the current width of the window.
+		/**
+		 * @brief Get the current width of the window.
+		 */
 		[[nodiscard]] int getWidth() const noexcept
 		{
 			int width;
 			glfwGetWindowSize(getHandle(), &width, nullptr);
 			return width;
 		}
-		/// @brief Get the current height of the window.
+		/**
+		 * @brief Get the current height of the window.
+		 */
 		[[nodiscard]] int getHeight() const noexcept
 		{
 			int height;
@@ -83,22 +95,32 @@ namespace gal
 			return height;
 		}
 
-		/// @brief Set the window's should close value.
-		/// @param val The value to set to.
+		/**
+		 * @brief Set the window's should close value.
+		 * @param val The value to set to.
+		 */
 		void setShouldClose(const bool val) const noexcept { return glfwSetWindowShouldClose(getHandle(), val); }
-		/// @brief Set the width of the window.
-		/// @param width The new width of the window.
+		/**
+		 * @brief Set the width of the window.
+		 * @param width The new width of the window.
+		 */
 		void setWidth(const int width) const noexcept { glfwSetWindowSize(getHandle(), width, getHeight()); }
-		/// @brief Set the height of the window.
-		/// @param height The new height of the window.
+		/**
+		 * @brief Set the height of the window.
+		 * @param height The new height of the window.
+		 */
 		void setHeight(const int height) const noexcept { glfwSetWindowSize(getHandle(), getWidth(), height); }
-		/// @brief Set the size of the window.
-		/// @param width The new width of the window.
-		/// @param height The new height of the window.
+		/**
+		 * @brief Set the size of the window.
+		 * @param width The new width of the window.
+		 * @param height The new height of the window.
+		 */
 		void setSize(const int width, const int height) const noexcept { glfwSetWindowSize(getHandle(), width, height); }
 
-		/// @brief Make this window's context current, so later OpenGL calls use this window's context.
-		/// Also initializes glad the first time this function is run after a call to gal::init().
+		/**
+		 * @brief Make this window's context current, so later OpenGL calls use this window's context.
+		 * Also initializes glad the first time this function is run after a call to gal::init().
+		 */
 		void makeContextCurrent() const
 		{
 			glfwMakeContextCurrent(getWindowHandle());
@@ -107,7 +129,9 @@ namespace gal
 				detail::postGLInit();
 		}
 
-		/// @brief Poll events (keypresses, window resizing, etc.) as well as keep internal frame-by-frame state updated.
+		/**
+		 * @brief Poll events (keypresses, window resizing, etc.) as well as keep internal frame-by-frame state updated.
+		 */
 		void pollEvents() const noexcept
 		{
 			glfwPollEvents();
@@ -115,23 +139,31 @@ namespace gal
 			detail::updateTime();
 		}
 
-		/// @brief Swap the front and back buffers of the window.
+		/**
+		 * @brief Swap the front and back buffers of the window.
+		 */
 		void swapBuffers() const noexcept { glfwSwapBuffers(getHandle()); }
 		
-		/// @brief Set the viewport to the given position and size.
+		/**
+		 * @brief Set the viewport to the given position and size.
+		 */
 		void setViewport(const int x, const int y, const int width, const int height) const noexcept
 		{
 			glViewport(x, y, width, height);
 		}
 
-		/// @brief Call glViewport and set the viewport to the full extents of the window.
+		/**
+		 * @brief Call glViewport and set the viewport to the full extents of the window.
+		 */
 		void setFullViewport() const noexcept
 		{
 			glViewport(0, 0, getWidth(), getHeight());
 		}
 
 	private:
-		/// @brief Reset any window hints set in the constructor to their defaults in the event an error is thrown.
+		/**
+		 * @brief Reset any window hints set in the constructor to their defaults in the event an error is thrown.
+		 */
 		static void resetConstructorWindowHints()
 		{
 			glfwWindowHint(GLFW_RESIZABLE, false);

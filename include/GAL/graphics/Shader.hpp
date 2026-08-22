@@ -18,14 +18,18 @@ namespace gal
 		using UniqueShader = UniqueHandle<ShaderID, 0, shaderDeleter>;
 	}
 
-	/// @brief Wrapper around an OpenGL shader.
+	/**
+	 * @brief Wrapper around an OpenGL shader.
+	 */
 	class Shader : detail::UniqueShader
 	{
 	public:
-		/// @brief Create a shader of the given type. Next, add a source to this shader, compile it, and attach it to
-		/// a shader program.
-		/// @param type The type of shader to create.
-		/// @throws ErrCode::CreateShaderFailed If initial shader creation fails.
+		/**
+		 * @brief Create a shader of the given type. Next, add a source to this shader, compile it, and attach it to
+		 * a shader program.
+		 * @param type The type of shader to create.
+		 * @throws ErrCode::CreateShaderFailed If initial shader creation fails.
+		 */
 		explicit Shader(const ShaderType type)
 		{
 			detail::logInfo("Creating shader...");
@@ -41,20 +45,26 @@ namespace gal
 			detail::logDecreaseIndent();
 		}
 
-		/// @brief Get the ID of the shader.
+		/**
+		 * @brief Get the ID of the shader.
+		 */
 		[[nodiscard]] ShaderID getID() const noexcept { return getHandle(); }
 
-		/// @brief Set the shader's source from a string.
-		/// @param source String containing the shader's source code.
+		/**
+		 * @brief Set the shader's source from a string.
+		 * @param source String containing the shader's source code.
+		 */
 		void sourceString(const std::string& source) const noexcept
 		{
 			const char* sourceChars = source.c_str();
 			glShaderSource(getHandle(), 1, &sourceChars, nullptr);
 		}
 
-		/// @brief Set the shader's source from a file.
-		/// @param path Filepath to the file containing the shader's source code.
-		/// @throws ErrCode::ShaderFileReadFailed If reading the file at the path provided fails for any reason.
+		/**
+		 * @brief Set the shader's source from a file.
+		 * @param path Filepath to the file containing the shader's source code.
+		 * @throws ErrCode::ShaderFileReadFailed If reading the file at the path provided fails for any reason.
+		 */
 		void sourceFile(const std::string& path) const
 		{
 			std::ifstream file{path};
@@ -67,10 +77,12 @@ namespace gal
 			sourceString(buffer.str());
 		}
 
-		/// @brief Compile the shader with the source code provided with an earlier call to sourceString() or
-		/// sourceFile().
-		/// @throws ErrCode::ShaderCompilationFailed If shader compilation fails for any reason. If GAL_ERROR_LOGGING is
-		/// defined, the error printed to the console will contain OpenGL's error log with reasons why compilation failed.
+		/**
+		 * @brief Compile the shader with the source code provided with an earlier call to sourceString() or
+		 * sourceFile().
+		 * @throws ErrCode::ShaderCompilationFailed If shader compilation fails for any reason. If GAL_ERROR_LOGGING is
+		 * defined, the error printed to the console will contain OpenGL's error log with reasons why compilation failed.
+		 */
 		void compile() const
 		{
 			detail::logInfoStart() << "Compiling shader ID " << getHandle() << "..." << detail::logInfoEnd;
@@ -100,10 +112,12 @@ namespace gal
 			detail::logDecreaseIndent();
 		}
 
-		/// @brief Delete the shader.
-		///
-		/// This just calls the destructor, which would delete the shader anyway when it goes out of scope, but this
-		/// is here as a more explicit option that's less ugly than calling the destructor directly.
+		/**
+		 * @brief Delete the shader.
+		 *
+		 * This just calls the destructor, which would delete the shader anyway when it goes out of scope, but this
+		 * is here as a more explicit option that's less ugly than calling the destructor directly.
+		 */
 		void destroy() const noexcept { this->~Shader(); }
 	};
 }

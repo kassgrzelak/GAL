@@ -10,12 +10,15 @@
 
 namespace gal::detail
 {
-	/// @brief Blank ostream struct so the compiler can optimize out log function calls when the logging macros aren't
-	/// defined.
+	/**
+	 * @brief Blank ostream struct so the compiler can optimize out log function calls when the logging macros aren't
+	 * defined.
+	 */
 	struct NullStream : std::ostream
 	{
 		struct NullBuf : std::streambuf
 		{
+		protected:
 			int overflow(const int c) override { return c; }
 		};
 

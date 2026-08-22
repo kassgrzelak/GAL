@@ -19,14 +19,18 @@ namespace gal
 		}
 	}
 
-	/// @brief Get current program time.
+	/**
+	 * @brief Get current program time.
+	 */
 	template<typename T = double>
 	T getTime() noexcept
 	{
 		return static_cast<T>(detail::g_programTime);
 	}
 
-	/// @brief Get time between the last two calls to Window::pollEvents().
+	/**
+	 * @brief Get time between the last two calls to Window::pollEvents().
+	 */
 	template<typename T = double>
 	T getDeltaTime() noexcept
 	{

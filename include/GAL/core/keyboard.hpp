@@ -18,7 +18,9 @@ namespace gal
 		inline std::array<uint8_t, KEY_CODE_NUM> g_prevKeyStates;
 		inline std::array<uint8_t, KEY_CODE_NUM> g_currKeyStates;
 
-		/// @brief Update internal key states.
+		/**
+		 * @brief Update internal key states.
+		 */
 		inline void updateKeyStates(GLFWwindow* window)
 		{
 			std::move(g_currKeyStates.begin(), g_currKeyStates.end(), g_prevKeyStates.begin());
@@ -27,18 +29,22 @@ namespace gal
 				g_currKeyStates[key] = glfwGetKey(window, key) == GLFW_PRESS;
 		}
 
-		/// @brief Check if a key is in the valid range.
+		/**
+		 * @brief Check if a key is in the valid range.
+		 */
 		inline bool isValidKey(const int key)
 		{
 			return key < KEY_CODE_NUM && key >= 0;
 		}
 	}
 
-	/// @brief Check if a key has been pressed this frame.
-	/// @param key The GLFW key token to check.
-	/// @returns True if the key was pressed this frame (not if it stayed pressed since a previous frame), false
-	/// if not or if key is not a valid GLFW key token.
-	[[nodiscard]] inline bool isKeyPressed(const int key)
+	/**
+	 * @brief Check if a key has been pressed this frame.
+	 * @param key The GLFW key token to check.
+	 * @returns True if the key was pressed this frame (not if it stayed pressed since a previous frame), false
+	 * if not or if key is not a valid GLFW key token.
+	 */
+	[[nodiscard]] inline bool isKeyPressed(const int key) noexcept
 	{
 		if (!detail::isValidKey(key))
 			return false;
@@ -46,11 +52,13 @@ namespace gal
 		return detail::g_currKeyStates[key] && !detail::g_prevKeyStates[key];
 	}
 
-	/// @brief Check if a key has been released this frame.
-	/// @param key The GLFW key token to check.
-	/// @returns True if the key was released this frame (not if it stayed released since a previous frame), false
-	/// if not or if key is not a valid GLFW key token.
-	[[nodiscard]] inline bool isKeyReleased(const int key)
+	/**
+	 * @brief Check if a key has been released this frame.
+	 * @param key The GLFW key token to check.
+	 * @returns True if the key was released this frame (not if it stayed released since a previous frame), false
+	 * if not or if key is not a valid GLFW key token.
+	 */
+	[[nodiscard]] inline bool isKeyReleased(const int key) noexcept
 	{
 		if (!detail::isValidKey(key))
 			return false;
@@ -58,10 +66,12 @@ namespace gal
 		return detail::g_currKeyStates[key] && !detail::g_prevKeyStates[key];
 	}
 
-	/// @brief Check if a key is currently pressed.
-	/// @param key The GLFW key token to check.
-	/// @returns True if the key is pressed, false if not or if key is not a valid GLFW key token.
-	[[nodiscard]] inline bool isKeyDown(const int key)
+	/**
+	 * @brief Check if a key is currently pressed.
+	 * @param key The GLFW key token to check.
+	 * @returns True if the key is pressed, false if not or if key is not a valid GLFW key token.
+	 */
+	[[nodiscard]] inline bool isKeyDown(const int key) noexcept
 	{
 		if (!detail::isValidKey(key))
 			return false;
@@ -69,10 +79,12 @@ namespace gal
 		return detail::g_currKeyStates[key];
 	}
 
-	/// @brief Check if a key is not currently pressed.
-	/// @param key The GLFW key token to check.
-	/// @returns True if the key is not pressed, false if not or if key is not a valid GLFW key token.
-	[[nodiscard]] inline bool isKeyUp(const int key)
+	/**
+	 * @brief Check if a key is not currently pressed.
+	 * @param key The GLFW key token to check.
+	 * @returns True if the key is not pressed, false if not or if key is not a valid GLFW key token.
+	 */
+	[[nodiscard]] inline bool isKeyUp(const int key) noexcept
 	{
 		if (!detail::isValidKey(key))
 			return false;

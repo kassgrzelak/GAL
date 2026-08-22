@@ -7,8 +7,10 @@
 
 namespace gal
 {
-	/// @brief Get the value of a boolean OpenGL parameter.
-	/// @param name GLenum name of the parameter to get.
+	/**
+	 * @brief Get the value of a boolean OpenGL parameter.
+	 * @param name GLenum name of the parameter to get.
+	 */
 	inline GLboolean getGLParamBool(const GLenum name)
 	{
 		GLboolean param;
@@ -16,8 +18,10 @@ namespace gal
 		return param;
 	}
 
-	/// @brief Get the value of a double OpenGL parameter.
-	/// @param name GLenum name of the parameter to get.
+	/**
+	 * @brief Get the value of a double OpenGL parameter.
+	 * @param name GLenum name of the parameter to get.
+	 */
 	inline GLdouble getGLParamDouble(const GLenum name)
 	{
 		GLdouble param;
@@ -25,8 +29,10 @@ namespace gal
 		return param;
 	}
 
-	/// @brief Get the value of a float OpenGL parameter.
-	/// @param name GLenum name of the parameter to get.
+	/**
+	 * @brief Get the value of a float OpenGL parameter.
+	 * @param name GLenum name of the parameter to get.
+	 */
 	inline GLfloat getGLParamFloat(const GLenum name)
 	{
 		GLfloat param;
@@ -34,8 +40,10 @@ namespace gal
 		return param;
 	}
 
-	/// @brief Get the value of an int OpenGL parameter.
-	/// @param name GLenum name of the parameter to get.
+	/**
+	 * @brief Get the value of an int OpenGL parameter.
+	 * @param name GLenum name of the parameter to get.
+	 */
 	inline GLint getGLParamInt(const GLenum name)
 	{
 		GLint param;
@@ -43,8 +51,10 @@ namespace gal
 		return param;
 	}
 
-	/// @brief Get the value of an int64 OpenGL parameter.
-	/// @param name GLenum name of the parameter to get.
+	/**
+	 * @brief Get the value of an int64 OpenGL parameter.
+	 * @param name GLenum name of the parameter to get.
+	 */
 	inline GLint64 getGLParamInt64(const GLenum name)
 	{
 		GLint64 param;
@@ -52,9 +62,11 @@ namespace gal
 		return param;
 	}
 
-	/// @brief Get the value of an indexed boolean OpenGL parameter.
-	/// @param name GLenum name of the parameter to get.
-	/// @param index Index of the particular element to get.
+	/**
+	 * @brief Get the value of an indexed boolean OpenGL parameter.
+	 * @param name GLenum name of the parameter to get.
+	 * @param index Index of the particular element to get.
+	 */
 	inline GLboolean getGLIndexedParamBool(const GLenum name, const GLuint index)
 	{
 		GLboolean param;
@@ -62,9 +74,11 @@ namespace gal
 		return param;
 	}
 
-	/// @brief Get the value of an indexed double OpenGL parameter.
-	/// @param name GLenum name of the parameter to get.
-	/// @param index Index of the particular element to get.
+	/**
+	 * @brief Get the value of an indexed double OpenGL parameter.
+	 * @param name GLenum name of the parameter to get.
+	 * @param index Index of the particular element to get.
+	 */
 	inline GLdouble getGLIndexedParamDouble(const GLenum name, const GLuint index)
 	{
 		GLdouble param;
@@ -72,9 +86,11 @@ namespace gal
 		return param;
 	}
 
-	/// @brief Get the value of an indexed float OpenGL parameter.
-	/// @param name GLenum name of the parameter to get.
-	/// @param index Index of the particular element to get.
+	/**
+	 * @brief Get the value of an indexed float OpenGL parameter.
+	 * @param name GLenum name of the parameter to get.
+	 * @param index Index of the particular element to get.
+	 */
 	inline GLfloat getGLIndexedParamFloat(const GLenum name, const GLuint index)
 	{
 		GLfloat param;
@@ -82,9 +98,11 @@ namespace gal
 		return param;
 	}
 
-	/// @brief Get the value of an indexed int OpenGL parameter.
-	/// @param name GLenum name of the parameter to get.
-	/// @param index Index of the particular element to get.
+	/**
+	 * @brief Get the value of an indexed int OpenGL parameter.
+	 * @param name GLenum name of the parameter to get.
+	 * @param index Index of the particular element to get.
+	 */
 	inline GLint getGLIndexedParamInt(const GLenum name, const GLuint index)
 	{
 		GLint param;
@@ -92,9 +110,11 @@ namespace gal
 		return param;
 	}
 
-	/// @brief Get the value of an indexed int64 OpenGL parameter.
-	/// @param name GLenum name of the parameter to get.
-	/// @param index Index of the particular element to get.
+	/**
+	 * @brief Get the value of an indexed int64 OpenGL parameter.
+	 * @param name GLenum name of the parameter to get.
+	 * @param index Index of the particular element to get.
+	 */
 	inline GLint64 getGLIndexedParamInt64(const GLenum name, const GLuint index)
 	{
 		GLint64 param;
