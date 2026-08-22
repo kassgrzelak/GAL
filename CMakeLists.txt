@@ -63,6 +63,8 @@ add_library(GAL INTERFACE
         include/GAL/glmIncludes.hpp
         include/GAL/graphics/VertexArray.hpp
         include/GAL/system/GLParams.hpp
+        include/GAL/graphics/Texture.hpp
+        include/GAL/debug/callbacks.hpp
 )
 
 target_link_libraries(GAL INTERFACE
