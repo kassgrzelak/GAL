@@ -47,6 +47,7 @@ namespace gal
 
 		/**
 		 * @brief Get the ID of the shader.
+		 * @return The ID (name) of this shader in OpenGL.
 		 */
 		[[nodiscard]] ShaderID getID() const noexcept { return getHandle(); }
 

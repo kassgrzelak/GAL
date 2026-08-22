@@ -38,6 +38,7 @@ namespace gal
 
 		/**
 		 * @brief Get the ID of the vertex array.
+		 * @return The ID (name) of the vertex array in OpenGL.
 		 */
 		[[nodiscard]] VertexArrayID getID() const noexcept { return getHandle(); }
 

@@ -12,6 +12,7 @@ namespace gal
 	using BufferID = GLuint;
 	using ProgramID = GLuint;
 	using ShaderID = GLuint;
+	using TextureID = GLuint;
 	using VertexArrayID = GLuint;
 }
 

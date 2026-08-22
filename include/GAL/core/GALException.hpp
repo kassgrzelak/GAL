@@ -23,6 +23,10 @@ namespace gal
 		explicit GALException(const ErrCode errCode, const char* msg)
 			: errCode(errCode), m_msg(msg) { }
 
+		/**
+		 * @brief Get the approximate cause of the exception.
+		 * @return A null-terminated string explaining what error happened and why.
+		 */
 		[[nodiscard]] const char* what() const noexcept override { return m_msg; }
 
 	private:

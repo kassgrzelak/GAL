@@ -21,8 +21,9 @@ namespace gal
 
 	
 	/**
-	 * @brief Get the current program time in seconds since gal::init() was called.
+	 * @brief Get the time elapsed since gal::init() was called.
 	 * @tparam T The numeric type to static_cast the time value to. Default is double.
+	 * @return The time, in seconds, since gal::init() was called, static_casted to T.
 	 */
 	template<typename T = double>
 	T getTime() noexcept
@@ -31,8 +32,9 @@ namespace gal
 	}
 
 	/**
-	 * @brief Get time in seconds between the last two calls to Window::pollEvents().
+	 * @brief Get time between the last two calls to Window::pollEvents().
 	 * @tparam T The numeric type to static_cast the delta time value to. Default is double.
+	 * @return The time, in seconds, elapsed between the last two calls to Window::pollEvents(), static_casted to T.
 	 */
 	template<typename T = double>
 	T getDeltaTime() noexcept

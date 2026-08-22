@@ -45,6 +45,7 @@ namespace gal
 
 		/**
 		 * @brief Get the ID of the buffer.
+		 * @return The ID (name) of the buffer in OpenGL.
 		 */
 		[[nodiscard]] BufferID getID() const noexcept { return getHandle(); }
 
@@ -76,9 +77,10 @@ namespace gal
 		}
 
 		/**
-		 * @brief Get whether the buffer is currently mapped. Default value is false.
+		 * @brief Check whether the buffer is currently mapped.
+		 * @return True if the buffer is currently mapped, false otherwise.
 		 */
-		[[nodiscard]] bool getMapped() const noexcept
+		[[nodiscard]] bool isMapped() const noexcept
 		{
 			GLint mapped;
 			glGetNamedBufferParameteriv(getHandle(), GL_BUFFER_MAPPED, &mapped);
@@ -86,7 +88,8 @@ namespace gal
 		}
 
 		/**
-		 * @brief Get the size of the buffer. Default value is 0.
+		 * @brief Get the size of the buffer.
+		 * @return The size, in bytes, currently allocated to the buffer. An unallocated buffer will return 0.
 		 */
 		[[nodiscard]] GLint64 getSize() const noexcept
 		{
@@ -96,7 +99,9 @@ namespace gal
 		}
 
 		/**
-		 * @brief Get the usage pattern specified for this buffer. Default value is StaticDraw.
+		 * @brief Get the usage pattern specified for this buffer.
+		 * @return The usage pattern specified for this buffer when calling an allocation function. An unallocated
+		 * buffer will return BufferUsage::StaticDraw.
 		 */
 		[[nodiscard]] BufferUsage getUsage() const noexcept
 		{
@@ -106,8 +111,8 @@ namespace gal
 		}
 
 		/**
-		 * @brief Allocate given space in VRAM for this buffer with the given usage but don't fill it, leaving the
-		 * contents undefined.
+		 * @brief Allocate the given amount of memory in VRAM for this buffer with the given usage but don't fill it, 
+		 * leaving the contents undefined.
 		 * @param size Size to allocate in bytes.
 		 * @param usage Buffer usage hint.
 		 */
@@ -117,7 +122,8 @@ namespace gal
 		}
 
 		/**
-		 * @brief Allocate given space in VRAM for this buffer with the given usage hint and fill it with the given data.
+		 * @brief Allocate the given amount of memory in VRAM for this buffer with the given usage hint and fill it with
+		 * the given data.
 		 * @param size Size of data to write in bytes.
 		 * @param data Pointer to data to write.
 		 * @param usage Buffer usage hint.
@@ -178,6 +184,7 @@ namespace gal
 		/**
 		 * @brief Get a pointer that you can use to directly read and/or write to the entire buffer.
 		 * @param access The access policy to be used while the buffer is mapped.
+		 * @return A pointer to the mapped memory.
 		 * @throws ErrCode::MapBufferFailed If mapping the buffer fails for any reason.
 		 */
 		[[nodiscard]] void* map(const BufferAccessPolicy access) const noexcept
@@ -193,6 +200,7 @@ namespace gal
 		 * @param offset Offset where the mapped portion begins.
 		 * @param length Length of the mapped portion in bytes.
 		 * @param access The access policy to be used while the buffer is mapped.
+		 * @return A pointer to the mapped memory.
 		 * @throws ErrCode::MapBufferFailed If mapping the buffer fails for any reason.
 		 */
 		[[nodiscard]] void* mapRange(const GLintptr offset, const GLsizeiptr length, const BufferAccessPolicy access) const noexcept

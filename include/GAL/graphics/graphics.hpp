@@ -8,6 +8,7 @@
 #include "Buffer.hpp"
 #include "Program.hpp"
 #include "Shader.hpp"
+#include "Texture.hpp"
 #include "VertexArray.hpp"
 
 #endif //GAL_GRAPHICS_HPP

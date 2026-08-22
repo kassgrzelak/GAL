@@ -45,8 +45,9 @@ namespace gal
 	/**
 	 * @brief Convert a GAL error code to a string of its name.
 	 * @param errCode Error code to convert to string.
+	 * @return A null-terminated string of the name of the error code enum.
 	 */
-	[[nodiscard]] inline const char* errCodeToString(const ErrCode errCode)
+	[[nodiscard]] inline const char* errCodeToString(const ErrCode errCode) noexcept
 	{
 		switch (errCode)
 		{
@@ -70,9 +71,10 @@ namespace gal
 			case ErrCode::VertexAttributeIndexOutOfRange: return "VertexAttributeIndexOutOfRange";
 
 			case ErrCode::CreateWindowFailed: return "CreateWindowFailed";
+			
+			default:
+				return "Unknown. The developer probably forgot to add this ErrCode to the switch statement.";
 		}
-
-		return "Unknown. The developer probably forgot to add this ErrCode to the switch statement.";
 	}
 
 	/**

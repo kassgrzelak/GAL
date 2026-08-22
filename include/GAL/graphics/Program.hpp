@@ -48,6 +48,7 @@ namespace gal
 
 		/**
 		 * @brief Get the ID of the program.
+		 * @return The ID (name) of the program in OpenGL.
 		 */
 		[[nodiscard]] ProgramID getID() const noexcept { return getHandle(); }
 
@@ -131,6 +132,7 @@ namespace gal
 		 * @brief Set a float uniform.
 		 * @param name Name of the uniform to set.
 		 * @param val Value to assign to the uniform.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLfloat val) const
@@ -143,6 +145,7 @@ namespace gal
 		 * @brief Set a float uniform.
 		 * @param name Name of the uniform to set.
 		 * @param vec Value to assign to the uniform as a 1-component vector.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::vec1& vec) const
@@ -156,6 +159,7 @@ namespace gal
 		 * @param name Name of the uniform to set.
 		 * @param val1 First component of the uniform.
 		 * @param val2 Second component of the uniform.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLfloat val1, const GLfloat val2) const
@@ -168,6 +172,7 @@ namespace gal
 		 * @brief Set a float vector uniform with two components.
 		 * @param name Name of the uniform to set.
 		 * @param vec Value to assign to the uniform as a 2-component vector.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::vec2& vec) const
@@ -182,6 +187,7 @@ namespace gal
 		 * @param val1 First component of the uniform.
 		 * @param val2 Second component of the uniform.
 		 * @param val3 Third component of the uniform.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLfloat val1, const GLfloat val2, const GLfloat val3) const
@@ -194,6 +200,7 @@ namespace gal
 		 * @brief Set a float vector uniform with three components.
 		 * @param name Name of the uniform to set.
 		 * @param vec Value to assign to the uniform as a 3-component vector.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::vec3& vec) const
@@ -209,6 +216,7 @@ namespace gal
 		 * @param val2 Second component of the uniform.
 		 * @param val3 Third component of the uniform.
 		 * @param val4 Fourth component of the uniform.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLfloat val1, const GLfloat val2, const GLfloat val3, const GLfloat val4) const
@@ -221,6 +229,7 @@ namespace gal
 		 * @brief Set a float vector uniform with four components.
 		 * @param name Name of the uniform to set.
 		 * @param vec Value to assign to the uniform as a 4-component vector.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::vec4& vec) const
@@ -235,6 +244,7 @@ namespace gal
 		 * @brief Set a boolean uniform.
 		 * @param name Name of the uniform to set.
 		 * @param val Boolean value to assign to the uniform.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const bool val) const
@@ -247,6 +257,7 @@ namespace gal
 		 * @brief Set an integer uniform.
 		 * @param name Name of the uniform to set.
 		 * @param val Integer value to assign to the uniform.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLint val) const
@@ -259,6 +270,7 @@ namespace gal
 		 * @brief Set an integer uniform.
 		 * @param name Name of the uniform to set.
 		 * @param vec Value to assign to the uniform as a 1-component integer vector.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::ivec1& vec) const
@@ -272,6 +284,7 @@ namespace gal
 		 * @param name Name of the uniform to set.
 		 * @param val1 First component of the uniform.
 		 * @param val2 Second component of the uniform.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLint val1, const GLint val2) const
@@ -284,6 +297,7 @@ namespace gal
 		 * @brief Set an integer vector uniform with two components.
 		 * @param name Name of the uniform to set.
 		 * @param vec Value to assign to the uniform as a 2-component integer vector.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::ivec2& vec) const
@@ -298,6 +312,7 @@ namespace gal
 		 * @param val1 First component of the uniform.
 		 * @param val2 Second component of the uniform.
 		 * @param val3 Third component of the uniform.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLint val1, const GLint val2, const GLint val3) const
@@ -310,6 +325,7 @@ namespace gal
 		 * @brief Set an integer vector uniform with three components.
 		 * @param name Name of the uniform to set.
 		 * @param vec Value to assign to the uniform as a 3-component integer vector.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::ivec3& vec) const
@@ -325,6 +341,7 @@ namespace gal
 		 * @param val2 Second component of the uniform.
 		 * @param val3 Third component of the uniform.
 		 * @param val4 Fourth component of the uniform.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLint val1, const GLint val2, const GLint val3, const GLint val4) const
@@ -337,6 +354,7 @@ namespace gal
 		 * @brief Set an integer vector uniform with four components.
 		 * @param name Name of the uniform to set.
 		 * @param vec Value to assign to the uniform as a 4-component integer vector.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::ivec4& vec) const
@@ -351,6 +369,7 @@ namespace gal
 		 * @brief Set an unsigned integer uniform.
 		 * @param name Name of the uniform to set.
 		 * @param val Unsigned integer value to assign to the uniform.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLuint val) const
@@ -363,6 +382,7 @@ namespace gal
 		 * @brief Set an unsigned integer uniform.
 		 * @param name Name of the uniform to set.
 		 * @param vec Value to assign to the uniform as a 1-component unsigned integer vector.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::uvec1& vec) const
@@ -376,6 +396,7 @@ namespace gal
 		 * @param name Name of the uniform to set.
 		 * @param val1 First component of the uniform.
 		 * @param val2 Second component of the uniform.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLuint val1, const GLuint val2) const
@@ -388,6 +409,7 @@ namespace gal
 		 * @brief Set an unsigned integer vector uniform with two components.
 		 * @param name Name of the uniform to set.
 		 * @param vec Value to assign to the uniform as a 2-component unsigned integer vector.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::uvec2& vec) const
@@ -402,6 +424,7 @@ namespace gal
 		 * @param val1 First component of the uniform.
 		 * @param val2 Second component of the uniform.
 		 * @param val3 Third component of the uniform.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLuint val1, const GLuint val2, const GLuint val3) const
@@ -414,6 +437,7 @@ namespace gal
 		 * @brief Set an unsigned integer vector uniform with three components.
 		 * @param name Name of the uniform to set.
 		 * @param vec Value to assign to the uniform as a 3-component unsigned integer vector.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::uvec3& vec) const
@@ -429,6 +453,7 @@ namespace gal
 		 * @param val2 Second component of the uniform.
 		 * @param val3 Third component of the uniform.
 		 * @param val4 Fourth component of the uniform.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const GLuint val1, const GLuint val2, const GLuint val3, const GLuint val4) const
@@ -441,6 +466,7 @@ namespace gal
 		 * @brief Set an unsigned integer vector uniform with four components.
 		 * @param name Name of the uniform to set.
 		 * @param vec Value to assign to the uniform as a 4-component unsigned integer vector.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::uvec4& vec) const
@@ -457,6 +483,7 @@ namespace gal
 		 * @param name Name of the uniform to set.
 		 * @param mat Matrix value to assign to the uniform.
 		 * @param transpose Whether to transpose the matrix when uploading.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::mat2& mat, const bool transpose = false) const
@@ -470,6 +497,7 @@ namespace gal
 		 * @param name Name of the uniform to set.
 		 * @param mat Matrix value to assign to the uniform.
 		 * @param transpose Whether to transpose the matrix when uploading.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::mat3& mat, const bool transpose = false) const
@@ -483,6 +511,7 @@ namespace gal
 		 * @param name Name of the uniform to set.
 		 * @param mat Matrix value to assign to the uniform.
 		 * @param transpose Whether to transpose the matrix when uploading.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::mat4& mat, const bool transpose = false) const
@@ -496,6 +525,7 @@ namespace gal
 		 * @param name Name of the uniform to set.
 		 * @param mat Matrix value to assign to the uniform.
 		 * @param transpose Whether to transpose the matrix when uploading.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::mat2x3& mat, const bool transpose = false) const
@@ -509,6 +539,7 @@ namespace gal
 		 * @param name Name of the uniform to set.
 		 * @param mat Matrix value to assign to the uniform.
 		 * @param transpose Whether to transpose the matrix when uploading.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::mat3x2& mat, const bool transpose = false) const
@@ -522,6 +553,7 @@ namespace gal
 		 * @param name Name of the uniform to set.
 		 * @param mat Matrix value to assign to the uniform.
 		 * @param transpose Whether to transpose the matrix when uploading.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::mat2x4& mat, const bool transpose = false) const
@@ -535,6 +567,7 @@ namespace gal
 		 * @param name Name of the uniform to set.
 		 * @param mat Matrix value to assign to the uniform.
 		 * @param transpose Whether to transpose the matrix when uploading.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::mat4x2& mat, const bool transpose = false) const
@@ -548,6 +581,7 @@ namespace gal
 		 * @param name Name of the uniform to set.
 		 * @param mat Matrix value to assign to the uniform.
 		 * @param transpose Whether to transpose the matrix when uploading.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::mat3x4& mat, const bool transpose = false) const
@@ -561,6 +595,7 @@ namespace gal
 		 * @param name Name of the uniform to set.
 		 * @param mat Matrix value to assign to the uniform.
 		 * @param transpose Whether to transpose the matrix when uploading.
+		 * @return Const reference to this Program object for chaining together multiple uniform sets.
 		 * @throws ErrCode::NonExistentShaderUniform If the given uniform does not exist.
 		 */
 		[[maybe_unused]] const Program& setUniform(const std::string& name, const glm::mat4x3& mat, const bool transpose = false) const

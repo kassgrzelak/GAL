@@ -41,7 +41,7 @@ namespace gal
 	/**
 	 * @brief Check if a key has been pressed this frame.
 	 * @param key The GLFW key token to check.
-	 * @returns True if the key was pressed this frame (not if it stayed pressed since a previous frame), false
+	 * @return True if the key was pressed this frame (not if it stayed pressed since a previous frame), false
 	 * if not or if key is not a valid GLFW key token.
 	 */
 	[[nodiscard]] inline bool isKeyPressed(const int key) noexcept
@@ -55,7 +55,7 @@ namespace gal
 	/**
 	 * @brief Check if a key has been released this frame.
 	 * @param key The GLFW key token to check.
-	 * @returns True if the key was released this frame (not if it stayed released since a previous frame), false
+	 * @return True if the key was released this frame (not if it stayed released since a previous frame), false
 	 * if not or if key is not a valid GLFW key token.
 	 */
 	[[nodiscard]] inline bool isKeyReleased(const int key) noexcept
@@ -69,7 +69,7 @@ namespace gal
 	/**
 	 * @brief Check if a key is currently pressed.
 	 * @param key The GLFW key token to check.
-	 * @returns True if the key is pressed, false if not or if key is not a valid GLFW key token.
+	 * @return True if the key is pressed, false if not or if key is not a valid GLFW key token.
 	 */
 	[[nodiscard]] inline bool isKeyDown(const int key) noexcept
 	{
@@ -82,7 +82,7 @@ namespace gal
 	/**
 	 * @brief Check if a key is not currently pressed.
 	 * @param key The GLFW key token to check.
-	 * @returns True if the key is not pressed, false if not or if key is not a valid GLFW key token.
+	 * @return True if the key is not pressed, false if not or if key is not a valid GLFW key token.
 	 */
 	[[nodiscard]] inline bool isKeyUp(const int key) noexcept
 	{

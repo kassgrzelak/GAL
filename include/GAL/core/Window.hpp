@@ -70,14 +70,17 @@ namespace gal
 
 		/**
 		 * @brief Get the GLFWwindow* for this window for use with GLFW functions.
+		 * @return The GLFWwindow* of the window.
 		 */
 		[[nodiscard]] GLFWwindow* getWindowHandle() const noexcept { return getHandle(); }
 		/**
 		 * @brief Get whether this window should close or not.
+		 * @return The exact value of glfwWindowShouldClose(getHandle()).
 		 */
 		[[nodiscard]] bool shouldClose() const noexcept { return glfwWindowShouldClose(getHandle()); }
 		/**
 		 * @brief Get the current width of the window.
+		 * @return The window's width, in pixels, as given by glfwGetWindowSize().
 		 */
 		[[nodiscard]] int getWidth() const noexcept
 		{
@@ -87,6 +90,7 @@ namespace gal
 		}
 		/**
 		 * @brief Get the current height of the window.
+		 * @return The window's height, in pixels, as given by glfwGetWindowSize().
 		 */
 		[[nodiscard]] int getHeight() const noexcept
 		{
